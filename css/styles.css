@@ -1,0 +1,149 @@
+/* ============================================
+   VM Pro Lab - Styles
+   ============================================ */
+
+/* === CSS CUSTOM PROPERTIES (VARIABLES) === */
+:root {
+  /* === PRIMARY === */
+  --color-primary: #0F172A;        /* Very dark blue - almost black */
+  --color-primary-light: #1E293B;  /* Slate for alternate backgrounds */
+
+  /* === ACCENT === */
+  --color-accent: #3B82F6;         /* Bright blue - tech/trust */
+  --color-accent-hover: #2563EB;   /* Blue hover */
+  --color-accent-light: #DBEAFE;   /* Very light blue - subtle backgrounds */
+
+  /* === NEUTRALS === */
+  --color-text: #0F172A;           /* Main text */
+  --color-text-light: #64748B;     /* Secondary text */
+  --color-bg: #FFFFFF;             /* Main background */
+  --color-bg-alt: #F8FAFC;         /* Alternate background */
+  --color-border: #E2E8F0;         /* Borders */
+
+  /* === STATES === */
+  --color-success: #10B981;        /* Green - for badges/checks */
+
+  /* === TYPOGRAPHY === */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* === SPACING === */
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 1rem;      /* 16px */
+  --spacing-md: 1.5rem;    /* 24px */
+  --spacing-lg: 2rem;      /* 32px */
+  --spacing-xl: 3rem;      /* 48px */
+  --spacing-2xl: 4rem;     /* 64px */
+
+  /* === LAYOUT === */
+  --max-width: 1200px;
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+}
+
+/* === RESET & BASE STYLES === */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* === TYPOGRAPHY === */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-sm);
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+p {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-light);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* === LAYOUT === */
+.main {
+  min-height: 100vh;
+}
+
+section {
+  padding: var(--spacing-2xl) var(--spacing-md);
+}
+
+/* Container for centering content */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* === UTILITIES === */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  :root {
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+  }
+
+  section {
+    padding: var(--spacing-xl) var(--spacing-sm);
+  }
+}
