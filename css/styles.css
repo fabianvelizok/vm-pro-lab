@@ -16,6 +16,7 @@
   /* === NEUTRALS === */
   --color-text: #0F172A;           /* Main text */
   --color-text-light: #64748B;     /* Secondary text */
+  --color-text-inverse: #FFFFFF;   /* Text on colored backgrounds */
   --color-bg: #FFFFFF;             /* Main background */
   --color-bg-alt: #F8FAFC;         /* Alternate background */
   --color-border: #E2E8F0;         /* Borders */
@@ -217,7 +218,7 @@ section {
 .hamburger {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--spacing-xs);
   background: none;
   border: none;
   cursor: pointer;
@@ -321,14 +322,14 @@ section {
 /* Primary button variant */
 .btn-primary {
   background-color: var(--color-accent);
-  color: #FFFFFF;
+  color: var(--color-text-inverse);
   border-color: var(--color-accent);
 }
 
 .btn-primary:hover {
   background-color: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
-  color: #FFFFFF;
+  color: var(--color-text-inverse);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
@@ -342,7 +343,7 @@ section {
 
 .btn-secondary:hover {
   background-color: var(--color-accent);
-  color: #FFFFFF;
+  color: var(--color-text-inverse);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
