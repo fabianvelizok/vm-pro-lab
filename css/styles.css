@@ -453,6 +453,46 @@ section {
   outline-offset: 2px;
 }
 
+/* === SERVICES SECTION === */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background-color: var(--color-bg);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xl);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+}
+
+.service-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.service-title {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.5rem;
+}
+
+.service-description {
+  color: var(--color-text-light);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
 /* === UTILITIES === */
 .visually-hidden {
   position: absolute;
@@ -555,11 +595,27 @@ section {
   }
 
   .team-card {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
   }
 
   .team-photo {
     width: 100px;
     height: 100px;
+  }
+
+  /* Services section mobile */
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .service-card {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 350px) {
+   .team-card {
+    padding: var(--spacing-sm);
   }
 }
