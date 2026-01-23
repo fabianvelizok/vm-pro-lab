@@ -113,15 +113,11 @@ a:focus-visible {
   min-height: 100vh;
 }
 
-section {
-  padding: var(--spacing-2xl) var(--spacing-md);
-}
-
 /* Container for centering content */
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 var(--spacing-md);
+  padding: var(--spacing-2xl) var(--spacing-md);
 }
 
 /* === HEADER STYLES === */
@@ -592,7 +588,7 @@ section {
     --spacing-2xl: 3rem;
   }
 
-  section {
+  .container {
     padding: var(--spacing-xl) var(--spacing-sm);
   }
 
