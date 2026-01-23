@@ -493,6 +493,85 @@ section {
   margin-bottom: 0;
 }
 
+/* === TECHNOLOGIES SECTION === */
+.technologies {
+  background-color: var(--color-bg-alt);
+}
+
+.tech-category {
+  margin-bottom: var(--spacing-xl);
+}
+
+.tech-category:last-child {
+  margin-bottom: 0;
+}
+
+.tech-category-title {
+  color: var(--color-primary);
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 150px);
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.tech-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  background-color: var(--color-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 150px;
+  height: 150px;
+}
+
+.tech-badge:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+}
+
+.tech-badge i {
+  font-size: 2.5rem;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.tech-badge:hover i {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.tech-icon-emoji {
+  font-size: 2.5rem;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.tech-badge:hover .tech-icon-emoji {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.tech-name {
+  font-size: 0.8rem;
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+  line-height: 1.2;
+}
+
 /* === UTILITIES === */
 .visually-hidden {
   position: absolute;
@@ -611,6 +690,29 @@ section {
 
   .service-card {
     padding: var(--spacing-lg);
+  }
+
+  /* Technologies section mobile */
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, 100px);
+  }
+
+  .tech-badge {
+    width: 100px;
+    height: 100px;
+    padding: var(--spacing-sm);
+  }
+
+  .tech-badge i {
+    font-size: 2rem;
+  }
+
+  .tech-icon-emoji {
+    font-size: 2rem;
+  }
+
+  .tech-name {
+    font-size: 0.7rem;
   }
 }
 
