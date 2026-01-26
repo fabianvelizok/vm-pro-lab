@@ -673,6 +673,99 @@ a:focus-visible {
   align-self: center;
 }
 
+/* === CONTACT SECTION === */
+.contact {
+  background-color: var(--color-bg-alt);
+}
+
+.contact-subtitle {
+  text-align: center;
+  color: var(--color-text-light);
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-2xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-2xl);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-form {
+  background-color: var(--color-bg);
+  padding: var(--spacing-2xl);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-label {
+  display: block;
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.875rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  color: var(--color-text);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form .btn {
+  width: 100%;
+  margin-top: var(--spacing-sm);
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.contact-text {
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
 /* === UTILITIES === */
 .visually-hidden {
   position: absolute;
@@ -828,6 +921,20 @@ a:focus-visible {
 
   .project-content {
     padding: var(--spacing-lg);
+  }
+
+  /* Contact section mobile */
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .contact-form {
+    padding: var(--spacing-xl);
+  }
+
+  .contact-info {
+    gap: var(--spacing-lg);
   }
 }
 
