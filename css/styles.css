@@ -665,11 +665,10 @@ a:focus-visible {
 
 .project-card-cta .project-content {
   text-align: center;
-  justify-content: center;
 }
 
 .project-card-cta .btn {
-  margin-top: var(--spacing-md);
+  margin-top: auto;
   align-self: center;
 }
 
