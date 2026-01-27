@@ -815,10 +815,10 @@ a:focus-visible {
 }
 
 .footer-contact-item {
-  flex-direction: row;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
 }
 
 .footer-icon {
@@ -970,6 +970,8 @@ a:focus-visible {
   /* Technologies section mobile */
   .tech-grid {
     grid-template-columns: repeat(auto-fit, 100px);
+    justify-content: center;
+    margin: 0 auto;
   }
 
   .tech-badge {
@@ -1015,10 +1017,22 @@ a:focus-visible {
     gap: var(--spacing-xl);
   }
 
-  .footer-brand, 
-  .footer-links,
-  .footer-contact  {
+  .footer-brand {
     text-align: center;
+  }
+
+  .footer-links,
+  .footer-contact {
+    text-align: center;
+  }
+
+  .footer-contact-item {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer-member {
+    align-items: center;
   }
 }
 
