@@ -11,6 +11,7 @@
     console.log('VM Pro Lab initialized');
 
     initHeader();
+    initContactForm();
   });
 
   /**
@@ -81,6 +82,73 @@
         }
       });
     }
+  }
+
+  /**
+   * Initialize Contact Form functionality
+   * - Formspree async submission
+   * - Form validation and feedback
+   */
+  function initContactForm() {
+    const form = document.getElementById('my-form');
+
+    if (!form) return;
+
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const status = document.getElementById('my-form-status');
+      const button = document.getElementById('my-form-button');
+      const formData = new FormData(event.target);
+
+      // Disable button during submission
+      button.disabled = true;
+      button.textContent = 'Enviando...';
+
+      try {
+        const response = await fetch(event.target.action, {
+          method: form.method,
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // Success message
+          status.innerHTML = '¡Gracias por tu mensaje! Te responderemos pronto.';
+          status.style.color = '#10B981';
+          status.style.marginTop = '1rem';
+          status.style.fontWeight = '600';
+          form.reset();
+        } else {
+          // Handle Formspree validation errors
+          const data = await response.json();
+
+          if (data.errors) {
+            status.innerHTML = data.errors.map(function(error) {
+              return error.message;
+            }).join(', ');
+          } else {
+            status.innerHTML = 'Hubo un problema al enviar el formulario. Intenta nuevamente.';
+          }
+
+          status.style.color = '#EF4444';
+          status.style.marginTop = '1rem';
+          status.style.fontWeight = '600';
+        }
+      } catch (error) {
+        // Network error
+        status.innerHTML = 'Hubo un problema al enviar el formulario. Intenta nuevamente.';
+        status.style.color = '#EF4444';
+        status.style.marginTop = '1rem';
+        status.style.fontWeight = '600';
+      } finally {
+        // Re-enable button
+        button.disabled = false;
+        button.textContent = 'Enviar mensaje';
+      }
+    });
   }
 
 })();

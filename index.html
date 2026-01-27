@@ -353,49 +353,36 @@
         <h2 class="section-title">¿Tenés un proyecto en mente?</h2>
         <p class="contact-subtitle">Contanos tu idea y te respondemos en menos de 24 horas.</p>
 
-        <div class="contact-content">
-          <!-- Contact Form -->
-          <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
-            <div class="form-group">
-              <label for="name" class="form-label">Nombre</label>
-              <input type="text" id="name" name="name" class="form-input" required>
-            </div>
-
-            <div class="form-group">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" id="email" name="email" class="form-input" required>
-            </div>
-
-            <div class="form-group">
-              <label for="project-type" class="form-label">Tipo de proyecto</label>
-              <select id="project-type" name="project-type" class="form-input">
-                <option value="landing-page">Landing Page</option>
-                <option value="aplicacion-web">Aplicación Web</option>
-                <option value="e-commerce">E-commerce</option>
-                <option value="otro">Otro</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="message" class="form-label">Mensaje</label>
-              <textarea id="message" name="message" class="form-input form-textarea" rows="5" required></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
-          </form>
-
-          <!-- Contact Info -->
-          <div class="contact-info">
-            <div class="contact-info-item">
-              <span class="contact-icon">📍</span>
-              <p class="contact-text">San Miguel de Tucumán, Argentina</p>
-            </div>
-            <div class="contact-info-item">
-              <span class="contact-icon">📧</span>
-              <p class="contact-text">contacto@vmprolab.com</p>
-            </div>
+        <!-- Contact Form -->
+        <form id="my-form" class="contact-form" action="https://formspree.io/f/xnqyavoa" method="POST">
+          <div class="form-group">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" id="name" name="name" class="form-input" required>
           </div>
-        </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label for="project-type" class="form-label">Tipo de proyecto</label>
+            <select id="project-type" name="project-type" class="form-input">
+              <option value="landing-page">Landing Page</option>
+              <option value="aplicacion-web">Aplicación Web</option>
+              <option value="e-commerce">E-commerce</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Mensaje</label>
+            <textarea id="message" name="message" class="form-input form-textarea" rows="5" required></textarea>
+          </div>
+
+          <button id="my-form-button" type="submit" class="btn btn-primary">Enviar mensaje</button>
+          <p id="my-form-status"></p>
+        </form>
       </div>
     </section>
   </main>
