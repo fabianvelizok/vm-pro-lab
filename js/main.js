@@ -10,6 +10,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     initHeader();
     initContactForm();
+    initLazyLoadDevicon();
   });
 
   /**
@@ -147,6 +148,58 @@
         button.textContent = 'Enviar mensaje';
       }
     });
+  }
+
+  /**
+   * Lazy load Devicon CSS
+   * - Loads Devicon CSS only when Technologies section is near viewport
+   * - Prevents render-blocking for better FCP/LCP scores
+   */
+  function initLazyLoadDevicon() {
+    const technologiesSection = document.querySelector('#technologies');
+
+    if (!technologiesSection) return;
+
+    // Check if Devicon is already loaded
+    let deviconLoaded = false;
+
+    // Create Intersection Observer
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !deviconLoaded) {
+          // Load Devicon CSS
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css';
+
+          // Add font-display: swap optimization
+          link.onload = function() {
+            // Inject font-display override
+            const style = document.createElement('style');
+            style.textContent = `
+              @font-face {
+                font-family: 'devicon';
+                font-display: swap;
+                src: url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/fonts/devicon.ttf') format('truetype');
+              }
+            `;
+            document.head.appendChild(style);
+          };
+
+          document.head.appendChild(link);
+          deviconLoaded = true;
+
+          // Disconnect observer after loading
+          observer.disconnect();
+        }
+      });
+    }, {
+      // Load 200px before section enters viewport
+      rootMargin: '200px'
+    });
+
+    // Start observing
+    observer.observe(technologiesSection);
   }
 
 })();

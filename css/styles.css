@@ -2,6 +2,10 @@
    VM Pro Lab - Styles
    ============================================ */
 
+/* === EXTERNAL FONTS === */
+/* Devicon is loaded dynamically via JavaScript when Technologies section is visible */
+/* This prevents render-blocking and improves FCP/LCP scores */
+
 /* === CSS CUSTOM PROPERTIES (VARIABLES) === */
 :root {
   /* === PRIMARY === */
