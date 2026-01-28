@@ -8,8 +8,6 @@
 
   // DOM Content Loaded - Initialize
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('VM Pro Lab initialized');
-
     initHeader();
     initContactForm();
   });
