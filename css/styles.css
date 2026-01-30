@@ -555,6 +555,7 @@ a:focus-visible {
   font-size: 1.25rem;
   margin-bottom: var(--spacing-md);
   text-align: center;
+  font-family: var(--font-family) !important;
 }
 
 .tech-grid {
@@ -605,6 +606,43 @@ a:focus-visible {
   font-weight: var(--font-weight-semibold);
   text-align: center;
   line-height: 1.2;
+  font-family: var(--font-family) !important;
+}
+
+/* Protect Inter font in technologies section from Devicon CSS override */
+.technologies,
+.technologies * {
+  font-family: var(--font-family) !important;
+}
+
+/* Only icons use Devicon font */
+.technologies i[class*="devicon"] {
+  font-family: 'devicon' !important;
+}
+
+/* Devicon loading states */
+.devicon-loading .tech-badge i {
+  opacity: 0;
+}
+
+.devicon-loaded .tech-badge i {
+  opacity: 0.7;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.devicon-loaded .tech-badge:hover i {
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 0.7;
+    transform: scale(1);
+  }
 }
 
 /* === PROJECTS SECTION === */

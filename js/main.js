@@ -167,23 +167,18 @@
     const observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting && !deviconLoaded) {
+          // Add loading state
+          technologiesSection.classList.add('devicon-loading');
+
           // Load Devicon CSS
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css';
 
-          // Add font-display: swap optimization
+          // Add loaded state when CSS is ready
           link.onload = function() {
-            // Inject font-display override
-            const style = document.createElement('style');
-            style.textContent = `
-              @font-face {
-                font-family: 'devicon';
-                font-display: swap;
-                src: url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/fonts/devicon.ttf') format('truetype');
-              }
-            `;
-            document.head.appendChild(style);
+            technologiesSection.classList.remove('devicon-loading');
+            technologiesSection.classList.add('devicon-loaded');
           };
 
           document.head.appendChild(link);
@@ -194,8 +189,8 @@
         }
       });
     }, {
-      // Load 200px before section enters viewport
-      rootMargin: '200px'
+      // Load 300px before section enters viewport (increased for smoother UX)
+      rootMargin: '300px'
     });
 
     // Start observing
