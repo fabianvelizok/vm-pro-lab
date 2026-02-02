@@ -50,6 +50,9 @@
   <noscript><link rel="stylesheet" href="css/styles.min.css"></noscript>
 </head>
 <body>
+  <!-- Skip Link for Keyboard Navigation -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
   <!-- Header / Navigation -->
   <header class="header">
     <nav class="nav container" role="navigation" aria-label="Main navigation">
@@ -60,9 +63,10 @@
 
       <!-- Hamburger Menu Button (Mobile) -->
       <button class="hamburger" aria-label="Abrir menú de navegación" aria-expanded="false" data-menu-toggle>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
+        <span class="hamburger-line" aria-hidden="true"></span>
+        <span class="hamburger-line" aria-hidden="true"></span>
+        <span class="hamburger-line" aria-hidden="true"></span>
+        <span class="visually-hidden">Menú</span>
       </button>
 
       <!-- Navigation Menu -->
@@ -84,7 +88,7 @@
   </header>
 
   <!-- Main Content -->
-  <main class="main">
+  <main class="main" id="main-content" tabindex="-1">
     <!-- Hero Section -->
     <section class="hero" id="hero">
       <div class="hero-content">
