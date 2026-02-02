@@ -17,6 +17,9 @@
    * Initialize Header functionality
    * - Sticky header with shadow on scroll
    * - Mobile menu toggle
+   * - Focus trap for mobile menu
+   * - ESC key handler
+   * - Prevent background scrolling
    */
   function initHeader() {
     const header = document.querySelector('.header');
@@ -41,29 +44,103 @@
 
     // Mobile menu toggle - Event delegation
     if (menuToggle && menu) {
+      // Focus trap variables
+      let focusableElements = [];
+      let firstFocusableElement = null;
+      let lastFocusableElement = null;
+
+      /**
+       * Close menu helper function
+       */
+      function closeMenu() {
+        menu.classList.remove('active');
+        menuToggle.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Abrir menú de navegación');
+
+        // Remove focus trap
+        document.removeEventListener('keydown', trapFocus);
+
+        // Re-enable background scrolling
+        document.body.style.overflow = '';
+
+        // Return focus to toggle button
+        menuToggle.focus();
+      }
+
+      /**
+       * Open menu helper function
+       */
+      function openMenu() {
+        menu.classList.add('active');
+        menuToggle.classList.add('active');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        menuToggle.setAttribute('aria-label', 'Cerrar menú de navegación');
+
+        // Get all focusable elements in menu
+        focusableElements = menu.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+
+        if (focusableElements.length > 0) {
+          firstFocusableElement = focusableElements[0];
+          lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+          // Focus first link in menu
+          firstFocusableElement.focus();
+        }
+
+        // Add focus trap
+        document.addEventListener('keydown', trapFocus);
+
+        // Prevent background scrolling
+        document.body.style.overflow = 'hidden';
+      }
+
+      /**
+       * Focus trap function
+       * Keeps focus within the mobile menu when open
+       */
+      function trapFocus(event) {
+        // Handle ESC key to close menu
+        if (event.key === 'Escape') {
+          closeMenu();
+          return;
+        }
+
+        // Handle TAB key for focus trap
+        if (event.key !== 'Tab') return;
+
+        if (event.shiftKey) {
+          // Shift + Tab: moving backwards
+          if (document.activeElement === firstFocusableElement) {
+            lastFocusableElement.focus();
+            event.preventDefault();
+          }
+        } else {
+          // Tab: moving forwards
+          if (document.activeElement === lastFocusableElement) {
+            firstFocusableElement.focus();
+            event.preventDefault();
+          }
+        }
+      }
+
+      // Menu toggle click handler
       menuToggle.addEventListener('click', function() {
         const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
 
-        // Toggle menu
-        menu.classList.toggle('active');
-        menuToggle.classList.toggle('active');
-
-        // Update ARIA attribute
-        menuToggle.setAttribute('aria-expanded', !isExpanded);
-
-        // Update button label
-        menuToggle.setAttribute('aria-label',
-          !isExpanded ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'
-        );
+        if (isExpanded) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
       });
 
       // Close menu when clicking on navigation links
       navLinks.forEach(function(link) {
         link.addEventListener('click', function() {
-          menu.classList.remove('active');
-          menuToggle.classList.remove('active');
-          menuToggle.setAttribute('aria-expanded', 'false');
-          menuToggle.setAttribute('aria-label', 'Abrir menú de navegación');
+          closeMenu();
         });
       });
 
@@ -74,10 +151,7 @@
         const isMenuOpen = menu.classList.contains('active');
 
         if (!isClickInsideMenu && !isClickOnToggle && isMenuOpen) {
-          menu.classList.remove('active');
-          menuToggle.classList.remove('active');
-          menuToggle.setAttribute('aria-expanded', 'false');
-          menuToggle.setAttribute('aria-label', 'Abrir menú de navegación');
+          closeMenu();
         }
       });
     }
