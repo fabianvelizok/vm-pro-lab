@@ -8,10 +8,9 @@
 
   // DOM Content Loaded - Initialize
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('VM Pro Lab initialized');
-
     initHeader();
     initContactForm();
+    initLazyLoadDevicon();
   });
 
   /**
@@ -149,6 +148,53 @@
         button.textContent = 'Enviar mensaje';
       }
     });
+  }
+
+  /**
+   * Lazy load Devicon CSS
+   * - Loads Devicon CSS only when Technologies section is near viewport
+   * - Prevents render-blocking for better FCP/LCP scores
+   */
+  function initLazyLoadDevicon() {
+    const technologiesSection = document.querySelector('#technologies');
+
+    if (!technologiesSection) return;
+
+    // Check if Devicon is already loaded
+    let deviconLoaded = false;
+
+    // Create Intersection Observer
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !deviconLoaded) {
+          // Add loading state
+          technologiesSection.classList.add('devicon-loading');
+
+          // Load Devicon CSS
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css';
+
+          // Add loaded state when CSS is ready
+          link.onload = function() {
+            technologiesSection.classList.remove('devicon-loading');
+            technologiesSection.classList.add('devicon-loaded');
+          };
+
+          document.head.appendChild(link);
+          deviconLoaded = true;
+
+          // Disconnect observer after loading
+          observer.disconnect();
+        }
+      });
+    }, {
+      // Load 300px before section enters viewport (increased for smoother UX)
+      rootMargin: '300px'
+    });
+
+    // Start observing
+    observer.observe(technologiesSection);
   }
 
 })();
