@@ -9,6 +9,7 @@
   // DOM Content Loaded - Initialize
   document.addEventListener('DOMContentLoaded', function() {
     initHeader();
+    initActiveNavLinks();
     initContactForm();
     initLazyLoadDevicon();
   });
@@ -155,6 +156,65 @@
         }
       });
     }
+  }
+
+  /**
+   * Initialize Active Navigation Link indicator
+   * - Uses IntersectionObserver to detect which section is in view
+   * - Updates aria-current and adds visually hidden text for screen readers
+   */
+  function initActiveNavLinks() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = [];
+
+    // Map each nav link to its target section
+    navLinks.forEach(function(link) {
+      const section = document.querySelector(link.getAttribute('href'));
+      if (section) {
+        sections.push({ link: link, section: section });
+      }
+    });
+
+    if (sections.length === 0) return;
+
+    /**
+     * Set a single link as the active nav item.
+     * Removes previous active state and adds aria-current + sr text.
+     */
+    function setActiveLink(activeLink) {
+      sections.forEach(function(item) {
+        item.link.removeAttribute('aria-current');
+        const indicator = item.link.querySelector('[data-sr-indicator]');
+        if (indicator) indicator.remove();
+      });
+
+      activeLink.setAttribute('aria-current', 'true');
+
+      const span = document.createElement('span');
+      span.className = 'visually-hidden';
+      span.setAttribute('data-sr-indicator', '');
+      span.textContent = ', sección actual';
+      activeLink.appendChild(span);
+    }
+
+    // Observe sections — active when crossing the top 40% of the viewport
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          sections.forEach(function(item) {
+            if (item.section === entry.target) {
+              setActiveLink(item.link);
+            }
+          });
+        }
+      });
+    }, {
+      rootMargin: '-40% 0px -50% 0px'
+    });
+
+    sections.forEach(function(item) {
+      observer.observe(item.section);
+    });
   }
 
   /**
