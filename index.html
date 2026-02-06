@@ -54,7 +54,7 @@
   <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
   <!-- Header / Navigation -->
-  <header class="header">
+  <header class="header" role="banner">
     <nav class="nav container" role="navigation" aria-label="Main navigation">
       <!-- Logo -->
       <a href="/" class="logo" aria-label="VM Pro Lab - Inicio">
@@ -102,9 +102,9 @@
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
+    <section class="about" id="about" role="region" aria-labelledby="about-heading">
       <div class="container">
-        <h2 class="section-title">El equipo detrás de VM Pro Lab</h2>
+        <h2 class="section-title" id="about-heading">El equipo detrás de VM Pro Lab</h2>
         <div class="team-grid">
           <!-- Fabian Card -->
           <article class="card team-card">
@@ -156,34 +156,34 @@
     </section>
 
     <!-- Services Section -->
-    <section class="services" id="services">
+    <section class="services" id="services" role="region" aria-labelledby="services-heading">
       <div class="container">
-        <h2 class="section-title">¿Qué hacemos?</h2>
+        <h2 class="section-title" id="services-heading">¿Qué hacemos?</h2>
         <div class="services-grid">
           <!-- Service 1: Landing Pages -->
           <article class="card service-card">
-            <div class="service-icon">🌐</div>
+            <div class="service-icon" aria-hidden="true">🌐</div>
             <h3 class="service-title">Landing Pages</h3>
             <p class="service-description">Páginas web optimizadas para convertir visitantes en clientes. Diseño responsivo, carga rápida, SEO friendly.</p>
           </article>
 
           <!-- Service 2: Web Applications -->
           <article class="card service-card">
-            <div class="service-icon">💼</div>
+            <div class="service-icon" aria-hidden="true">💼</div>
             <h3 class="service-title">Aplicaciones Web</h3>
             <p class="service-description">Desarrollo de aplicaciones web a medida con Ruby on Rails, React o Vue. Desde MVPs hasta sistemas complejos.</p>
           </article>
 
           <!-- Service 3: E-commerce -->
           <article class="card service-card">
-            <div class="service-icon">🛒</div>
+            <div class="service-icon" aria-hidden="true">🛒</div>
             <h3 class="service-title">E-commerce</h3>
             <p class="service-description">Tiendas online personalizadas. Integración con medios de pago, gestión de inventario, panel de administración.</p>
           </article>
 
           <!-- Service 4: Maintenance & Support -->
           <article class="card service-card">
-            <div class="service-icon">🔧</div>
+            <div class="service-icon" aria-hidden="true">🔧</div>
             <h3 class="service-title">Mantenimiento & Soporte</h3>
             <p class="service-description">Actualizaciones, corrección de bugs, mejoras de performance. Mantenemos tu sitio funcionando al 100%.</p>
           </article>
@@ -192,9 +192,9 @@
     </section>
 
     <!-- Technologies Section -->
-    <section class="technologies" id="technologies">
+    <section class="technologies" id="technologies" role="region" aria-labelledby="technologies-heading">
       <div class="container">
-        <h2 class="section-title">Nuestro Stack Tecnológico</h2>
+        <h2 class="section-title" id="technologies-heading">Nuestro Stack Tecnológico</h2>
 
         <!-- Frontend -->
         <div class="tech-category">
@@ -327,9 +327,9 @@
     </section>
 
     <!-- Projects Section -->
-    <section class="projects" id="projects">
+    <section class="projects" id="projects" role="region" aria-labelledby="projects-heading">
       <div class="container">
-        <h2 class="section-title">Algunos de nuestros trabajos</h2>
+        <h2 class="section-title" id="projects-heading">Algunos de nuestros trabajos</h2>
         <div class="projects-grid">
           <!-- Project 1: Digital Mouth -->
           <article class="card project-card">
@@ -393,9 +393,9 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <section class="contact" id="contact" role="region" aria-labelledby="contact-heading">
       <div class="container">
-        <h2 class="section-title">¿Tenés un proyecto en mente?</h2>
+        <h2 class="section-title" id="contact-heading">¿Tenés un proyecto en mente?</h2>
         <p class="contact-subtitle">Contanos tu idea y te respondemos en menos de 24 horas.</p>
 
         <!-- Contact Form -->
@@ -463,7 +463,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-content">
         <!-- Footer Brand -->
