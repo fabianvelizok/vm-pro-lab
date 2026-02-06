@@ -219,16 +219,123 @@
 
   /**
    * Initialize Contact Form functionality
+   * - Inline validation with aria-invalid and error messages
    * - Formspree async submission
-   * - Form validation and feedback
+   * - Accessible error feedback
    */
   function initContactForm() {
     const form = document.getElementById('my-form');
 
     if (!form) return;
 
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+
+    /**
+     * Display or clear error for a field
+     */
+    function setFieldError(field, errorMessage) {
+      const errorElement = document.getElementById(field.id + '-error');
+
+      if (errorMessage) {
+        field.setAttribute('aria-invalid', 'true');
+        errorElement.textContent = errorMessage;
+      } else {
+        field.setAttribute('aria-invalid', 'false');
+        errorElement.textContent = '';
+      }
+    }
+
+    /**
+     * Validate name field
+     */
+    function validateName() {
+      const value = nameInput.value.trim();
+
+      if (!value) {
+        setFieldError(nameInput, 'El nombre es requerido');
+        return false;
+      }
+
+      if (value.length < 2) {
+        setFieldError(nameInput, 'El nombre debe tener al menos 2 caracteres');
+        return false;
+      }
+
+      setFieldError(nameInput, '');
+      return true;
+    }
+
+    /**
+     * Validate email field
+     */
+    function validateEmail() {
+      const value = emailInput.value.trim();
+
+      if (!value) {
+        setFieldError(emailInput, 'El email es requerido');
+        return false;
+      }
+
+      // Basic email validation regex
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        setFieldError(emailInput, 'Por favor ingresa un email válido');
+        return false;
+      }
+
+      setFieldError(emailInput, '');
+      return true;
+    }
+
+    /**
+     * Validate message field
+     */
+    function validateMessage() {
+      const value = messageInput.value.trim();
+
+      if (!value) {
+        setFieldError(messageInput, 'El mensaje es requerido');
+        return false;
+      }
+
+      if (value.length < 10) {
+        setFieldError(messageInput, 'El mensaje debe tener al menos 10 caracteres');
+        return false;
+      }
+
+      setFieldError(messageInput, '');
+      return true;
+    }
+
+    /**
+     * Validate entire form
+     */
+    function validateForm() {
+      const isNameValid = validateName();
+      const isEmailValid = validateEmail();
+      const isMessageValid = validateMessage();
+
+      return isNameValid && isEmailValid && isMessageValid;
+    }
+
+    // Add blur event listeners for real-time validation
+    nameInput.addEventListener('blur', validateName);
+    emailInput.addEventListener('blur', validateEmail);
+    messageInput.addEventListener('blur', validateMessage);
+
+    // Form submission handler
     form.addEventListener('submit', async function(event) {
       event.preventDefault();
+
+      // Validate form before submission
+      if (!validateForm()) {
+        // Focus first invalid field
+        const firstInvalid = form.querySelector('[aria-invalid="true"]');
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
 
       const status = document.getElementById('my-form-status');
       const button = document.getElementById('my-form-button');
@@ -253,7 +360,12 @@
           status.style.color = '#10B981';
           status.style.marginTop = '1rem';
           status.style.fontWeight = '600';
+
+          // Reset form and clear any validation states
           form.reset();
+          setFieldError(nameInput, '');
+          setFieldError(emailInput, '');
+          setFieldError(messageInput, '');
         } else {
           // Handle Formspree validation errors
           const data = await response.json();
