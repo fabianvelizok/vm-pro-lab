@@ -355,8 +355,8 @@
         });
 
         if (response.ok) {
-          // Success message
-          status.innerHTML = '¡Gracias por tu mensaje! Te responderemos pronto.';
+          // Success message with icon
+          status.innerHTML = '<span aria-hidden="true">✓</span> ¡Gracias por tu mensaje! Te responderemos pronto.';
           status.style.color = '#10B981';
           status.style.marginTop = '1rem';
           status.style.fontWeight = '600';
@@ -371,11 +371,11 @@
           const data = await response.json();
 
           if (data.errors) {
-            status.innerHTML = data.errors.map(function(error) {
+            status.innerHTML = '<span aria-hidden="true">✗</span> ' + data.errors.map(function(error) {
               return error.message;
             }).join(', ');
           } else {
-            status.innerHTML = 'Hubo un problema al enviar el formulario. Intenta nuevamente.';
+            status.innerHTML = '<span aria-hidden="true">✗</span> Hubo un problema al enviar el formulario. Intenta nuevamente.';
           }
 
           status.style.color = '#EF4444';
@@ -384,7 +384,7 @@
         }
       } catch (error) {
         // Network error
-        status.innerHTML = 'Hubo un problema al enviar el formulario. Intenta nuevamente.';
+        status.innerHTML = '<span aria-hidden="true">✗</span> Hubo un problema al enviar el formulario. Intenta nuevamente.';
         status.style.color = '#EF4444';
         status.style.marginTop = '1rem';
         status.style.fontWeight = '600';

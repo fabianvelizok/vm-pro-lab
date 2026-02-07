@@ -824,6 +824,14 @@ a:focus-visible {
   font-weight: var(--font-weight-semibold);
 }
 
+.form-help-text {
+  display: block;
+  color: var(--color-text-light);
+  font-size: 0.875rem;
+  margin-top: var(--spacing-xs);
+  font-style: italic;
+}
+
 /* Enhanced focus indicator for select dropdown */
 select.form-input:focus {
   outline: 3px solid var(--color-accent);

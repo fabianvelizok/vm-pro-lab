@@ -411,6 +411,7 @@
               aria-required="true"
               aria-describedby="name-error"
               aria-invalid="false"
+              autocomplete="name"
             >
             <span id="name-error" class="form-error" role="alert"></span>
           </div>
@@ -426,18 +427,20 @@
               aria-required="true"
               aria-describedby="email-error"
               aria-invalid="false"
+              autocomplete="email"
             >
             <span id="email-error" class="form-error" role="alert"></span>
           </div>
 
           <div class="form-group">
             <label for="project-type" class="form-label">Tipo de proyecto</label>
-            <select id="project-type" name="project-type" class="form-input">
+            <select id="project-type" name="project-type" class="form-input" aria-describedby="project-type-desc">
               <option value="landing-page">Landing Page</option>
               <option value="aplicacion-web">Aplicación Web</option>
               <option value="e-commerce">E-commerce</option>
               <option value="otro">Otro</option>
             </select>
+            <span id="project-type-desc" class="form-help-text">Selecciona el tipo de proyecto que mejor describe tu necesidad</span>
           </div>
 
           <div class="form-group">
