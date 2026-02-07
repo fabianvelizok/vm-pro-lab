@@ -311,7 +311,12 @@ a:focus-visible {
   background-color: var(--color-bg);
   border-radius: var(--border-radius);
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
 }
 
 .card::after {
@@ -589,9 +594,16 @@ a:focus-visible {
   transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
-.tech-badge:hover i {
+.tech-badge:hover i,
+.tech-badge:focus-visible i {
   filter: grayscale(0%);
   opacity: 1;
+}
+
+.tech-badge:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .tech-icon-emoji {
@@ -601,7 +613,8 @@ a:focus-visible {
   transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
-.tech-badge:hover .tech-icon-emoji {
+.tech-badge:hover .tech-icon-emoji,
+.tech-badge:focus-visible .tech-icon-emoji {
   filter: grayscale(0%);
   opacity: 1;
 }
@@ -636,7 +649,8 @@ a:focus-visible {
   animation: fadeIn 0.3s ease-in;
 }
 
-.devicon-loaded .tech-badge:hover i {
+.devicon-loaded .tech-badge:hover i,
+.devicon-loaded .tech-badge:focus-visible i {
   opacity: 1;
 }
 
@@ -685,7 +699,8 @@ a:focus-visible {
   transition: transform 0.3s ease;
 }
 
-.project-card:hover .project-image img {
+.project-card:hover .project-image img,
+.project-card:focus-within .project-image img {
   transform: scale(1.05);
 }
 
