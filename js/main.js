@@ -341,9 +341,16 @@
       const button = document.getElementById('my-form-button');
       const formData = new FormData(event.target);
 
-      // Disable button during submission
+      // Store original button text
+      const originalButtonText = button.textContent;
+
+      // Add aria-busy to form and loading state to button
+      form.setAttribute('aria-busy', 'true');
       button.disabled = true;
-      button.textContent = 'Enviando...';
+      button.classList.add('btn-loading');
+
+      // Wrap button text in span and add spinner
+      button.innerHTML = '<span class="btn-text">' + originalButtonText + '</span><span class="btn-spinner" aria-hidden="true"></span>';
 
       try {
         const response = await fetch(event.target.action, {
@@ -389,9 +396,11 @@
         status.style.marginTop = '1rem';
         status.style.fontWeight = '600';
       } finally {
-        // Re-enable button
+        // Remove aria-busy and re-enable button
+        form.setAttribute('aria-busy', 'false');
         button.disabled = false;
-        button.textContent = 'Enviar mensaje';
+        button.classList.remove('btn-loading');
+        button.textContent = originalButtonText;
       }
     });
   }
