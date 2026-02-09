@@ -1300,3 +1300,75 @@ select.form-input:focus {
     padding: var(--spacing-sm);
   }
 }
+
+/* === ACCESSIBILITY: REDUCED MOTION === */
+/* Respect user's motion preferences - disable animations and reduce transitions */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable card hover transforms */
+  .card:hover,
+  .card:focus-within {
+    transform: none !important;
+  }
+
+  /* Disable button hover transforms */
+  .btn:hover,
+  .btn-primary:hover {
+    transform: none !important;
+  }
+
+  /* Disable team link hover transforms */
+  .team-link:hover {
+    transform: none !important;
+  }
+
+  /* Disable project image zoom */
+  .project-card:hover .project-image img,
+  .project-card:focus-within .project-image img {
+    transform: none !important;
+  }
+
+  /* Disable hamburger menu animation transforms */
+  .hamburger-line {
+    transition: none !important;
+  }
+
+  .hamburger.active .hamburger-line:nth-child(1) {
+    transform: none !important;
+    opacity: 0 !important;
+  }
+
+  .hamburger.active .hamburger-line:nth-child(2) {
+    opacity: 1 !important;
+    background-color: var(--color-accent) !important;
+  }
+
+  .hamburger.active .hamburger-line:nth-child(3) {
+    transform: none !important;
+    opacity: 0 !important;
+  }
+
+  /* Simplify spinner to static indicator */
+  .btn-spinner {
+    animation: none !important;
+    border: 3px solid var(--color-text-inverse) !important;
+    border-radius: 50%;
+  }
+
+  /* Disable fadeIn animation */
+  @keyframes fadeIn {
+    from, to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
