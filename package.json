@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "VM Pro Lab - Desarrollo Web Profesional",
   "scripts": {
-    "minify:css": "cssnano css/styles.css css/styles.min.css",
-    "minify:js": "terser js/main.js -o js/main.min.js --compress --mangle",
-    "minify:html": "mkdir -p dist && html-minifier index.html -o dist/index.html --collapse-whitespace --remove-comments --minify-css --minify-js",
+    "minify:css": "mkdir -p dist/css && cssnano css/styles.css dist/css/styles.min.css",
+    "minify:js": "mkdir -p dist/js && terser js/main.js -o dist/js/main.min.js --compress --mangle",
+    "minify:html": "html-minifier index.html -o dist/index.html --collapse-whitespace --remove-comments --minify-css --minify-js && sed -i.bak 's|href=\"css/styles\\.css\"|href=\"css/styles.min.css\"|g; s|src=\"js/main\\.js\"|src=\"js/main.min.js\"|g' dist/index.html && rm dist/index.html.bak",
     "minify": "npm run minify:css && npm run minify:js",
-    "build": "npm run minify"
+    "build": "npm run minify && npm run minify:html"
   },
   "keywords": [
     "web-development",
