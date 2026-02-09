@@ -48,6 +48,31 @@
   --transition: all 0.3s ease;
 }
 
+/* === DARK MODE === */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* === PRIMARY === */
+    --color-primary: #1E293B;        /* Lighter slate for dark mode */
+    --color-primary-light: #334155;  /* Slate for alternate backgrounds */
+
+    /* === ACCENT === */
+    --color-accent: #60A5FA;         /* Lighter blue for better contrast */
+    --color-accent-hover: #3B82F6;   /* Blue hover */
+    --color-accent-light: #1E3A8A;   /* Darker blue for subtle backgrounds */
+
+    /* === NEUTRALS === */
+    --color-text: #F1F5F9;           /* Light text for dark background */
+    --color-text-light: #94A3B8;     /* Secondary text */
+    --color-text-inverse: #0F172A;   /* Dark text on light backgrounds */
+    --color-bg: #0F172A;             /* Dark background */
+    --color-bg-alt: #1E293B;         /* Alternate darker background */
+    --color-border: #334155;         /* Lighter borders */
+
+    /* === STATES === */
+    --color-success: #34D399;        /* Brighter green for dark mode */
+  }
+}
+
 /* === RESET & BASE STYLES === */
 *,
 *::before,
@@ -111,6 +136,7 @@ a {
 
 a:hover {
   color: var(--color-accent-hover);
+  text-decoration: underline;
 }
 
 a:focus-visible {
@@ -378,11 +404,38 @@ a:focus-visible {
   outline-offset: 4px;
 }
 
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn:disabled:hover {
+  transform: none;
+}
+
 /* Primary button variant */
 .btn-primary {
   background-color: var(--color-accent);
   color: var(--color-text-inverse);
   border-color: var(--color-accent);
+}
+
+.btn-primary:disabled {
+  background-color: var(--color-text-light);
+  border-color: var(--color-text-light);
+  color: var(--color-text-inverse);
+}
+
+.btn-primary:disabled:hover {
+  background-color: var(--color-text-light);
+  border-color: var(--color-text-light);
+  color: var(--color-text-inverse);
+  transform: none;
+}
+
+.btn-primary:disabled:hover::after {
+  opacity: 0;
 }
 
 .btn-primary::after {
@@ -504,12 +557,13 @@ a:focus-visible {
   font-weight: var(--font-weight-semibold);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .team-link:hover {
   background-color: var(--color-accent-light);
   color: var(--color-accent-hover);
+  transform: translateY(-2px);
 }
 
 .team-link:focus-visible {
@@ -935,6 +989,7 @@ select.form-input:focus {
 .footer-link:hover {
   opacity: 1;
   color: var(--color-accent-light);
+  text-decoration: underline;
 }
 
 .footer-contact {
