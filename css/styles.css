@@ -192,6 +192,7 @@ a:focus-visible {
 
 .logo:hover {
   color: var(--color-accent);
+  text-decoration: none;
 }
 
 .logo:focus-visible {
@@ -222,6 +223,7 @@ a:focus-visible {
 
 .nav-link:hover {
   color: var(--color-accent);
+  text-decoration: none;
 }
 
 .nav-link:focus-visible {
