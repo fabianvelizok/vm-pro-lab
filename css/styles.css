@@ -58,15 +58,15 @@
     /* === ACCENT === */
     --color-accent: #60A5FA;         /* Lighter blue for better contrast */
     --color-accent-hover: #3B82F6;   /* Blue hover */
-    --color-accent-light: #1E3A8A;   /* Darker blue for subtle backgrounds */
+    --color-accent-light: #2563EB;   /* Darker blue for subtle backgrounds */
 
     /* === NEUTRALS === */
     --color-text: #F1F5F9;           /* Light text for dark background */
     --color-text-light: #94A3B8;     /* Secondary text */
     --color-text-inverse: #0F172A;   /* Dark text on light backgrounds */
     --color-bg: #0F172A;             /* Dark background */
-    --color-bg-alt: #1E293B;         /* Alternate darker background */
-    --color-border: #64748B;         /* Lighter borders (3.75:1 contrast - WCAG 2.1 compliant) */
+    --color-bg-alt: #334155;         /* Cards/elevated backgrounds (more visible than primary) */
+    --color-border: #94A3B8;         /* Borders with better contrast (6.96:1 on bg) */
 
     /* === STATES === */
     --color-success: #34D399;        /* Brighter green for dark mode */
@@ -299,7 +299,7 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
   padding: var(--spacing-2xl) var(--spacing-md);
   text-align: center;
 }
@@ -996,12 +996,19 @@ select.form-input:focus {
   .logo:hover {
     color: var(--color-accent);
   }
+  /*Hero*/
+  .hero-title {
+    color: var(--color-text) !important;
+  }
 
   /* Team member names - Increase visibility */
   .team-name {
     color: var(--color-text);
   }
 
+   .team-link:hover {
+    color: var(--color-text) !important;
+  }
   /* Cards - Add visible background and border */
   .card {
     background-color: var(--color-bg-alt);
@@ -1058,14 +1065,11 @@ select.form-input:focus {
     color: var(--color-text);
     border: 1px solid var(--color-border);
   }
-  /* Project input */
+  /* Form inputs - proper dark mode styling */
   .form-input {
-    color: var(--color-text-inverse);
-  }
-  /* Footer - Improve separation from background */
-  .footer {
     background-color: var(--color-bg-alt);
-    border-top: 2px solid var(--color-border);
+    color: var(--color-text);
+    border-color: var(--color-border);
   }
 
   .footer-logo {
@@ -1127,7 +1131,7 @@ select.form-input:focus {
 
   .section-subtitle {
     color: var(--color-text-light);
-  }
+  } 
 }
 
 /* === FOOTER === */
