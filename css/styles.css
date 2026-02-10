@@ -66,7 +66,7 @@
     --color-text-inverse: #0F172A;   /* Dark text on light backgrounds */
     --color-bg: #0F172A;             /* Dark background */
     --color-bg-alt: #1E293B;         /* Alternate darker background */
-    --color-border: #334155;         /* Lighter borders */
+    --color-border: #64748B;         /* Lighter borders (3.75:1 contrast - WCAG 2.1 compliant) */
 
     /* === STATES === */
     --color-success: #34D399;        /* Brighter green for dark mode */
@@ -958,6 +958,175 @@ select.form-input:focus {
   .btn-spinner {
     border-color: rgba(15, 23, 42, 0.3);
     border-top-color: var(--color-text-inverse);
+  }
+}
+
+/* Dark mode image adjustments for better visibility */
+@media (prefers-color-scheme: dark) {
+  /* Subtle brightness reduction for images to prevent eye strain */
+  .team-photo,
+  .project-image img {
+    filter: brightness(0.9);
+  }
+
+  /* Add subtle border to images for better separation from dark background */
+  .team-photo {
+    border: 2px solid var(--color-border);
+  }
+
+  /* Ensure images don't appear washed out on hover */
+  .project-card:hover .project-image img,
+  .project-card:focus-within .project-image img {
+    filter: brightness(0.95);
+  }
+
+  /* OG image and other header images (if any) */
+  img[src*="og-image"] {
+    filter: brightness(0.9);
+  }
+}
+
+/* Dark mode visibility improvements for UI elements */
+@media (prefers-color-scheme: dark) {
+  /* Logo - Make it highly visible */
+  .logo {
+    color: var(--color-text);
+  }
+
+  .logo:hover {
+    color: var(--color-accent);
+  }
+
+  /* Team member names - Increase visibility */
+  .team-name {
+    color: var(--color-text);
+  }
+
+  /* Cards - Add visible background and border */
+  .card {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    border-color: var(--color-accent);
+  }
+
+  .card::after {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Technology section titles */
+  .tech-category-title {
+    color: var(--color-text);
+  }
+
+  /* Technology badge names */
+  .tech-name {
+    color: var(--color-text);
+  }
+
+  /* Technology badges background */
+  .tech-badge {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+  }
+
+  .tech-badge:hover {
+    border-color: var(--color-accent);
+  }
+
+  /* Project cards - Enhance contrast */
+  .project-card {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+  }
+
+  .project-title {
+    color: var(--color-text);
+  }
+
+  .project-description {
+    color: var(--color-text-light);
+  }
+
+  /* Project tags */
+  .project-tag {
+    background-color: var(--color-primary-light);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+  }
+  /* Project input */
+  .form-input {
+    color: var(--color-text-inverse);
+  }
+  /* Footer - Improve separation from background */
+  .footer {
+    background-color: var(--color-bg-alt);
+    border-top: 2px solid var(--color-border);
+  }
+
+  .footer-logo {
+    color: var(--color-text) !important;
+  }
+
+  .footer-tagline {
+    color: var(--color-text-light) !important;
+  }
+
+  .footer-title {
+    color: var(--color-text) !important;
+  }
+
+  .footer-text,
+  .footer-member-name {
+    color: var(--color-text) !important;
+  }
+
+  .footer-link {
+    color: var(--color-text-light) !important;
+  }
+
+  .footer-link:hover,
+  .footer-email:hover {
+    color: var(--color-accent) !important;
+  }
+
+  .footer-copyright {
+    color: var(--color-text-light) !important;
+  }
+
+  .footer-bottom {
+    border-top-color: var(--color-border);
+  }
+
+  /* Service cards specific improvements */
+  .service-card {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+  }
+
+  .service-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .service-title {
+    color: var(--color-text);
+  }
+
+  .service-description {
+    color: var(--color-text-light);
+  }
+
+  /* Section titles */
+  .section-title {
+    color: var(--color-text);
+  }
+
+  .section-subtitle {
+    color: var(--color-text-light);
   }
 }
 
