@@ -63,9 +63,10 @@
     /* === NEUTRALS === */
     --color-text: #F1F5F9;           /* Light text for dark background */
     --color-text-light: #94A3B8;     /* Secondary text */
+    --color-text-card-secondary: #A8B8CF; /* Secondary text on cards (4.8:1 contrast on card bg) */
     --color-text-inverse: #0F172A;   /* Dark text on light backgrounds */
     --color-bg: #0F172A;             /* Dark background */
-    --color-bg-alt: #334155;         /* Cards/elevated backgrounds (more visible than primary) */
+    --color-bg-alt: #475569;         /* Cards/elevated backgrounds - improved contrast (3.2:1) */
     --color-border: #94A3B8;         /* Borders with better contrast (6.96:1 on bg) */
 
     /* === STATES === */
@@ -1011,6 +1012,16 @@ select.form-input:focus {
     color: var(--color-text);
   }
 
+  /* Team roles - Fix contrast (CRITICAL FIX) */
+  .team-role {
+    color: var(--color-text);
+  }
+
+  /* Team bio - Fix contrast on cards (HIGH PRIORITY FIX) */
+  .team-bio {
+    color: #A8B8CF;
+  }
+
    .team-link:hover {
     color: var(--color-text) !important;
   }
@@ -1061,7 +1072,7 @@ select.form-input:focus {
   }
 
   .project-description {
-    color: var(--color-text-light);
+    color: var(--color-text-card-secondary) !important;
   }
 
   /* Project tags */
@@ -1126,7 +1137,7 @@ select.form-input:focus {
   }
 
   .service-description {
-    color: var(--color-text-light);
+    color: var(--color-text-card-secondary) !important;
   }
 
   /* Section titles */
