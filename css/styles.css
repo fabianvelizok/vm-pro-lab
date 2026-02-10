@@ -988,6 +988,11 @@ select.form-input:focus {
 
 /* Dark mode visibility improvements for UI elements */
 @media (prefers-color-scheme: dark) {
+  /* Hamburger menu */
+  .hamburger-line {
+    background-color: var(--color-text);
+  }
+
   /* Logo - Make it highly visible */
   .logo {
     color: var(--color-text);
