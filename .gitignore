@@ -1,4 +1,5 @@
 .DS_Store
-*.todo
+.claude/tasks/
+.claude/todos/
 node_modules/
 dist/
