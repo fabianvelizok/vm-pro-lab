@@ -111,11 +111,19 @@ When relevant, provide before/after code snippets showing how to implement recom
 
 ## Actionable Output & Engineering Handoff
 
-In addition to the audit report, you MUST create a file named `01-XX.todo` containing all detected issues and required fixes.
+In addition to the audit report, you MUST create a file named `01-design-system.todo` containing all detected issues and required fixes.
+
+### File Organization
+
+All generated files MUST be saved in their designated project folders:
+- **Documentation files (.md)**: Save in `docs/` folder (e.g., `docs/design-system-audit.md`)
+- **Todo files (.todo)**: Save in `.claude/todos/` folder (e.g., `.claude/todos/01-design-system.todo`)
+- **Task files (.tasks)**: Save in `.claude/tasks/` folder
 
 ### Todo File Requirements
 - The file must be written in clear, implementation-oriented language.
 - Each item must be actionable by a frontend engineer.
+- **Location**: Save this file in `.claude/todos/01-design-system.todo`
 - Group todos by category:
   - Design Tokens
   - Components
