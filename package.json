@@ -20,6 +20,9 @@
   ],
   "author": "VM Pro Lab",
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "devDependencies": {
     "cssnano": "^6.0.3",
     "cssnano-cli": "^1.0.5",
