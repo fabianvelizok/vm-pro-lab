@@ -13,8 +13,8 @@
   --color-primary-light: #1E293B;  /* Slate for alternate backgrounds */
 
   /* === ACCENT === */
-  --color-accent: #3B82F6;         /* Bright blue - tech/trust */
-  --color-accent-hover: #2563EB;   /* Blue hover */
+  --color-accent: #2563EB;         /* Blue - WCAG AA compliant (4.62:1) */
+  --color-accent-hover: #1D4ED8;   /* Darker blue hover */
   --color-accent-light: #DBEAFE;   /* Very light blue - subtle backgrounds */
 
   /* === NEUTRALS === */
@@ -23,10 +23,10 @@
   --color-text-inverse: #FFFFFF;   /* Text on colored backgrounds */
   --color-bg: #FFFFFF;             /* Main background */
   --color-bg-alt: #F8FAFC;         /* Alternate background */
-  --color-border: #E2E8F0;         /* Borders */
+  --color-border: #CBD5E1;         /* Borders */
 
   /* === STATES === */
-  --color-success: #10B981;        /* Green - for badges/checks */
+  --color-success: #047857;        /* Green - WCAG AA compliant (4.52:1 on white text) */
 
   /* === TYPOGRAPHY === */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -46,6 +46,32 @@
   --max-width: 1200px;
   --border-radius: 8px;
   --transition: all 0.3s ease;
+}
+
+/* === DARK MODE === */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* === PRIMARY === */
+    --color-primary: #1E293B;        /* Lighter slate for dark mode */
+    --color-primary-light: #334155;  /* Slate for alternate backgrounds */
+
+    /* === ACCENT === */
+    --color-accent: #60A5FA;         /* Lighter blue for better contrast */
+    --color-accent-hover: #3B82F6;   /* Blue hover */
+    --color-accent-light: #2563EB;   /* Darker blue for subtle backgrounds */
+
+    /* === NEUTRALS === */
+    --color-text: #F1F5F9;           /* Light text for dark background */
+    --color-text-light: #94A3B8;     /* Secondary text */
+    --color-text-card-secondary: #CBD5E1; /* Secondary text on cards (10.45:1 contrast on #1E293B) */
+    --color-text-inverse: #0F172A;   /* Dark text on light backgrounds */
+    --color-bg: #0F172A;             /* Dark background */
+    --color-bg-alt: #334155;         /* Form inputs and alternate backgrounds */
+    --color-border: #94A3B8;         /* Borders with better contrast (6.96:1 on bg) */
+
+    /* === STATES === */
+    --color-success: #34D399;        /* Brighter green for dark mode */
+  }
 }
 
 /* === RESET & BASE STYLES === */
@@ -106,11 +132,12 @@ p {
 a {
   color: var(--color-accent);
   text-decoration: none;
-  transition: var(--transition);
+  transition: color 0.3s ease, outline 0.2s ease, outline-offset 0.2s ease;
 }
 
 a:hover {
   color: var(--color-accent-hover);
+  text-decoration: underline;
 }
 
 a:focus-visible {
@@ -160,12 +187,13 @@ a:focus-visible {
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
   text-decoration: none;
-  transition: var(--transition);
+  transition: color 0.3s ease, outline 0.2s ease, outline-offset 0.2s ease;
   z-index: 1001;
 }
 
 .logo:hover {
   color: var(--color-accent);
+  text-decoration: none;
 }
 
 .logo:focus-visible {
@@ -191,11 +219,12 @@ a:focus-visible {
   font-size: 1rem;
   padding: 0.5rem 0;
   position: relative;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, outline 0.2s ease, outline-offset 0.2s ease;
 }
 
 .nav-link:hover {
   color: var(--color-accent);
+  text-decoration: none;
 }
 
 .nav-link:focus-visible {
@@ -230,7 +259,7 @@ a:focus-visible {
   cursor: pointer;
   padding: 0.5rem;
   z-index: 1001;
-  transition: var(--transition);
+  transition: outline 0.2s ease, outline-offset 0.2s ease, transform 0.3s ease;
 }
 
 .hamburger:focus-visible {
@@ -271,7 +300,7 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
   padding: var(--spacing-2xl) var(--spacing-md);
   text-align: center;
 }
@@ -311,7 +340,12 @@ a:focus-visible {
   background-color: var(--color-bg);
   border-radius: var(--border-radius);
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
 }
 
 .card::after {
@@ -349,7 +383,7 @@ a:focus-visible {
   text-decoration: none;
   border-radius: var(--border-radius);
   cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, outline 0.2s ease, outline-offset 0.2s ease;
   border: 2px solid transparent;
   max-width: 100%;
 }
@@ -373,11 +407,38 @@ a:focus-visible {
   outline-offset: 4px;
 }
 
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn:disabled:hover {
+  transform: none;
+}
+
 /* Primary button variant */
 .btn-primary {
   background-color: var(--color-accent);
   color: var(--color-text-inverse);
   border-color: var(--color-accent);
+}
+
+.btn-primary:disabled {
+  background-color: var(--color-text-light);
+  border-color: var(--color-text-light);
+  color: var(--color-text-inverse);
+}
+
+.btn-primary:disabled:hover {
+  background-color: var(--color-text-light);
+  border-color: var(--color-text-light);
+  color: var(--color-text-inverse);
+  transform: none;
+}
+
+.btn-primary:disabled:hover::after {
+  opacity: 0;
 }
 
 .btn-primary::after {
@@ -499,12 +560,13 @@ a:focus-visible {
   font-weight: var(--font-weight-semibold);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, outline 0.2s ease, outline-offset 0.2s ease;
 }
 
 .team-link:hover {
   background-color: var(--color-accent-light);
   color: var(--color-accent-hover);
+  transform: translateY(-2px);
 }
 
 .team-link:focus-visible {
@@ -580,6 +642,7 @@ a:focus-visible {
   padding: var(--spacing-md);
   width: 150px;
   height: 150px;
+  transition: outline 0.2s ease, outline-offset 0.2s ease, box-shadow 0.2s ease;
 }
 
 .tech-badge i {
@@ -589,9 +652,16 @@ a:focus-visible {
   transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
-.tech-badge:hover i {
+.tech-badge:hover i,
+.tech-badge:focus-visible i {
   filter: grayscale(0%);
   opacity: 1;
+}
+
+.tech-badge:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .tech-icon-emoji {
@@ -601,7 +671,8 @@ a:focus-visible {
   transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
-.tech-badge:hover .tech-icon-emoji {
+.tech-badge:hover .tech-icon-emoji,
+.tech-badge:focus-visible .tech-icon-emoji {
   filter: grayscale(0%);
   opacity: 1;
 }
@@ -636,7 +707,8 @@ a:focus-visible {
   animation: fadeIn 0.3s ease-in;
 }
 
-.devicon-loaded .tech-badge:hover i {
+.devicon-loaded .tech-badge:hover i,
+.devicon-loaded .tech-badge:focus-visible i {
   opacity: 1;
 }
 
@@ -685,7 +757,8 @@ a:focus-visible {
   transition: transform 0.3s ease;
 }
 
-.project-card:hover .project-image img {
+.project-card:hover .project-image img,
+.project-card:focus-within .project-image img {
   transform: scale(1.05);
 }
 
@@ -806,6 +879,39 @@ a:focus-visible {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
+.form-input[aria-invalid="true"] {
+  border-color: #EF4444;
+}
+
+.form-input[aria-invalid="true"]:focus {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-error {
+  display: block;
+  color: #EF4444;
+  font-size: 0.875rem;
+  margin-top: var(--spacing-xs);
+  min-height: 1.25rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.form-help-text {
+  display: block;
+  color: var(--color-text-light);
+  font-size: 0.875rem;
+  margin-top: var(--spacing-xs);
+  font-style: italic;
+}
+
+/* Enhanced focus indicator for select dropdown */
+select.form-input:focus {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
 .form-textarea {
   resize: vertical;
   min-height: 120px;
@@ -814,6 +920,234 @@ a:focus-visible {
 .contact-form .btn {
   width: 100%;
   margin-top: var(--spacing-sm);
+}
+
+/* Form Button Loading State */
+.btn-loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.btn-loading .btn-text {
+  opacity: 0;
+}
+
+.btn-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--color-text-inverse);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Dark mode spinner adjustment */
+@media (prefers-color-scheme: dark) {
+  .btn-spinner {
+    border-color: rgba(15, 23, 42, 0.3);
+    border-top-color: var(--color-text-inverse);
+  }
+}
+
+/* Dark mode image adjustments for better visibility */
+@media (prefers-color-scheme: dark) {
+  /* Subtle brightness reduction for images to prevent eye strain */
+  .team-photo,
+  .project-image img {
+    filter: brightness(0.9);
+  }
+
+  /* Add subtle border to images for better separation from dark background */
+  .team-photo {
+    border: 2px solid var(--color-border);
+  }
+
+  /* Ensure images don't appear washed out on hover */
+  .project-card:hover .project-image img,
+  .project-card:focus-within .project-image img {
+    filter: brightness(0.95);
+  }
+
+  /* OG image and other header images (if any) */
+  img[src*="og-image"] {
+    filter: brightness(0.9);
+  }
+}
+
+/* Dark mode visibility improvements for UI elements */
+@media (prefers-color-scheme: dark) {
+  /* Hamburger menu */
+  .hamburger-line {
+    background-color: var(--color-text);
+  }
+
+  /* Logo - Make it highly visible */
+  .logo {
+    color: var(--color-text);
+  }
+
+  .logo:hover {
+    color: var(--color-accent);
+  }
+  /*Hero*/
+  .hero-title {
+    color: var(--color-text) !important;
+  }
+
+  /* Team member names - Increase visibility */
+  .team-name {
+    color: var(--color-text);
+  }
+
+  /* Team roles - Fix contrast (CRITICAL FIX) */
+  .team-role {
+    color: var(--color-text);
+  }
+
+  /* Team bio - Fix contrast on cards (HIGH PRIORITY FIX) */
+  .team-bio {
+    color: #A8B8CF;
+  }
+
+   .team-link:hover {
+    color: var(--color-text) !important;
+  }
+  /* Cards - Add visible background and border */
+  .card {
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    border-color: var(--color-accent);
+  }
+
+  .card::after {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Technology section titles */
+  .tech-category-title {
+    color: var(--color-text);
+  }
+
+  /* Technology badge names */
+  .tech-name {
+    color: var(--color-text);
+  }
+
+  /* Technology badges background */
+  .tech-badge {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+  }
+
+  .tech-badge:hover {
+    border-color: var(--color-accent);
+  }
+
+  /* Project cards - Enhance contrast */
+  .project-card {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+  }
+
+  .project-title {
+    color: var(--color-text);
+  }
+
+  .project-description {
+    color: var(--color-text-card-secondary) !important;
+  }
+
+  /* Project tags */
+  .project-tag {
+    background-color: var(--color-primary-light);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+  }
+  /* Form inputs - proper dark mode styling */
+  .form-input {
+    background-color: var(--color-bg-alt);
+    color: var(--color-text);
+    border-color: var(--color-border);
+  }
+
+  .footer-logo {
+    color: var(--color-text) !important;
+  }
+
+  .footer-tagline {
+    color: var(--color-text-light) !important;
+  }
+
+  .footer-title {
+    color: var(--color-text) !important;
+  }
+
+  .footer-text,
+  .footer-member-name {
+    color: var(--color-text) !important;
+  }
+
+  .footer-link {
+    color: var(--color-text-light) !important;
+  }
+
+  .footer-link:hover,
+  .footer-email:hover {
+    color: var(--color-accent) !important;
+  }
+
+  .footer-copyright {
+    color: var(--color-text-light) !important;
+  }
+
+  .footer-bottom {
+    border-top-color: var(--color-border);
+  }
+
+  /* Service cards specific improvements */
+  .service-card {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+  }
+
+  .service-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .service-title {
+    color: var(--color-text);
+  }
+
+  .service-description {
+    color: var(--color-text-card-secondary) !important;
+  }
+
+  /* Section titles */
+  .section-title {
+    color: var(--color-text);
+  }
+
+  .section-subtitle {
+    color: var(--color-text-light);
+  } 
 }
 
 /* === FOOTER === */
@@ -887,6 +1221,7 @@ a:focus-visible {
 .footer-link:hover {
   opacity: 1;
   color: var(--color-accent-light);
+  text-decoration: underline;
 }
 
 .footer-contact {
@@ -914,6 +1249,20 @@ a:focus-visible {
   margin-bottom: 0;
 }
 
+.footer-address {
+  font-style: normal;
+}
+
+.footer-email {
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.footer-email:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
 .footer-bottom {
   padding-top: var(--spacing-xl);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -938,6 +1287,27 @@ a:focus-visible {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Skip Link for Keyboard Accessibility */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 0;
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  font-size: 1rem;
+  z-index: 10000;
+  border-radius: 0 0 var(--border-radius) 0;
+  transition: top 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.skip-link:focus {
+  top: 0;
 }
 
 /* === RESPONSIVE === */
@@ -1119,5 +1489,77 @@ a:focus-visible {
 @media (max-width: 350px) {
    .team-card {
     padding: var(--spacing-sm);
+  }
+}
+
+/* === ACCESSIBILITY: REDUCED MOTION === */
+/* Respect user's motion preferences - disable animations and reduce transitions */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable card hover transforms */
+  .card:hover,
+  .card:focus-within {
+    transform: none !important;
+  }
+
+  /* Disable button hover transforms */
+  .btn:hover,
+  .btn-primary:hover {
+    transform: none !important;
+  }
+
+  /* Disable team link hover transforms */
+  .team-link:hover {
+    transform: none !important;
+  }
+
+  /* Disable project image zoom */
+  .project-card:hover .project-image img,
+  .project-card:focus-within .project-image img {
+    transform: none !important;
+  }
+
+  /* Disable hamburger menu animation transforms */
+  .hamburger-line {
+    transition: none !important;
+  }
+
+  .hamburger.active .hamburger-line:nth-child(1) {
+    transform: none !important;
+    opacity: 0 !important;
+  }
+
+  .hamburger.active .hamburger-line:nth-child(2) {
+    opacity: 1 !important;
+    background-color: var(--color-accent) !important;
+  }
+
+  .hamburger.active .hamburger-line:nth-child(3) {
+    transform: none !important;
+    opacity: 0 !important;
+  }
+
+  /* Simplify spinner to static indicator */
+  .btn-spinner {
+    animation: none !important;
+    border: 3px solid var(--color-text-inverse) !important;
+    border-radius: 50%;
+  }
+
+  /* Disable fadeIn animation */
+  @keyframes fadeIn {
+    from, to {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
