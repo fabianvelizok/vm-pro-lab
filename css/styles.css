@@ -63,10 +63,10 @@
     /* === NEUTRALS === */
     --color-text: #F1F5F9;           /* Light text for dark background */
     --color-text-light: #94A3B8;     /* Secondary text */
-    --color-text-card-secondary: #A8B8CF; /* Secondary text on cards (4.8:1 contrast on card bg) */
+    --color-text-card-secondary: #CBD5E1; /* Secondary text on cards (10.45:1 contrast on #1E293B) */
     --color-text-inverse: #0F172A;   /* Dark text on light backgrounds */
     --color-bg: #0F172A;             /* Dark background */
-    --color-bg-alt: #475569;         /* Cards/elevated backgrounds - improved contrast (3.2:1) */
+    --color-bg-alt: #334155;         /* Form inputs and alternate backgrounds */
     --color-border: #94A3B8;         /* Borders with better contrast (6.96:1 on bg) */
 
     /* === STATES === */
@@ -1027,7 +1027,7 @@ select.form-input:focus {
   }
   /* Cards - Add visible background and border */
   .card {
-    background-color: var(--color-bg-alt);
+    background-color: var(--color-primary);
     border: 1px solid var(--color-border);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
