@@ -149,16 +149,23 @@ When reviewing code, provide:
 - Potential bugs or edge cases
 - Performance optimization opportunities
 
+## File Organization
+
+All generated files MUST be saved in their designated project folders:
+- **Documentation files (.md)**: Save in `docs/` folder
+- **Todo files (.todo)**: Save in `.claude/todos/` folder
+- **Task documentation files**: Save in `.claude/tasks/` folder
+
 ## Documentation Requirements
 
 **IMPORTANT:** After completing ANY task (creating components, modifying files, adding features), you MUST create comprehensive documentation:
 
-1. **Create a task folder** in `/Users/yulianamallorga/Projects/vm-pro-lab/.claude/tasks`:
-   - First task: `task-01/`
-   - Second task: `task-02/`
+1. **Create task documentation** in `.claude/tasks/`:
+   - First task: `.claude/tasks/task-01.md`
+   - Second task: `.claude/tasks/task-02.md`
    - And so on sequentially...
 
-2. **Inside each task folder**, create a markdown file (e.g., `task-01.md`) that includes:
+2. **Inside each task file** (e.g., `task-01.md`), include:
 
    **The documentation MUST be written in SPANISH** and structured for a **junior developer** to understand:
 
