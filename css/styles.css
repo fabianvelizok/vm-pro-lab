@@ -23,7 +23,7 @@
   --color-text-inverse: #FFFFFF;   /* Text on colored backgrounds */
   --color-bg: #FFFFFF;             /* Main background */
   --color-bg-alt: #F8FAFC;         /* Alternate background */
-  --color-border: #E2E8F0;         /* Borders */
+  --color-border: #CBD5E1;         /* Borders */
 
   /* === STATES === */
   --color-success: #10B981;        /* Green - for badges/checks */
