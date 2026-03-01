@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,9 @@
        Prototype: Hero Section Only
        ============================================ */
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -22,20 +25,21 @@
       --text-primary: #E4E8F7;
       --text-secondary: #4A5080;
       --text-tertiary: #1E2244;
-      --accent-violet: #6C63FF;
-      --accent-cobalt: #3B5BDB;
-      --accent-cobalt-light: #748FFC;
-      --glow-violet: rgba(108, 99, 255, 0.35);
-      --glow-cobalt: rgba(59, 91, 219, 0.35);
-      --circle-fill: rgba(59, 91, 219, 0.06);
-      --circle-stroke: rgba(108, 99, 255, 0.3);
-      --intersection-fill: rgba(108, 99, 255, 0.12);
+      --accent-cyan: #00D4FF;
+      --accent-blue: #4285F4;
+      --accent-blue-light: #8AB4F8;
+      --glow-cyan: rgba(0, 212, 255, 0.35);
+      --glow-blue: rgba(66, 133, 244, 0.35);
+      --circle-fill: rgba(66, 133, 244, 0.06);
+      --circle-stroke: rgba(0, 212, 255, 0.3);
+      --intersection-fill: rgba(0, 212, 255, 0.12);
       --border-subtle: rgba(228, 232, 247, 0.06);
       --border-medium: rgba(228, 232, 247, 0.12);
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     }
 
-    html, body {
+    html,
+    body {
       height: 100%;
       background-color: var(--bg);
       color: var(--text-primary);
@@ -51,10 +55,10 @@
       inset: 0;
       background:
         radial-gradient(ellipse 80% 60% at 35% 55%,
-          rgba(108, 99, 255, 0.08) 0%,
+          rgba(0, 212, 255, 0.08) 0%,
           transparent 65%),
         radial-gradient(ellipse 60% 50% at 65% 45%,
-          rgba(59, 91, 219, 0.06) 0%,
+          rgba(66, 133, 244, 0.06) 0%,
           transparent 60%);
       pointer-events: none;
       z-index: 0;
@@ -94,18 +98,19 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      border: 1.5px solid var(--accent-violet);
+      border: 1.5px solid var(--accent-cyan);
     }
 
     .nav-mark::before {
       top: 0;
       left: 0;
+      border-color: var(--accent-cyan);
     }
 
     .nav-mark::after {
       bottom: 0;
       right: 0;
-      border-color: var(--accent-cobalt-light);
+      border-color: var(--accent-blue-light);
     }
 
     .nav-logo {
@@ -181,8 +186,8 @@
       background: var(--circle-fill);
       /* Glow */
       box-shadow:
-        0 0 40px var(--glow-cobalt),
-        inset 0 0 30px rgba(59, 91, 219, 0.03);
+        0 0 40px var(--glow-blue),
+        inset 0 0 30px rgba(66, 133, 244, 0.03);
       animation: breathe-a 6s ease-in-out infinite;
     }
 
@@ -194,23 +199,37 @@
       border-radius: 50%;
       top: 0;
       right: 0;
-      border: 1px solid rgba(108, 99, 255, 0.4);
-      background: rgba(108, 99, 255, 0.05);
+      border: 1px solid rgba(0, 212, 255, 0.4);
+      background: rgba(0, 212, 255, 0.05);
       box-shadow:
-        0 0 40px var(--glow-violet),
-        inset 0 0 30px rgba(108, 99, 255, 0.03);
+        0 0 40px var(--glow-cyan),
+        inset 0 0 30px rgba(0, 212, 255, 0.03);
       animation: breathe-b 6s ease-in-out infinite;
       animation-delay: -3s;
     }
 
     @keyframes breathe-a {
-      0%, 100% { box-shadow: 0 0 30px var(--glow-cobalt), inset 0 0 20px rgba(59, 91, 219, 0.03); }
-      50% { box-shadow: 0 0 60px rgba(59, 91, 219, 0.45), inset 0 0 40px rgba(59, 91, 219, 0.06); }
+
+      0%,
+      100% {
+        box-shadow: 0 0 30px var(--glow-blue), inset 0 0 20px rgba(66, 133, 244, 0.03);
+      }
+
+      50% {
+        box-shadow: 0 0 60px rgba(66, 133, 244, 0.45), inset 0 0 40px rgba(66, 133, 244, 0.06);
+      }
     }
 
     @keyframes breathe-b {
-      0%, 100% { box-shadow: 0 0 30px var(--glow-violet), inset 0 0 20px rgba(108, 99, 255, 0.03); }
-      50% { box-shadow: 0 0 60px rgba(108, 99, 255, 0.5), inset 0 0 40px rgba(108, 99, 255, 0.06); }
+
+      0%,
+      100% {
+        box-shadow: 0 0 30px var(--glow-cyan), inset 0 0 20px rgba(0, 212, 255, 0.03);
+      }
+
+      50% {
+        box-shadow: 0 0 60px rgba(0, 212, 255, 0.5), inset 0 0 40px rgba(0, 212, 255, 0.06);
+      }
     }
 
     /* Intersection zone — this is rendered using clip-path */
@@ -224,12 +243,10 @@
       transform: translateX(-50%);
       /* Clip to an ellipse that represents the lens overlap */
       clip-path: ellipse(50px 95px at 50% 50%);
-      background: radial-gradient(
-        ellipse at center,
-        rgba(108, 99, 255, 0.2) 0%,
-        rgba(59, 91, 219, 0.1) 60%,
-        transparent 100%
-      );
+      background: radial-gradient(ellipse at center,
+          rgba(0, 212, 255, 0.2) 0%,
+          rgba(66, 133, 244, 0.1) 60%,
+          transparent 100%);
       pointer-events: none;
     }
 
@@ -246,13 +263,13 @@
 
     .circle-letter-a {
       left: 1.5rem;
-      color: var(--accent-cobalt-light);
+      color: var(--accent-blue-light);
       opacity: 0.6;
     }
 
     .circle-letter-b {
       right: 1.5rem;
-      color: var(--accent-violet);
+      color: var(--accent-cyan);
       opacity: 0.6;
     }
 
@@ -273,8 +290,15 @@
       opacity: 0.7;
     }
 
-    .coord-tl { top: -1.5rem; left: 0; }
-    .coord-br { bottom: -1.5rem; right: 0; }
+    .coord-tl {
+      top: -1.5rem;
+      left: 0;
+    }
+
+    .coord-br {
+      bottom: -1.5rem;
+      right: 0;
+    }
 
     /* Horizontal rule through center — the "axis" */
     .diagram-axis {
@@ -283,13 +307,11 @@
       left: -1rem;
       right: -1rem;
       height: 1px;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        var(--border-medium) 20%,
-        var(--border-medium) 80%,
-        transparent 100%
-      );
+      background: linear-gradient(90deg,
+          transparent 0%,
+          var(--border-medium) 20%,
+          var(--border-medium) 80%,
+          transparent 100%);
       transform: translateY(-50%);
     }
 
@@ -308,7 +330,7 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--accent-cobalt-light);
+      color: var(--accent-blue-light);
       margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
@@ -320,7 +342,7 @@
       display: block;
       width: 24px;
       height: 1px;
-      background-color: var(--accent-cobalt-light);
+      background-color: var(--accent-blue-light);
       flex-shrink: 0;
     }
 
@@ -347,7 +369,7 @@
 
     /* Gradient text for the sub portion */
     .gradient-text {
-      background: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-cobalt-light) 100%);
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue-light) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -378,7 +400,7 @@
       font-weight: 600;
       letter-spacing: -0.01em;
       color: #ffffff;
-      background: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-cobalt) 100%);
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
       border: none;
       border-radius: 6px;
       text-decoration: none;
@@ -392,7 +414,7 @@
       position: absolute;
       inset: 0;
       border-radius: 6px;
-      box-shadow: 0 0 24px rgba(108, 99, 255, 0.5);
+      box-shadow: 0 0 24px rgba(0, 212, 255, 0.5);
       opacity: 0;
       transition: opacity 0.25s ease;
     }
@@ -422,7 +444,7 @@
     .btn-outline:hover {
       color: var(--text-primary);
       border-color: var(--border-medium);
-      border-color: rgba(108, 99, 255, 0.5);
+      border-color: rgba(0, 212, 255, 0.5);
     }
 
     /* Stat row */
@@ -432,8 +454,6 @@
       padding-top: 2rem;
       border-top: 1px solid var(--border-subtle);
     }
-
-    .stat-item {}
 
     .stat-value {
       font-size: 1.5rem;
@@ -454,7 +474,7 @@
     }
 
     /* Vertical separator between stats */
-    .stat-item + .stat-item {
+    .stat-item+.stat-item {
       padding-left: 2.5rem;
       border-left: 1px solid var(--border-subtle);
     }
@@ -505,7 +525,7 @@
         gap: 1rem;
       }
 
-      .stat-item + .stat-item {
+      .stat-item+.stat-item {
         padding-left: 0;
         border-left: none;
         padding-top: 1rem;
@@ -519,16 +539,19 @@
 
     /* ── REDUCED MOTION ────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
+
       .circle-a,
       .circle-b {
         animation: none;
       }
+
       .btn-primary:hover {
         transform: none;
       }
     }
   </style>
 </head>
+
 <body>
 
   <!-- Navigation -->
@@ -551,11 +574,8 @@
 
         <!-- Left: CSS Venn Diagram -->
         <div class="hero-diagram">
-          <div
-            class="diagram-container"
-            role="img"
-            aria-label="Diagrama conceptual que representa la colaboración entre Fabián (V) y Yuliana (M)"
-          >
+          <div class="diagram-container" role="img"
+            aria-label="Diagrama conceptual que representa la colaboración entre Fabián (V) y Yuliana (M)">
             <!-- Axis line -->
             <div class="diagram-axis" aria-hidden="true"></div>
 
@@ -624,4 +644,5 @@
   </main>
 
 </body>
+
 </html>
