@@ -17,7 +17,7 @@
 
 ### 1.1 Color Palette
 
-The Plasma Field aesthetic is **dark-dominant** with a violet-to-cobalt accent gradient. The entire palette must be defined as CSS custom properties in `:root`.
+The Plasma Field aesthetic is **dark-dominant** with a cyan-to-blue accent gradient. The entire palette must be defined as CSS custom properties in `:root`.
 
 #### Light Mode (Default)
 
@@ -174,8 +174,8 @@ Retain the existing spacing scale — it works well with the Plasma Field aesthe
 **1. `breathe-a` — Circle A glow pulse (Hero Venn diagram)**
 ```css
 @keyframes breathe-a {
-  0%, 100% { box-shadow: 0 0 30px var(--glow-cobalt), inset 0 0 20px rgba(59, 91, 219, 0.03); }
-  50%      { box-shadow: 0 0 60px rgba(59, 91, 219, 0.45), inset 0 0 40px rgba(59, 91, 219, 0.06); }
+  0%, 100% { box-shadow: 0 0 30px var(--glow-blue), inset 0 0 20px rgba(66, 133, 244, 0.03); }
+  50%      { box-shadow: 0 0 60px rgba(66, 133, 244, 0.45), inset 0 0 40px rgba(66, 133, 244, 0.06); }
 }
 /* Duration: 6s, ease-in-out, infinite */
 ```
@@ -183,8 +183,8 @@ Retain the existing spacing scale — it works well with the Plasma Field aesthe
 **2. `breathe-b` — Circle B glow pulse (Hero Venn diagram)**
 ```css
 @keyframes breathe-b {
-  0%, 100% { box-shadow: 0 0 30px var(--glow-violet), inset 0 0 20px rgba(108, 99, 255, 0.03); }
-  50%      { box-shadow: 0 0 60px rgba(108, 99, 255, 0.5), inset 0 0 40px rgba(108, 99, 255, 0.06); }
+  0%, 100% { box-shadow: 0 0 30px var(--glow-cyan), inset 0 0 20px rgba(0, 212, 255, 0.03); }
+  50%      { box-shadow: 0 0 60px rgba(0, 212, 255, 0.5), inset 0 0 40px rgba(0, 212, 255, 0.06); }
 }
 /* Duration: 6s, ease-in-out, infinite, animation-delay: -3s (offset from circle A) */
 ```
@@ -212,8 +212,8 @@ Retain the existing spacing scale — it works well with the Plasma Field aesthe
 | Element | Effect | Properties | Duration |
 |---|---|---|---|
 | **Cards** | Lift + glow shadow | `transform: translateY(-4px)`, box-shadow opacity 0→1 | 0.3s ease |
-| **Primary button** | Lift + violet glow | `transform: translateY(-2px)`, `box-shadow: 0 0 24px rgba(108, 99, 255, 0.5)` | 0.25s ease |
-| **Outline button** | Border color shift | `border-color` → `rgba(108, 99, 255, 0.5)`, `color` → primary text | 0.2s ease |
+| **Primary button** | Lift + cyan glow | `transform: translateY(-2px)`, `box-shadow: 0 0 24px rgba(0, 212, 255, 0.5)` | 0.25s ease |
+| **Outline button** | Border color shift | `border-color` → `rgba(0, 212, 255, 0.5)`, `color` → primary text | 0.2s ease |
 | **Nav links** | Color shift | `color` → `--color-text` (from secondary) | 0.2s ease |
 | **Team links** | Background tint + lift | `background-color` tint, `translateY(-2px)` | 0.3s ease |
 | **Tech badges** | Icon desaturate → color | `filter: grayscale(100%) → grayscale(0%)`, `opacity: 0.7 → 1` | 0.3s ease |
@@ -254,9 +254,9 @@ body::before {
   inset: 0;
   background:
     radial-gradient(ellipse 80% 60% at 35% 55%,
-      var(--glow-violet-soft) 0%, transparent 65%),
+      var(--glow-cyan-soft) 0%, transparent 65%),
     radial-gradient(ellipse 60% 50% at 65% 45%,
-      var(--glow-cobalt-soft) 0%, transparent 60%);
+      var(--glow-blue-soft) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -268,9 +268,9 @@ In **light mode**, this gradient should be even more subtle or replaced with a v
 body::before {
   background:
     radial-gradient(ellipse 80% 60% at 35% 55%,
-      rgba(108, 99, 255, 0.03) 0%, transparent 65%),
+      rgba(0, 212, 255, 0.03) 0%, transparent 65%),
     radial-gradient(ellipse 60% 50% at 65% 45%,
-      rgba(59, 91, 219, 0.02) 0%, transparent 60%);
+      rgba(66, 133, 244, 0.02) 0%, transparent 60%);
 }
 ```
 
@@ -292,7 +292,7 @@ The "Pro Lab" gradient text is a signature element. Use it sparingly — only on
 
 ```css
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-accent-violet) 0%, var(--color-accent-cobalt-light) 100%);
+  background: linear-gradient(135deg, var(--color-accent-cyan) 0%, var(--color-accent-blue-light) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -335,7 +335,7 @@ The "Pro Lab" gradient text is a signature element. Use it sparingly — only on
 **Plasma Field styling:**
 - Background: `var(--color-bg)` with `backdrop-filter: blur(12px)` and slight transparency (`rgba(6, 8, 20, 0.85)` in dark mode) for a glass effect
 - The `.scrolled` state adds a subtle `box-shadow` and a bottom `border-bottom: 1px solid var(--color-border-subtle)`
-- Logo: "VM Pro Lab" text in `--color-text`, weight 600, size 0.875rem. Include the small **nav-mark** element (two tiny overlapping circles in violet/cobalt) as a mini brand identity element before the text
+- Logo: "VM Pro Lab" text in `--color-text`, weight 600, size 0.875rem. Include the small **nav-mark** element (two tiny overlapping circles in cyan/blue) as a mini brand identity element before the text
 - Nav links: 0.8rem, weight 400, letter-spacing 0.05em, color `--color-text-light`. Hover: color `--color-text`
 - Mobile: hamburger menu with existing focus trap logic from `js/main.js`
 
@@ -345,22 +345,22 @@ The "Pro Lab" gradient text is a signature element. Use it sparingly — only on
 
 ### 2.2 Hero Section
 
-**This is the prototype. Implement it exactly as defined in `.claude/prototypes/agent-design/direction-3-plasma-field.html`.**
+**This is the prototype. Implement it exactly as defined in `.claude/prototypes/direction-3-plasma-field.html`.**
 
 **Layout:** Two-column grid (`1fr 1fr`). Left: Venn diagram. Right: content stack. Full viewport height (`min-height: 100vh`).
 
 **Left column — CSS Venn Diagram:**
 - Container: 340x220px, positioned relatively
 - Two circles (220x220px each), overlapping in the center
-- Circle A (left, "V"): border `var(--circle-stroke)`, fill `var(--circle-fill)`, glow `var(--glow-cobalt)`, animation `breathe-a`
-- Circle B (right, "M"): border `rgba(108, 99, 255, 0.4)`, fill `rgba(108, 99, 255, 0.05)`, glow `var(--glow-violet)`, animation `breathe-b` with `animation-delay: -3s`
+- Circle A (left, "V"): border `var(--circle-stroke)`, fill `var(--circle-fill)`, glow `var(--glow-blue)`, animation `breathe-a`
+- Circle B (right, "M"): border `1px solid rgba(0, 212, 255, 0.4)`, fill `rgba(0, 212, 255, 0.05)`, glow `var(--glow-cyan)`, animation `breathe-b` with `animation-delay: -3s`
 - Intersection zone: clipped ellipse with radial gradient
-- Letters "V" and "M" inside circles: 4.5rem, weight 700, opacity 0.6, colored in cobalt-light and violet respectively
+- Letters "V" and "M" inside circles: 4.5rem, weight 700, opacity 0.6, colored in blue-light and cyan respectively
 - Coordinate labels: "Senior / Full Stack" (top-left), "Tucuman . ARG" (bottom-right)
 - Horizontal axis line through center: gradient hairline
 
 **Right column — Content:**
-- Eyebrow: "Estudio de desarrollo web" — 0.65rem, weight 600, uppercase, cobalt-light, preceded by a 24px horizontal line
+- Eyebrow: "Estudio de desarrollo web" — 0.65rem, weight 600, uppercase, blue-light, preceded by a 24px horizontal line
 - Wordmark: `<h1>` containing `<span class="hero-wordmark">VM</span>` and `<span class="hero-wordmark-sub"><span class="gradient-text">Pro Lab</span></span>`
 - Tagline: "Dos desarrolladores. Un sistema de trabajo. Construimos productos digitales que escalan con la ambicion de tus ideas."
 - CTAs: "Ver proyectos" (primary, gradient background) + "Hablemos" (outline)
@@ -386,13 +386,13 @@ The "Pro Lab" gradient text is a signature element. Use it sparingly — only on
 
 **Plasma Field card styling:**
 - Card background in dark mode: `var(--color-bg-surface)` (#0E1029) with `border: 1px solid var(--color-border)`
-- On hover: `border-color` shifts to `rgba(108, 99, 255, 0.3)` and a subtle violet glow appears in the box-shadow
-- Photo: 120x120px circle, `border: 3px solid var(--color-accent-violet)` (replacing the previous light-blue border) with a subtle glow `box-shadow: 0 0 20px rgba(108, 99, 255, 0.2)` in dark mode
+- On hover: `border-color` shifts to `rgba(0, 212, 255, 0.3)` and a subtle cyan glow appears in the box-shadow
+- Photo: 120x120px circle, `border: 3px solid var(--color-accent-cyan)` (replacing the previous light-blue border) with a subtle glow `box-shadow: 0 0 20px rgba(0, 212, 255, 0.2)` in dark mode
 - Name: `--color-text`, weight 700
-- Role: `--color-accent-cobalt-light`, weight 600
+- Role: `--color-accent-blue-light`, weight 600
 - Bio: `--color-text-light`, line-height 1.7
 - Highlights list: no bullets, each item with `--color-text` and padding-y `--spacing-xs`
-- Links row: bottom border-top hairline, GitHub/LinkedIn in `--color-accent-violet`, hover: background tint + lift
+- Links row: bottom border-top hairline, GitHub/LinkedIn in `--color-accent-cyan`, hover: background tint + lift
 
 **Mobile (<=768px):** Single column. Card padding reduces.
 
@@ -413,11 +413,11 @@ The "Pro Lab" gradient text is a signature element. Use it sparingly — only on
 - Cards: same surface treatment as About cards
 
 **Plasma Field styling:**
-- Replace emoji icons with a **geometric icon treatment**: a small circle (40x40px) with a subtle gradient border (`linear-gradient(135deg, var(--color-accent-violet), var(--color-accent-cobalt))`) and the emoji centered inside. This ties the service icons to the Venn diagram visual language.
+- Replace emoji icons with a **geometric icon treatment**: a small circle (40x40px) with a subtle gradient border (`linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-blue))`) and the emoji centered inside. This ties the service icons to the Venn diagram visual language.
 - Card text-align: center
 - Title: `--color-text`, weight 700, size 1.5rem
 - Description: `--color-text-light`, line-height 1.7
-- Hover: card lifts, border gets a violet tint
+- Hover: card lifts, border gets a cyan tint
 
 **Mobile (<=768px):** Single column. Card padding reduces.
 
@@ -439,7 +439,7 @@ The "Pro Lab" gradient text is a signature element. Use it sparingly — only on
 **Plasma Field badge styling:**
 - Badge: 150x150px, `background: var(--color-bg-surface)`, `border: 1px solid var(--color-border)`, `border-radius: var(--border-radius)`
 - Icon: grayscale at 0.7 opacity by default. On hover: full color, opacity 1
-- On hover: `border-color` shifts to `rgba(108, 99, 255, 0.4)`
+- On hover: `border-color` shifts to `rgba(0, 212, 255, 0.4)`
 - Badge text: 0.8rem, weight 600, `--color-text`
 
 **Important:** Preserve the existing font protection pattern that prevents Devicon from overriding Inter:
@@ -470,12 +470,12 @@ The "Pro Lab" gradient text is a signature element. Use it sparingly — only on
 **Plasma Field card styling:**
 - Card: `background: var(--color-bg-surface)`, overflow hidden, flex column
 - Image container: 250px height, `overflow: hidden`. On hover: `img` scales to 1.05
-- Status badge: `position: absolute`, top-right. "En produccion": `background: var(--color-success)`. "En desarrollo": `background: var(--color-accent-violet)`
+- Status badge: `position: absolute`, top-right. "En produccion": `background: var(--color-success)`. "En desarrollo": `background: var(--color-accent-cyan)`
 - Content area: padding `--spacing-xl`
 - Title: `--color-text`, weight 700, 1.5rem
 - Description: `--color-text-light`, line-height 1.7
 - Tech tags: small pills with `background: var(--color-bg-alt)`, `border: 1px solid var(--color-border)`, `border-radius: 4px`, `font-size: 0.75rem`, `font-weight: 600`
-- In dark mode, tags: `background: rgba(108, 99, 255, 0.08)`, `border: 1px solid rgba(108, 99, 255, 0.2)`, `color: var(--color-accent-cobalt-light)` — this gives them a subtle Plasma Field violet tint
+- In dark mode, tags: `background: rgba(0, 212, 255, 0.08)`, `border: 1px solid rgba(0, 212, 255, 0.2)`, `color: var(--color-accent-blue-light)` — this gives them a subtle Plasma Field cyan tint
 - CTA card: center-aligned content, "Contactanos" button uses the primary gradient button style
 
 **Mobile (<=768px):** Single column. Image height: 200px. Content padding reduces.
@@ -496,14 +496,14 @@ The "Pro Lab" gradient text is a signature element. Use it sparingly — only on
 **Plasma Field layout:**
 - Background: `var(--color-bg-alt)` — alternate
 - Form container: max-width 800px, centered, `background: var(--color-bg-surface)`, padding `--spacing-2xl`, `border-radius: var(--border-radius)`, `border: 1px solid var(--color-border)`
-- In dark mode: subtle `box-shadow: 0 0 40px rgba(108, 99, 255, 0.05)` on the form container
+- In dark mode: subtle `box-shadow: 0 0 40px rgba(0, 212, 255, 0.05)` on the form container
 
 **Plasma Field form styling:**
 - Labels: 0.875rem, weight 600, `--color-text`
 - Inputs: `background: var(--color-bg)`, `border: 2px solid var(--color-border)`, `border-radius: var(--border-radius)`, `color: var(--color-text)`, padding `--spacing-sm`
-- Input focus: `border-color: var(--color-accent-violet)`, `box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15)` — violet instead of the previous blue
+- Input focus: `border-color: var(--color-accent-cyan)`, `box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15)` — cyan accent ring
 - Input error: `border-color: var(--color-error)`, `box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1)`
-- Submit button: full-width, gradient background (`linear-gradient(135deg, var(--color-accent-violet), var(--color-accent-cobalt))`), white text, hover glow
+- Submit button: full-width, gradient background (`linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-blue))`), white text, hover glow
 - Loading spinner: same `spin` keyframe, white border-top on translucent border
 
 **Accessibility:** All `aria-required`, `aria-invalid`, `aria-describedby` attributes must be preserved exactly as in the current HTML. The error `<span>` elements with `role="alert"` must remain. The status `<p>` with `role="status" aria-live="polite"` must remain.
@@ -527,7 +527,7 @@ The "Pro Lab" gradient text is a signature element. Use it sparingly — only on
 - Logo: "VM Pro Lab" in `--color-text`, weight 700, 1.75rem
 - Tagline: `--color-text-light`, 1rem
 - Section titles ("Equipo", "Contacto"): weight 600, 1.125rem, `--color-text`
-- Links: `--color-accent-cobalt-light`, hover: `--color-accent-violet`
+- Links: `--color-accent-blue-light`, hover: `--color-accent-cyan`
 - Member names: weight 600, 0.875rem, `--color-text`
 - Copyright: `--color-text-light`, 0.875rem, opacity 0.7
 
