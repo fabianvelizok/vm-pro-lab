@@ -906,6 +906,33 @@ a:focus-visible {
   margin-bottom: 0;
 }
 
+/* Footer logo link */
+.footer-logo-link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: opacity 0.2s ease, outline 0.2s ease, outline-offset 0.2s ease;
+}
+
+.footer-logo-link:hover {
+  opacity: 0.8;
+  text-decoration: none;
+}
+
+.footer-logo-link:focus-visible {
+  outline: 2px solid var(--color-accent-cyan);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.footer-logo-link .logo-text {
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
 /* === TECHNOLOGIES SECTION === */
 .technologies {
   background-color: var(--color-bg-alt);

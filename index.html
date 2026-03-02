@@ -241,22 +241,23 @@
             <p class="service-description">Desarrollo de aplicaciones web a medida con Ruby on Rails, React o Vue. Desde MVPs hasta sistemas complejos.</p>
           </article>
 
-          <!-- Service 3: E-commerce -->
-          <article class="card service-card">
-            <div class="service-icon-wrap" aria-hidden="true">
-              <span class="service-icon">🛒</span>
-            </div>
-            <h3 class="service-title">E-commerce</h3>
-            <p class="service-description">Tiendas online personalizadas. Integración con medios de pago, gestión de inventario, panel de administración.</p>
-          </article>
-
-          <!-- Service 4: Maintenance & Support -->
+          <!-- Service 3: Maintenance & Support -->
           <article class="card service-card">
             <div class="service-icon-wrap" aria-hidden="true">
               <span class="service-icon">🔧</span>
             </div>
             <h3 class="service-title">Mantenimiento & Soporte</h3>
             <p class="service-description">Actualizaciones, corrección de bugs, mejoras de performance. Mantenemos tu sitio funcionando al 100%.</p>
+          </article>
+
+          <!-- Service 4: CTA -->
+          <article class="card service-card">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <span class="service-icon">🚀</span>
+            </div>
+            <h3 class="service-title">Hacemos tu idea realidad</h3>
+            <p class="service-description">Tenés un proyecto en mente y no sabés por dónde empezar. Nosotros sí.</p>
+            <a href="#contact" class="btn btn-primary" style="margin-top: auto;">Contáctanos</a>
           </article>
 
         </div>
@@ -386,12 +387,28 @@
               <span class="tech-name">Claude Flow</span>
             </div>
             <div class="card tech-badge" role="img" aria-label="ChatGPT">
-              <div class="tech-icon-emoji" aria-hidden="true">🤖</div>
+              <div class="tech-icon-emoji" aria-hidden="true">💬</div>
               <span class="tech-name">ChatGPT</span>
             </div>
             <div class="card tech-badge" role="img" aria-label="GitHub Copilot">
               <i class="devicon-github-original" aria-hidden="true"></i>
               <span class="tech-name">GitHub Copilot</span>
+            </div>
+            <div class="card tech-badge" role="img" aria-label="Gemini">
+              <div class="tech-icon-emoji" aria-hidden="true">✨</div>
+              <span class="tech-name">Gemini</span>
+            </div>
+            <div class="card tech-badge" role="img" aria-label="Gemini Pro">
+              <div class="tech-icon-emoji" aria-hidden="true">💎</div>
+              <span class="tech-name">Gemini Pro</span>
+            </div>
+            <div class="card tech-badge" role="img" aria-label="Claude Skills">
+              <div class="tech-icon-emoji" aria-hidden="true">🛠️</div>
+              <span class="tech-name">Claude Skills</span>
+            </div>
+            <div class="card tech-badge" role="img" aria-label="Claude Agent">
+              <div class="tech-icon-emoji" aria-hidden="true">🤖</div>
+              <span class="tech-name">Claude Agent</span>
             </div>
           </div>
         </div>
@@ -489,6 +506,7 @@
               aria-describedby="name-error"
               aria-invalid="false"
               autocomplete="name"
+              placeholder="Juan Perez"
             >
             <span id="name-error" class="form-error" role="alert"></span>
           </div>
@@ -505,19 +523,9 @@
               aria-describedby="email-error"
               aria-invalid="false"
               autocomplete="email"
+              placeholder="juan_perez@gmail.com"
             >
             <span id="email-error" class="form-error" role="alert"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="project-type" class="form-label">Tipo de proyecto</label>
-            <select id="project-type" name="project-type" class="form-input" aria-describedby="project-type-desc">
-              <option value="landing-page">Landing Page</option>
-              <option value="aplicacion-web">Aplicación Web</option>
-              <option value="e-commerce">E-commerce</option>
-              <option value="otro">Otro</option>
-            </select>
-            <span id="project-type-desc" class="form-help-text">Selecciona el tipo de proyecto que mejor describe tu necesidad</span>
           </div>
 
           <div class="form-group">
@@ -531,6 +539,7 @@
               aria-required="true"
               aria-describedby="message-error"
               aria-invalid="false"
+              placeholder="Contanos sobre tu proyecto: tipo de sitio que necesitás, funcionalidades, plazos, presupuesto estimado..."
             ></textarea>
             <span id="message-error" class="form-error" role="alert"></span>
           </div>
