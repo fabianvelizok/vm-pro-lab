@@ -282,10 +282,10 @@ a:focus-visible {
   border-radius: 4px;
 }
 
-/* Miniature Venn mark in nav */
+/* Miniature Venn mark in nav — horizontal overlap like hero diagram */
 .nav-mark {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 13px;
   position: relative;
   flex-shrink: 0;
 }
@@ -294,21 +294,22 @@ a:focus-visible {
 .nav-mark::after {
   content: '';
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
+  top: 0;
 }
 
 .nav-mark::before {
-  top: 0;
-  left: 0;
+  right: 0;
   border: 1.5px solid var(--color-accent-cyan);
+  background: rgba(0, 212, 255, 0.08);
 }
 
 .nav-mark::after {
-  bottom: 0;
-  right: 0;
+  left: 0;
   border: 1.5px solid var(--color-accent-blue-light);
+  background: rgba(138, 180, 248, 0.08);
 }
 
 .logo-text {
