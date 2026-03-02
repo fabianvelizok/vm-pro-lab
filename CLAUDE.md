@@ -34,7 +34,7 @@ Node.js ≥ 22 required (see `.nvmrc`). No test suite.
 Single-page marketing site. Zero runtime dependencies — pure HTML5, CSS, and vanilla JS.
 
 **Source files (edit these):**
-- `index.html` — The entire page. Contains critical CSS inline in `<head>` for fast FCP, then loads `css/styles.css` asynchronously via `media="print"` trick.
+- `index.html` — The entire page. Loads `css/styles.css` normally via `<link>` tag.
 - `css/styles.css` — Full stylesheet with CSS custom properties. Dark mode via `prefers-color-scheme`.
 - `js/main.js` — IIFE-wrapped, initializes on `DOMContentLoaded`: sticky header, mobile menu with focus trap, active nav via `IntersectionObserver`, contact form (Formspree), lazy-load Devicon CSS.
 
@@ -43,7 +43,7 @@ Single-page marketing site. Zero runtime dependencies — pure HTML5, CSS, and v
 
 ### Key Patterns
 
-**Performance:** Critical above-the-fold styles are duplicated inline in `index.html` (minified). The external `css/styles.css` is loaded with `media="print" onload="this.media='all'"` to avoid render-blocking. Devicon is lazy-loaded via `IntersectionObserver` only when the `#technologies` section nears the viewport.
+**Performance:** Devicon is lazy-loaded via `IntersectionObserver` only when the `#technologies` section nears the viewport.
 
 **CSS naming:** No BEM. Use simple descriptive class names (`.nav-link`, `.btn-primary`). Always extend from base classes — all buttons inherit from `.btn`.
 
