@@ -41,6 +41,11 @@
     @font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:optional;src:url('fonts/inter-700.woff2') format('woff2')}
   </style>
 
+  <!-- Theme init: apply saved theme before first paint to avoid FOUC -->
+  <script>
+    (function(){const t=localStorage.getItem('vm-theme');if(t){document.documentElement.setAttribute('data-theme',t);}})();
+  </script>
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -56,6 +61,12 @@
         <div class="nav-mark" aria-hidden="true"></div>
         <span class="logo-text">VM Pro Lab</span>
       </a>
+
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle" aria-label="Cambiar a modo oscuro" data-theme-toggle>
+        <span class="theme-toggle-icon theme-toggle-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-toggle-icon theme-toggle-icon-dark" aria-hidden="true">🌙</span>
+      </button>
 
       <!-- Hamburger Menu Button (Mobile) -->
       <button class="hamburger" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="main-menu" data-menu-toggle>
@@ -425,10 +436,7 @@
           <!-- Project 1: Digital Mouth -->
           <article class="card project-card">
             <div class="project-image">
-              <picture role="img" aria-label="Captura de pantalla del proyecto Digital Mouth - Storm Center">
-                <source srcset="images/projects/digital-mouth.webp" type="image/webp">
-                <img src="images/projects/digital-mouth.jpg" alt="Digital Mouth - Storm Center" width="600" height="400" loading="lazy">
-              </picture>
+              <img src="images/projects/digital-mouth.svg" alt="Patrón geométrico azul — Digital Mouth Storm Center" width="600" height="400" loading="lazy">
               <span class="project-status">En producción</span>
             </div>
             <div class="project-content">
@@ -449,10 +457,7 @@
           <a href="https://gabitour.com.ar" target="_blank" rel="noopener noreferrer" class="project-card-link">
             <article class="card project-card">
               <div class="project-image">
-                <picture role="img" aria-label="Captura de pantalla del proyecto Gabitour - Turismo Iguazú">
-                  <source srcset="images/projects/gabitour.webp" type="image/webp">
-                  <img src="images/projects/gabitour.jpg" alt="Gabitour - Turismo Iguazú" width="600" height="400" loading="lazy">
-                </picture>
+                <img src="images/projects/gabitour.svg" alt="Patrón geométrico verde — Gabitour Turismo Iguazú" width="600" height="400" loading="lazy">
                 <span class="project-status">En producción</span>
               </div>
               <div class="project-content">
@@ -470,10 +475,7 @@
           <!-- Project 3: CTA -->
           <article class="card project-card project-card-cta">
             <div class="project-image">
-              <picture role="img" aria-label="Imagen representativa de tu próximo proyecto">
-                <source srcset="images/projects/cta-project.webp" type="image/webp">
-                <img src="images/projects/cta-project.jpg" alt="Tu próximo proyecto" width="600" height="400" loading="lazy">
-              </picture>
+              <img src="images/projects/cta-project.svg" alt="Patrón geométrico cyan — Tu próximo proyecto" width="600" height="400" loading="lazy">
             </div>
             <div class="project-content">
               <h3 class="project-title">¿Tu proyecto aquí?</h3>

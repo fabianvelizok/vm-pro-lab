@@ -8,11 +8,46 @@
 
   // DOM Content Loaded - Initialize
   document.addEventListener('DOMContentLoaded', function() {
+    initThemeToggle();
     initHeader();
     initActiveNavLinks();
     initContactForm();
     initLazyLoadDevicon();
   });
+
+  /**
+   * Initialize Theme Toggle
+   * - Reads localStorage for saved preference
+   * - Applies data-theme attribute to <html>
+   * - Persists user choice in localStorage under 'vm-theme'
+   */
+  function initThemeToggle() {
+    const btn = document.querySelector('[data-theme-toggle]');
+    if (!btn) return;
+
+    function getSystemTheme() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function getEffectiveTheme() {
+      return document.documentElement.getAttribute('data-theme') || getSystemTheme();
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('vm-theme', theme);
+      btn.setAttribute('aria-label', theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+    }
+
+    // Set initial aria-label based on current effective theme
+    const current = getEffectiveTheme();
+    btn.setAttribute('aria-label', current === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+
+    btn.addEventListener('click', function() {
+      const next = getEffectiveTheme() === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+  }
 
   /**
    * Initialize Header functionality
@@ -29,18 +64,12 @@
     const navLinks = document.querySelectorAll('.nav-link');
 
     // Add shadow to header on scroll
-    let lastScroll = 0;
-
     window.addEventListener('scroll', function() {
-      const currentScroll = window.pageYOffset;
-
-      if (currentScroll > 0) {
+      if (window.pageYOffset > 0) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
       }
-
-      lastScroll = currentScroll;
     }, { passive: true });
 
     // Mobile menu toggle - Event delegation
