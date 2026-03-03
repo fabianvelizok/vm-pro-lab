@@ -443,15 +443,20 @@ a:focus-visible {
 
 /* Show/hide icons based on active theme */
 .theme-toggle-icon-dark { display: none; }
-.theme-toggle-icon-light { display: inline; }
+.theme-toggle-icon-light { display: block; }
 
-[data-theme="dark"] .theme-toggle-icon-dark { display: inline; }
+[data-theme="dark"] .theme-toggle-icon-dark { display: block; }
 [data-theme="dark"] .theme-toggle-icon-light { display: none; }
 
 /* When system is dark and no data-theme override, show moon */
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) .theme-toggle-icon-dark { display: inline; }
+  html:not([data-theme="light"]) .theme-toggle-icon-dark { display: block; }
   html:not([data-theme="light"]) .theme-toggle-icon-light { display: none; }
+}
+
+/* Color the theme toggle SVG icons to match header text */
+.theme-toggle-icon {
+  filter: invert(87%) sepia(9%) saturate(300%) hue-rotate(190deg) brightness(100%) contrast(90%);
 }
 
 /* Hamburger */
@@ -989,9 +994,11 @@ a:focus-visible {
 }
 
 .service-icon {
-  font-size: 1.75rem;
   display: block;
-  line-height: 1;
+  width: 28px;
+  height: 28px;
+  color: var(--color-accent-cyan);
+  filter: invert(78%) sepia(57%) saturate(500%) hue-rotate(157deg) brightness(102%) contrast(101%);
 }
 
 .service-title {
