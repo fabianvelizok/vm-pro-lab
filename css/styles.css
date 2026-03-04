@@ -932,6 +932,14 @@ a:focus-visible {
   padding: var(--spacing-xs) 0;
   font-size: 0.95rem;
   line-height: 1.6;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.highlight-icon {
+  flex-shrink: 0;
+  color: var(--color-accent);
 }
 
 .team-links {
