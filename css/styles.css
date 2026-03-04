@@ -1126,6 +1126,55 @@ a:focus-visible {
   opacity: 1;
 }
 
+.tech-icon-svg {
+  width: 40px;
+  height: 40px;
+}
+
+.tech-icon-emoji,
+.tech-icon-svg {
+  font-size: 2.5rem;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.tech-badge:hover .tech-icon-emoji,
+.tech-badge:focus-visible .tech-icon-emoji {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.tech-icon-svg {
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.tech-badge:hover .tech-icon-svg,
+.tech-badge:focus-visible .tech-icon-svg {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.tech-icon-svg--invert {
+  filter: grayscale(100%) invert(1);
+}
+
+.tech-badge:hover .tech-icon-svg--invert,
+.tech-badge:focus-visible .tech-icon-svg--invert {
+  filter: grayscale(0%) invert(1);
+}
+
+[data-theme="dark"] .tech-icon-svg--invert {
+  filter: grayscale(100%) invert(0);
+}
+
+[data-theme="dark"] .tech-badge:hover .tech-icon-svg--invert,
+[data-theme="dark"] .tech-badge:focus-visible .tech-icon-svg--invert {
+  filter: grayscale(0%) invert(0);
+}
+
 .tech-name {
   font-size: 0.8rem;
   color: var(--color-text);
