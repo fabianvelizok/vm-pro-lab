@@ -147,7 +147,9 @@
 [data-theme="dark"] .project-card:focus-within .project-image img { filter: grayscale(0%) brightness(0.95); }
 [data-theme="dark"] .project-tag { background: rgba(0, 212, 255, 0.08); border-color: rgba(0, 212, 255, 0.2); color: var(--color-accent-blue-light); }
 [data-theme="dark"] .contact-form { box-shadow: 0 0 40px rgba(0, 212, 255, 0.05); }
-[data-theme="dark"] .footer { background-color: #050710; }
+[data-theme="dark"] .footer { background-color: #050710; color: var(--color-text); }
+[data-theme="dark"] .footer-member-name { color: var(--color-text); }
+[data-theme="dark"] .footer-logo-link .logo-text { color: var(--color-text); }
 
 /* Light mode forced via toggle */
 [data-theme="light"] {
@@ -171,6 +173,7 @@
   --intersection-fill:    rgba(66, 133, 244, 0.08);
 }
 [data-theme="light"] .header { background-color: rgba(248, 250, 252, 0.9); }
+[data-theme="light"] .footer { background-color: var(--color-bg); }
 
 /* === RESET & BASE === */
 *,
