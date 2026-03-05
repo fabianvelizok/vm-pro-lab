@@ -1,30 +1,38 @@
 # Performance Audit — VM Pro Lab
 **Fecha**: 2026-03-05
-**Rama**: ui-redesign
+**Rama**: improve-performance-accessibility
 **Metodología**: Análisis estático de código + verificación de build de producción
 **Auditor**: web-performance-auditor (Claude Code)
 
 ---
 
-## Scores estimados (análisis estático)
+## Scores Lighthouse (producción — mobile)
 
-| Categoría | Score estimado | Notas |
+**Entorno**: `npx serve dist` en `localhost:3000` · Chrome DevTools Lighthouse · Mobile simulation · Modo incógnito
+
+| Categoría | Score | Notas |
 |---|---|---|
-| Performance | 97/100 | Estrategia de carga óptima. Penalización leve por animaciones CSS en hero (breathe-a/b) |
-| Accessibility | 98/100 | WCAG 2.1 AA prácticamente completo. Foco trap, ARIA, skip link presentes |
-| Best Practices | 96/100 | Un inline style eliminado. Todos los externos tienen noopener noreferrer |
-| SEO | 98/100 | Meta robots y canonical añadidos en esta sesión. OG tags completas |
-
-> **Nota metodológica**: Scores estimados mediante análisis estático exhaustivo del código fuente y build de producción. No se ejecutó Lighthouse interactivo al no haber servidor disponible en el entorno de auditoría. Los valores reflejan el estado del código con alta confianza, basados en los patrones de carga, el tamaño de assets y la estructura semántica. La ejecución de Lighthouse real se recomienda como paso de verificación final (ver sección "Recomendaciones").
+| Performance | **100**/100 | Todos los Core Web Vitals en verde |
+| Accessibility | **97**/100 | WCAG 2.1 AA prácticamente completo. Foco trap, ARIA, skip link presentes |
+| Best Practices | **100**/100 | Sin issues detectados |
+| SEO | **100**/100 | Meta robots, canonical, OG tags completas |
 
 ---
 
-## Core Web Vitals (estimados)
+## Core Web Vitals (Lighthouse mobile)
 
-- **FCP (First Contentful Paint)**: ~0.6–0.9s — CSS crítico inline elimina render-blocking. Fuentes Inter con `font-display: swap` y preload. Body background color disponible desde el primer frame gracias al CSS inline.
-- **LCP (Largest Contentful Paint)**: ~0.8–1.2s — Ninguna imagen above-the-fold. El LCP candidate es el texto `h1#hero-heading` con Inter 700 preloaded como woff2. No hay imágenes LCP sin lazy-load.
-- **CLS (Cumulative Layout Shift)**: ~0.0 — Todas las imágenes tienen `width` y `height` declarados. Fuentes con `font-display: swap` pueden causar FOUT pero no layout shift porque el fallback system stack tiene proporciones similares. `body::before` tiene `pointer-events: none`. Sin anuncios ni iframes externos.
-- **TBT (Total Blocking Time)**: ~0ms — `main.js` cargado con `defer`. Script de tema en `<head>` es synchronous pero tiene 1 línea (~100 bytes), bloqueo despreciable (~0.1ms). Sin third-party scripts síncronos en `<head>`.
+| Métrica | Valor | Estado |
+|---|---|---|
+| **FCP (First Contentful Paint)** | 1.1s | Verde |
+| **LCP (Largest Contentful Paint)** | 1.5s | Verde |
+| **TBT (Total Blocking Time)** | 0ms | Verde |
+| **CLS (Cumulative Layout Shift)** | 0 | Verde |
+| **Speed Index** | 1.1s | Verde |
+
+- **FCP 1.1s**: CSS crítico inline elimina render-blocking. Fuentes Inter con `font-display: swap` y preload.
+- **LCP 1.5s**: Ninguna imagen above-the-fold. El LCP candidate es el texto `h1#hero-heading` con Inter 700 preloaded como woff2.
+- **CLS 0**: Todas las imágenes tienen `width` y `height` declarados. El critical CSS inline incluye los estilos de layout del diagrama Venn (`.diagram-container`, `.circle-a`, `.circle-b`) y stats del hero, evitando layout shift cuando la hoja de estilos async carga.
+- **TBT 0ms**: `main.js` cargado con `defer`. Script de tema en `<head>` es synchronous pero tiene 1 línea (~100 bytes), bloqueo despreciable.
 
 ---
 
@@ -206,4 +214,4 @@ El sitio VM Pro Lab tiene una arquitectura de performance sólida y bien pensada
 
 El hallazgo más importante de esta auditoría fue un **bug crítico de build**: los iconos SVG no se copiaban a `dist/`, lo que habría roto 16 recursos visuales en producción (tema toggle, service icons, AI badges) con errores 404 silenciosos. Este issue fue corregido.
 
-Los demás issues son de severidad baja y no afectan Core Web Vitals. El sitio está en condiciones de alcanzar scores de Lighthouse 95+/100 en desktop y 90+/100 en mobile tras la verificación con Lighthouse real.
+Los demás issues son de severidad baja y no afectan Core Web Vitals. Los scores de Lighthouse en producción (mobile) confirman el resultado: **100/100 Performance, 97/100 Accessibility, 100/100 Best Practices, 100/100 SEO**. CLS reducido a 0 tras inlinear los estilos de layout del hero en el critical CSS.
