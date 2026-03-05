@@ -945,7 +945,7 @@ a:focus-visible {
 
 .highlight-icon {
   flex-shrink: 0;
-  color: var(--color-accent);
+  color: var(--color-accent-blue-light);
 }
 
 .team-links {
@@ -1029,6 +1029,10 @@ a:focus-visible {
   color: var(--color-text-light);
   line-height: 1.7;
   margin-bottom: 0;
+}
+
+.service-cta-btn {
+  margin-top: auto;
 }
 
 /* Footer logo link */

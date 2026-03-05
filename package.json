@@ -10,7 +10,8 @@
     "minify": "npm run minify:css && npm run minify:js",
     "copy:fonts": "mkdir -p dist/fonts && cp -r fonts/* dist/fonts/",
     "copy:images": "mkdir -p dist/images && cp -r images/* dist/images/",
-    "copy:assets": "npm run copy:fonts && npm run copy:images",
+    "copy:icons": "mkdir -p dist/icons && cp -r icons/* dist/icons/",
+    "copy:assets": "npm run copy:fonts && npm run copy:images && npm run copy:icons",
     "build": "npm run clean && npm run minify && npm run minify:html && npm run copy:assets"
   },
   "keywords": [
