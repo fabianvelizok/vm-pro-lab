@@ -1641,18 +1641,9 @@ select.form-input:focus {
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 768px) {
-  :root {
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
-    --spacing-3xl: 4rem;
-  }
 
-  .container {
-    padding: var(--spacing-2xl) var(--spacing-sm);
-  }
-
-  /* Hero mobile */
+/* Hero switches to single-column at tablet widths */
+@media (max-width: 900px) {
   .hero-inner {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -1709,6 +1700,18 @@ select.form-input:focus {
     border-left: none;
     padding-top: 1rem;
     border-top: 1px solid var(--color-border-subtle);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+  }
+
+  .container {
+    padding: var(--spacing-2xl) var(--spacing-sm);
   }
 
   /* Show hamburger */
