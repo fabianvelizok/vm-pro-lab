@@ -1246,6 +1246,14 @@ a:focus-visible {
   display: flex;
 }
 
+.project-card-link:hover {
+  text-decoration: none;
+}
+
+.project-card-link:hover .project-title {
+  text-decoration: underline;
+}
+
 .project-card {
   overflow: hidden;
   display: flex;
