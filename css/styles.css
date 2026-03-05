@@ -1659,7 +1659,7 @@ select.form-input:focus {
   }
 
   .hero-diagram {
-    padding: 6rem 2rem 2rem;
+    padding: 2rem 2rem 1rem;
     justify-content: center;
   }
 
@@ -1806,6 +1806,11 @@ select.form-input:focus {
     gap: var(--spacing-lg);
   }
 
+  /* Ensure the anchor wrapper fills the full grid cell width on mobile */
+  .project-card-link {
+    display: block;
+  }
+
   .project-image {
     height: 200px;
   }
@@ -1817,6 +1822,17 @@ select.form-input:focus {
   /* Contact mobile */
   .contact-form {
     padding: var(--spacing-xl);
+  }
+
+  /* Reduce textarea height on mobile — rows="10" is too tall on small screens */
+  .form-textarea {
+    min-height: 120px;
+    max-height: 200px;
+  }
+
+  /* Reduce theme-toggle right margin on mobile */
+  .theme-toggle {
+    margin-right: var(--spacing-sm);
   }
 
   /* Footer mobile */
