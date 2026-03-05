@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2563EB" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+    <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#2563EB" opacity="0.4"/>
+    </pattern>
+    <radialGradient id="glow-a" cx="35%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2563EB" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#2563EB" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-b" cx="65%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#60A5FA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="600" height="400" fill="#080C1A"/>
+
+  <!-- Grid pattern -->
+  <rect width="600" height="400" fill="url(#grid)"/>
+
+  <!-- Dot pattern -->
+  <rect width="600" height="400" fill="url(#dots)"/>
+
+  <!-- Glow blobs -->
+  <ellipse cx="210" cy="200" rx="220" ry="180" fill="url(#glow-a)"/>
+  <ellipse cx="390" cy="200" rx="180" ry="160" fill="url(#glow-b)"/>
+
+  <!-- Venn circles -->
+  <circle cx="240" cy="200" r="110" fill="none" stroke="#2563EB" stroke-width="1" opacity="0.5"/>
+  <circle cx="360" cy="200" r="110" fill="none" stroke="#60A5FA" stroke-width="1" opacity="0.4"/>
+
+  <!-- Intersection fill -->
+  <path d="M300,107 A110,110 0 0,1 300,293 A110,110 0 0,1 300,107Z" fill="#2563EB" opacity="0.08"/>
+
+  <!-- Diagonal accent lines -->
+  <line x1="0" y1="0" x2="600" y2="400" stroke="#2563EB" stroke-width="0.5" opacity="0.15"/>
+  <line x1="600" y1="0" x2="0" y2="400" stroke="#60A5FA" stroke-width="0.5" opacity="0.1"/>
+
+  <!-- Corner marks -->
+  <polyline points="20,20 20,50 50,50" fill="none" stroke="#2563EB" stroke-width="1" opacity="0.4"/>
+  <polyline points="580,20 580,50 550,50" fill="none" stroke="#2563EB" stroke-width="1" opacity="0.4"/>
+  <polyline points="20,380 20,350 50,350" fill="none" stroke="#2563EB" stroke-width="1" opacity="0.4"/>
+  <polyline points="580,380 580,350 550,350" fill="none" stroke="#2563EB" stroke-width="1" opacity="0.4"/>
+
+  <!-- Center axis -->
+  <line x1="50" y1="200" x2="550" y2="200" stroke="#2563EB" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Label -->
+  <text x="300" y="370" text-anchor="middle" font-family="monospace" font-size="10" fill="#2563EB" opacity="0.5" letter-spacing="3">DIGITAL MOUTH</text>
+</svg>

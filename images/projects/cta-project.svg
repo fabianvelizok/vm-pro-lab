@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00D4FF" stroke-width="0.5" opacity="0.2"/>
+    </pattern>
+    <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="#00D4FF" opacity="0.3"/>
+    </pattern>
+    <radialGradient id="glow-a" cx="35%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-b" cx="65%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8AB4F8" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#8AB4F8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="600" height="400" fill="#06081A"/>
+  <rect width="600" height="400" fill="url(#grid)"/>
+  <rect width="600" height="400" fill="url(#dots)"/>
+
+  <ellipse cx="210" cy="200" rx="220" ry="180" fill="url(#glow-a)"/>
+  <ellipse cx="390" cy="200" rx="180" ry="160" fill="url(#glow-b)"/>
+
+  <circle cx="240" cy="200" r="110" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.4"/>
+  <circle cx="360" cy="200" r="110" fill="none" stroke="#8AB4F8" stroke-width="1" opacity="0.35"/>
+
+  <path d="M300,107 A110,110 0 0,1 300,293 A110,110 0 0,1 300,107Z" fill="#00D4FF" opacity="0.06"/>
+
+  <line x1="0" y1="0" x2="600" y2="400" stroke="#00D4FF" stroke-width="0.5" opacity="0.1"/>
+  <line x1="600" y1="0" x2="0" y2="400" stroke="#8AB4F8" stroke-width="0.5" opacity="0.08"/>
+
+  <polyline points="20,20 20,50 50,50" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.35"/>
+  <polyline points="580,20 580,50 550,50" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.35"/>
+  <polyline points="20,380 20,350 50,350" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.35"/>
+  <polyline points="580,380 580,350 550,350" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.35"/>
+
+  <line x1="50" y1="200" x2="550" y2="200" stroke="#00D4FF" stroke-width="0.5" opacity="0.15"/>
+
+  <!-- Question mark — CTA card -->
+  <text x="300" y="215" text-anchor="middle" font-family="monospace" font-size="48" fill="#00D4FF" opacity="0.08">?</text>
+
+  <text x="300" y="370" text-anchor="middle" font-family="monospace" font-size="10" fill="#00D4FF" opacity="0.4" letter-spacing="3">TU PROYECTO</text>
+</svg>

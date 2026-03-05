@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VM Pro Lab — Direction 3: Plasma Field</title>
+  <style>
+    /* ============================================
+       Direction 3: Plasma Field — Geometric System
+       Prototype: Hero Section Only
+       ============================================ */
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #060814;
+      --bg-surface: #0B0D1F;
+      --text-primary: #E4E8F7;
+      --text-secondary: #A8B2E0;
+      --text-tertiary: #1E2244;
+      --accent-cyan: #00D4FF;
+      --accent-blue: #4285F4;
+      --accent-blue-light: #8AB4F8;
+      --glow-cyan: rgba(0, 212, 255, 0.35);
+      --glow-blue: rgba(66, 133, 244, 0.35);
+      --circle-fill: rgba(66, 133, 244, 0.06);
+      --circle-stroke: rgba(0, 212, 255, 0.3);
+      --intersection-fill: rgba(0, 212, 255, 0.12);
+      --border-subtle: rgba(228, 232, 247, 0.06);
+      --border-medium: rgba(228, 232, 247, 0.12);
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND RADIAL FIELD ───────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 35% 55%,
+          rgba(0, 212, 255, 0.08) 0%,
+          transparent 65%),
+        radial-gradient(ellipse 60% 50% at 65% 45%,
+          rgba(66, 133, 244, 0.06) 0%,
+          transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAVIGATION ────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2.5rem;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Small geometric mark next to logo */
+    .nav-mark {
+      width: 18px;
+      height: 18px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .nav-mark::before,
+    .nav-mark::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent-cyan);
+    }
+
+    .nav-mark::before {
+      top: 0;
+      left: 0;
+      border-color: var(--accent-cyan);
+    }
+
+    .nav-mark::after {
+      bottom: 0;
+      right: 0;
+      border-color: var(--accent-blue-light);
+    }
+
+    .nav-logo {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    /* ── HERO ──────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Inner layout: two zones */
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* ── LEFT ZONE: CSS VENN DIAGRAM ───────────── */
+    .hero-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 6rem 3rem;
+    }
+
+    .diagram-container {
+      position: relative;
+      /* The diagram is two overlapping circles */
+      /* Each circle: ~220px diameter, offset by ~110px */
+      width: 340px;
+      height: 220px;
+    }
+
+    /* Circle A (left — "V") */
+    .circle-a {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      top: 0;
+      left: 0;
+      border: 1px solid var(--circle-stroke);
+      background: var(--circle-fill);
+      /* Glow */
+      box-shadow:
+        0 0 40px var(--glow-blue),
+        inset 0 0 30px rgba(66, 133, 244, 0.03);
+      animation: breathe-a 6s ease-in-out infinite;
+    }
+
+    /* Circle B (right — "M") */
+    .circle-b {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      top: 0;
+      right: 0;
+      border: 1px solid rgba(0, 212, 255, 0.4);
+      background: rgba(0, 212, 255, 0.05);
+      box-shadow:
+        0 0 40px var(--glow-cyan),
+        inset 0 0 30px rgba(0, 212, 255, 0.03);
+      animation: breathe-b 6s ease-in-out infinite;
+      animation-delay: -3s;
+    }
+
+    @keyframes breathe-a {
+
+      0%,
+      100% {
+        box-shadow: 0 0 30px var(--glow-blue), inset 0 0 20px rgba(66, 133, 244, 0.03);
+      }
+
+      50% {
+        box-shadow: 0 0 60px rgba(66, 133, 244, 0.45), inset 0 0 40px rgba(66, 133, 244, 0.06);
+      }
+    }
+
+    @keyframes breathe-b {
+
+      0%,
+      100% {
+        box-shadow: 0 0 30px var(--glow-cyan), inset 0 0 20px rgba(0, 212, 255, 0.03);
+      }
+
+      50% {
+        box-shadow: 0 0 60px rgba(0, 212, 255, 0.5), inset 0 0 40px rgba(0, 212, 255, 0.06);
+      }
+    }
+
+    /* Intersection zone — this is rendered using clip-path */
+    /* We fake the intersection with a centered absolutely-positioned element */
+    .circle-intersection {
+      position: absolute;
+      width: 100px;
+      height: 220px;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      /* Clip to an ellipse that represents the lens overlap */
+      clip-path: ellipse(50px 95px at 50% 50%);
+      background: radial-gradient(ellipse at center,
+          rgba(0, 212, 255, 0.2) 0%,
+          rgba(66, 133, 244, 0.1) 60%,
+          transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Letters inside each circle */
+    .circle-letter {
+      position: absolute;
+      font-size: 4.5rem;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .circle-letter-a {
+      left: 1.5rem;
+      color: var(--accent-blue-light);
+      opacity: 0.6;
+    }
+
+    .circle-letter-b {
+      right: 1.5rem;
+      color: var(--accent-cyan);
+      opacity: 0.6;
+    }
+
+    /* Coordinate labels around the diagram */
+    .diagram-labels {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .coord-label {
+      position: absolute;
+      font-size: 0.55rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      opacity: 0.7;
+    }
+
+    .coord-tl {
+      top: -1.5rem;
+      left: 0;
+    }
+
+    .coord-br {
+      bottom: -1.5rem;
+      right: 0;
+    }
+
+    /* Horizontal rule through center — the "axis" */
+    .diagram-axis {
+      position: absolute;
+      top: 50%;
+      left: -1rem;
+      right: -1rem;
+      height: 1px;
+      background: linear-gradient(90deg,
+          transparent 0%,
+          var(--border-medium) 20%,
+          var(--border-medium) 80%,
+          transparent 100%);
+      transform: translateY(-50%);
+    }
+
+    /* ── RIGHT ZONE: CONTENT ───────────────────── */
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7rem 3rem 6rem 2rem;
+      position: relative;
+    }
+
+    /* Eyebrow label */
+    .eyebrow {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-blue-light);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background-color: var(--accent-blue-light);
+      flex-shrink: 0;
+    }
+
+    /* Main wordmark */
+    .hero-wordmark {
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    /* "Pro Lab" sits below, slightly smaller */
+    .hero-wordmark-sub {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      display: block;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Gradient text for the sub portion */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Tagline */
+    .hero-tagline {
+      font-size: clamp(0.95rem, 1.5vw, 1.125rem);
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 40ch;
+      margin-bottom: 3rem;
+    }
+
+    /* CTA row */
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+      position: relative;
+    }
+
+    /* Glow effect on hover */
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 6px;
+      box-shadow: 0 0 24px rgba(0, 212, 255, 0.5);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-secondary);
+      background: transparent;
+      border: 1px solid var(--border-medium);
+      border-radius: 6px;
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-outline:hover {
+      color: var(--text-primary);
+      border-color: var(--border-medium);
+      border-color: rgba(0, 212, 255, 0.5);
+    }
+
+    /* Stat row */
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    /* Vertical separator between stats */
+    .stat-item+.stat-item {
+      padding-left: 2.5rem;
+      border-left: 1px solid var(--border-subtle);
+    }
+
+    /* ── RESPONSIVE ────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+      }
+
+      .hero-diagram {
+        padding: 6rem 2rem 2rem;
+        justify-content: center;
+      }
+
+      .diagram-container {
+        width: 280px;
+        height: 180px;
+      }
+
+      .circle-a,
+      .circle-b {
+        width: 180px;
+        height: 180px;
+      }
+
+      .circle-letter {
+        font-size: 3.5rem;
+      }
+
+      .hero-content {
+        padding: 2rem 1.5rem 4rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-primary,
+      .btn-outline {
+        text-align: center;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .stat-item+.stat-item {
+        padding-left: 0;
+        border-left: none;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ── REDUCED MOTION ────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+
+      .circle-a,
+      .circle-b {
+        animation: none;
+      }
+
+      .btn-primary:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-brand">
+      <div class="nav-mark" aria-hidden="true"></div>
+      <a href="/" class="nav-logo" aria-label="VM Pro Lab — Inicio">VM Pro Lab</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">Nosotros</a></li>
+      <li><a href="#projects">Proyectos</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <main id="main-content" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-inner">
+
+        <!-- Left: CSS Venn Diagram -->
+        <div class="hero-diagram">
+          <div class="diagram-container" role="img"
+            aria-label="Diagrama conceptual que representa la colaboración entre Fabián (V) y Yuliana (M)">
+            <!-- Axis line -->
+            <div class="diagram-axis" aria-hidden="true"></div>
+
+            <!-- Circle A -->
+            <div class="circle-a" aria-hidden="true">
+              <span class="circle-letter circle-letter-a">V</span>
+            </div>
+
+            <!-- Intersection highlight -->
+            <div class="circle-intersection" aria-hidden="true"></div>
+
+            <!-- Circle B -->
+            <div class="circle-b" aria-hidden="true">
+              <span class="circle-letter circle-letter-b">M</span>
+            </div>
+
+            <!-- Coordinate labels -->
+            <div class="diagram-labels" aria-hidden="true">
+              <span class="coord-label coord-tl">Senior / Full Stack</span>
+              <span class="coord-label coord-br">Tucumán · ARG</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Content -->
+        <div class="hero-content">
+          <div class="eyebrow" aria-hidden="true">
+            Estudio de desarrollo web
+          </div>
+
+          <h1 id="hero-heading">
+            <span class="hero-wordmark">VM</span>
+            <span class="hero-wordmark-sub">
+              <span class="gradient-text">Pro Lab</span>
+            </span>
+          </h1>
+
+          <p class="hero-tagline">
+            Dos desarrolladores. Un sistema de trabajo.
+            Construimos productos digitales que escalan con la ambición de tus ideas.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">Ver proyectos</a>
+            <a href="#contact" class="btn-outline">Hablemos</a>
+          </div>
+
+          <div class="hero-stats" role="list" aria-label="Estadísticas clave">
+            <div class="stat-item" role="listitem">
+              <span class="stat-value">12+</span>
+              <span class="stat-label">Años de exp.</span>
+            </div>
+            <div class="stat-item" role="listitem">
+              <span class="stat-value">100</span>
+              <span class="stat-label">Lighthouse score</span>
+            </div>
+            <div class="stat-item" role="listitem">
+              <span class="stat-value">2</span>
+              <span class="stat-label">Devs. 1 equipo</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+</body>
+
+</html>

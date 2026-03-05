@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Cyan circle first (behind) -->
+  <circle cx="21" cy="16" r="10" fill="rgba(0,212,255,0.08)" stroke="#00D4FF" stroke-width="1.5"/>
+  <!-- Blue-light circle on top (like nav-mark ::before over ::after) -->
+  <circle cx="11" cy="16" r="10" fill="rgba(138,180,248,0.08)" stroke="#8AB4F8" stroke-width="1.5"/>
+</svg>
