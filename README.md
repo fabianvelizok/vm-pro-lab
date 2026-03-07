@@ -115,13 +115,14 @@ vercel --prod dist/
 
 | Script | Description |
 |--------|-------------|
-| `npm run build` | Full production build (clean + minify + copy assets) |
+| `npm run build` | Full production build (clean + sync critical CSS + minify + copy assets) |
 | `npm run clean` | Remove the `dist/` folder |
+| `npm run sync:critical` | Re-generate inline critical CSS in `index.html` from `css/styles.css` |
 | `npm run minify` | Minify CSS and JS only |
 | `npm run minify:css` | Minify CSS to `dist/css/styles.min.css` |
 | `npm run minify:js` | Minify JS to `dist/js/main.min.js` |
 | `npm run minify:html` | Minify HTML to `dist/index.html` |
-| `npm run copy:assets` | Copy fonts and images to `dist/` |
+| `npm run copy:assets` | Copy fonts, images, and icons to `dist/` |
 
 ## Audit Results
 
@@ -198,12 +199,15 @@ Agents are configured in `.claude/agents/` and are invoked by Claude Code's orch
 
 ## Color Palette
 
-- **Primary**: #0F172A (Very dark blue)
-- **Accent**: #2563EB (Blue - WCAG AA compliant, 4.62:1)
-- **Background**: #FFFFFF
-- **Text**: #0F172A
-- **Text Light**: #64748B
-- **Success**: #047857 (Green - WCAG AA compliant, 4.52:1)
+| Token | Light | Dark | Notes |
+|---|---|---|---|
+| Text | `#0F172A` | `#E4E8F7` | Main body text |
+| Text Light | `#44556A` | `#A8B2E0` | Secondary / muted text |
+| Accent hover | `#1D4ED8` | `#4285F4` | Eyebrow, interactive accent (6.41:1 on light bg) |
+| Accent cyan | `#00D4FF` | `#00D4FF` | CTAs, focus rings |
+| Accent cyan text | `#0E7490` | `#00D4FF` | Accessible cyan for text (AA compliant) |
+| Background | `#F8FAFC` | `#060814` | Page background |
+| Success | `#047857` | `#34D399` | WCAG AA compliant |
 
 ## Typography
 
@@ -219,4 +223,4 @@ Agents are configured in `.claude/agents/` and are invoked by Claude Code's orch
 
 ---
 
-Last updated: 2026-02-11
+Last updated: 2026-03-06

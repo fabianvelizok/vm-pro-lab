@@ -21,6 +21,7 @@
 
   /* === ACCENTS (same in both modes) === */
   --color-accent-cyan:        #00D4FF;
+  --color-accent-cyan-text:   #0E7490; /* AA-accessible cyan for text on light bg (5.36:1 on #FFF) */
   --color-accent-blue:        #4285F4;
   --color-accent-blue-light:  #8AB4F8;
   --color-accent-hover:       #1D4ED8;
@@ -84,6 +85,7 @@
 
     /* === ACCENTS (unchanged) === */
     --color-accent-cyan:        #00D4FF;
+    --color-accent-cyan-text:   #00D4FF; /* Bright cyan passes on dark bg (10.55:1 on #0E1029) */
     --color-accent-blue:        #4285F4;
     --color-accent-blue-light:  #8AB4F8;
     --color-accent-hover:       #4285F4;
@@ -119,6 +121,7 @@
   --color-text-light:         #A8B2E0;
   --color-text-inverse:       #060814;
   --color-accent-cyan:        #00D4FF;
+  --color-accent-cyan-text:   #00D4FF;
   --color-accent-blue:        #4285F4;
   --color-accent-blue-light:  #8AB4F8;
   --color-accent-hover:       #4285F4;
@@ -159,6 +162,7 @@
   --color-text:               #0F172A;
   --color-text-light:         #44556A;
   --color-text-inverse:       #FFFFFF;
+  --color-accent-cyan-text:   #0E7490;
   --color-border:             #9BA9BA;
   --color-border-subtle:      rgba(15, 23, 42, 0.06);
   --color-border-medium:      rgba(15, 23, 42, 0.12);
@@ -979,7 +983,18 @@ a:focus-visible {
 
 .highlight-icon {
   flex-shrink: 0;
+  /* Uses --color-accent-hover (#1D4ED8) for 6.41:1 contrast on #FFFFFF */
+  color: var(--color-accent-hover);
+}
+
+[data-theme="dark"] .highlight-icon {
   color: var(--color-accent-blue-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .highlight-icon {
+    color: var(--color-accent-blue-light);
+  }
 }
 
 .team-links {
@@ -991,7 +1006,8 @@ a:focus-visible {
 }
 
 .team-link {
-  color: var(--color-accent-cyan);
+  /* Uses --color-accent-cyan-text for AA contrast (5.36:1 light / 10.55:1 dark) */
+  color: var(--color-accent-cyan-text);
   font-weight: var(--font-weight-semibold);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: 4px;
