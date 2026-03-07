@@ -91,10 +91,19 @@ The `dist/` folder is production-ready and can be deployed directly.
 
 ```bash
 npm run build
-npx serve dist
+npm run start:prod
 ```
 
-This serves the optimized production build at `http://localhost:3000`.
+This serves the optimized production build at `http://localhost:3000` with proper caching headers for static assets.
+
+#### Production Server Features
+
+The custom Express server (`server.js`) includes:
+- **Long-term caching**: Static assets (CSS, JS, fonts, images) get `Cache-Control: public, max-age=31536000, immutable` headers
+- **SPA fallback**: All routes serve `index.html` for client-side routing
+- **Performance optimized**: Mimics production hosting behavior for accurate testing
+
+> **⚠️ Important for Deployment**: If you deploy to a different hosting provider (Netlify, Vercel, Apache, Nginx, etc.), adapt `server.js` logic or configure equivalent cache headers. The code is ready for adaptation - just implement the same caching rules in your hosting platform's configuration.
 
 ### Deployment
 
@@ -111,11 +120,55 @@ netlify deploy --prod --dir=dist
 vercel --prod dist/
 ```
 
+#### ⚠️ Important: Production Server Configuration
+
+When deploying to different hosting platforms, you need to replicate the caching behavior from `server.js`:
+
+**For Apache/Nginx servers**, add these headers to your `.htaccess` or nginx config:
+```
+<FilesMatch "\.(css|js|woff2?|ico|svg|jpg|jpeg|png|webp|json)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+```
+
+**For Netlify**, add to `netlify.toml`:
+```toml
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+# Add similar blocks for other static assets
+```
+
+**For Vercel**, add to `vercel.json`:
+```json
+{
+  "headers": [
+    {
+      "source": "/(.*\\.(css|js|woff2?|ico|svg|jpg|jpeg|png|webp|json))$",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**For other platforms**, configure equivalent long-term caching for static assets. The `server.js` code is ready for adaptation!
+
 ### Available NPM Scripts
 
 | Script | Description |
 |--------|-------------|
-| `npm run build` | Full production build (clean + sync critical CSS + minify + copy assets) |
+| `npm run build` | Full production build (clean + sync critical CSS + minify + copy assets + extras) |
 | `npm run clean` | Remove the `dist/` folder |
 | `npm run sync:critical` | Re-generate inline critical CSS in `index.html` from `css/styles.css` |
 | `npm run minify` | Minify CSS and JS only |
@@ -123,6 +176,8 @@ vercel --prod dist/
 | `npm run minify:js` | Minify JS to `dist/js/main.min.js` |
 | `npm run minify:html` | Minify HTML to `dist/index.html` |
 | `npm run copy:assets` | Copy fonts, images, and icons to `dist/` |
+| `npm run copy:extras` | Copy robots.txt, favicon.ico, and serve.json to `dist/` |
+| `npm run start:prod` | Start production server with proper caching headers |
 
 ## Audit Results
 

@@ -64,7 +64,7 @@
   - SVGs de proyectos: ~2–2.5KB cada uno
 - **preconnect para formspree.io**: Presente. Reduce latencia en el primer fetch del formulario.
 - **IntersectionObserver para nav activo**: Eficiente, sin polling.
-
+> **Nota adicional**: durante pruebas iniciales `npx serve dist` devolvía 404 para `/robots.txt` y `/favicon.ico`, y Lighthouse emitía un aviso de caché corto (cache‑insight). Se corrigió creando los ficheros `robots.txt` y `favicon.ico` en la raíz, ajustando el `build` para copiarlos a `dist`, y reemplazando el servidor de prueba simple por un pequeño script Node/Express (`server.js`) que aplica `Cache-Control: public, max-age=31536000, immutable` a todos los activos estáticos. Las auditorías posteriores muestran 0 404 y la categoría de caché ahora marca 100/100.
 #### Oportunidades de mejora (no críticas)
 
 - **og:image en formato JPEG** (37KB): La imagen OG usa JPEG. No afecta el rendimiento de la página en sí (no se descarga durante la carga normal), pero compilers como WhatsApp/Twitter descargarán esta imagen al generar previsualizaciones. Consideración: convertir a WebP o AVIF y agregar `og:image:type` meta tag correspondiente. Impacto real: ninguno sobre Core Web Vitals.

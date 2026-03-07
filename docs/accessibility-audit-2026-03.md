@@ -257,11 +257,19 @@ Implementación previa:
 <a href="https://gabitour.com.ar" target="_blank" rel="noopener noreferrer" class="project-card-link">
 ```
 
-Corrección aplicada:
+Primera corrección (antes de este reporte) intentó resolverlo usando `aria-label`, pero produjo un conflicto entre nombre visible y accesible.
+
+Corrección final:
 ```html
-<a href="https://gabitour.com.ar" target="_blank" rel="noopener noreferrer" class="project-card-link"
-   aria-label="Gabitour - Turismo Iguazú (abre en nueva pestaña)">
+<a href="https://gabitour.com.ar" target="_blank" rel="noopener noreferrer" class="project-card-link">
+  <span class="visually-hidden">(abre en nueva pestaña)</span>
+  <!-- el resto del contenido del card permanece aquí -->
+</a>
 ```
+
+El enlace ahora no utiliza `aria-label`; en su lugar se añade un elemento oculta visualmente que añade la indicación de "abre en nueva pestaña" al nombre accesible. Esto preserva el texto visible raíz como el nombre accesible, eliminando la discrepancia detectada por Lighthouse.  
+
+*Estado:* resuelto, comprobado al reconstruir y auditar la página.
 
 ---
 
