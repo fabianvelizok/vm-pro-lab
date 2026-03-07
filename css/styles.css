@@ -630,8 +630,8 @@ a:focus-visible {
   font-weight: var(--font-weight-regular);
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  /* Uses --color-text-light directly (4.58:1 on #F8FAFC) instead of opacity trick */
   color: var(--color-text-light);
-  opacity: 0.7;
 }
 
 .coord-tl {
@@ -674,7 +674,8 @@ a:focus-visible {
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-accent-blue-light);
+  /* Uses --color-accent-hover (#1D4ED8) for 6.41:1 contrast on #F8FAFC */
+  color: var(--color-accent-hover);
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
@@ -686,8 +687,25 @@ a:focus-visible {
   display: block;
   width: 24px;
   height: 1px;
-  background-color: var(--color-accent-blue-light);
+  background-color: var(--color-accent-hover);
   flex-shrink: 0;
+}
+
+[data-theme="dark"] .eyebrow {
+  color: var(--color-accent-blue-light);
+}
+
+[data-theme="dark"] .eyebrow::before {
+  background-color: var(--color-accent-blue-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .eyebrow {
+    color: var(--color-accent-blue-light);
+  }
+  html:not([data-theme="light"]) .eyebrow::before {
+    background-color: var(--color-accent-blue-light);
+  }
 }
 
 /* Hero wordmark */
