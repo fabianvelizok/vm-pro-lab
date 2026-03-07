@@ -7,12 +7,13 @@
     "minify:css": "mkdir -p dist/css && cssnano css/styles.css dist/css/styles.min.css",
     "minify:js": "mkdir -p dist/js && terser js/main.js -o dist/js/main.min.js --compress --mangle",
     "minify:html": "html-minifier index.html -o dist/index.html --collapse-whitespace --remove-comments --minify-css --minify-js && sed -i.bak 's|href=\"css/styles\\.css\"|href=\"css/styles.min.css\"|g; s|src=\"js/main\\.js\"|src=\"js/main.min.js\"|g' dist/index.html && rm dist/index.html.bak",
+    "sync:critical": "node scripts/sync-critical-css.js",
     "minify": "npm run minify:css && npm run minify:js",
     "copy:fonts": "mkdir -p dist/fonts && cp -r fonts/* dist/fonts/",
     "copy:images": "mkdir -p dist/images && cp -r images/* dist/images/",
     "copy:icons": "mkdir -p dist/icons && cp -r icons/* dist/icons/",
     "copy:assets": "npm run copy:fonts && npm run copy:images && npm run copy:icons",
-    "build": "npm run clean && npm run minify && npm run minify:html && npm run copy:assets"
+    "build": "npm run clean && npm run sync:critical && npm run minify && npm run minify:html && npm run copy:assets"
   },
   "keywords": [
     "web-development",
