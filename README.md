@@ -89,21 +89,15 @@ The `dist/` folder is production-ready and can be deployed directly.
 
 ### Serving the Production Build
 
+The production build in the `dist/` folder is truly static HTML, CSS, and JS. You can serve it with any standard web server.
+
 ```bash
-npm run build
-npm run start:prod
+# With Python 3
+python3 -m http.server -d dist 8000
+
+# Or with Node.js
+npx serve dist
 ```
-
-This serves the optimized production build at `http://localhost:3000` with proper caching headers for static assets.
-
-#### Production Server Features
-
-The custom Express server (`server.js`) includes:
-- **Long-term caching**: Static assets (CSS, JS, fonts, images) get `Cache-Control: public, max-age=31536000, immutable` headers
-- **SPA fallback**: All routes serve `index.html` for client-side routing
-- **Performance optimized**: Mimics production hosting behavior for accurate testing
-
-> **⚠️ Important for Deployment**: If you deploy to a different hosting provider (Netlify, Vercel, Apache, Nginx, etc.), adapt `server.js` logic or configure equivalent cache headers. The code is ready for adaptation - just implement the same caching rules in your hosting platform's configuration.
 
 ### Deployment
 
@@ -125,10 +119,16 @@ vercel --prod dist/
 When deploying to different hosting platforms, you need to replicate the caching behavior from `server.js`:
 
 **For Apache/Nginx servers**, add these headers to your `.htaccess` or nginx config:
-```
+```apache
 <FilesMatch "\.(css|js|woff2?|ico|svg|jpg|jpeg|png|webp|json)$">
   Header set Cache-Control "public, max-age=31536000, immutable"
 </FilesMatch>
+```
+
+**For Cloudflare Pages**, the `_headers` file is already generated in the `dist/` folder during the build process to handle this automatically:
+```
+/*
+  Cache-Control: public, max-age=31536000, immutable
 ```
 
 **For Netlify**, add to `netlify.toml`:
@@ -162,7 +162,7 @@ When deploying to different hosting platforms, you need to replicate the caching
 }
 ```
 
-**For other platforms**, configure equivalent long-term caching for static assets. The `server.js` code is ready for adaptation!
+**For other platforms**, configure equivalent long-term caching for static assets. The project relies on static configurations rather than an active Node.js server.
 
 ### Available NPM Scripts
 
@@ -176,8 +176,7 @@ When deploying to different hosting platforms, you need to replicate the caching
 | `npm run minify:js` | Minify JS to `dist/js/main.min.js` |
 | `npm run minify:html` | Minify HTML to `dist/index.html` |
 | `npm run copy:assets` | Copy fonts, images, and icons to `dist/` |
-| `npm run copy:extras` | Copy robots.txt, favicon.ico, and serve.json to `dist/` |
-| `npm run start:prod` | Start production server with proper caching headers |
+| `npm run copy:extras` | Copy robots.txt, favicon.ico, and _headers to `dist/` |
 
 ## Audit Results
 
