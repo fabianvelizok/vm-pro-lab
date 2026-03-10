@@ -16,23 +16,24 @@
 
   /* === TEXT (Light Mode) === */
   --color-text:               #0F172A;
-  --color-text-light:         #475569;
+  --color-text-light:         #44556A;
   --color-text-inverse:       #FFFFFF;
 
   /* === ACCENTS (same in both modes) === */
   --color-accent-cyan:        #00D4FF;
+  --color-accent-cyan-text:   #0E7490; /* AA-accessible cyan for text on light bg (5.36:1 on #FFF) */
   --color-accent-blue:        #4285F4;
   --color-accent-blue-light:  #8AB4F8;
   --color-accent-hover:       #1D4ED8;
 
   /* === BORDERS (Light Mode) === */
-  --color-border:             #CBD5E1;
+  --color-border:             #9BA9BA;
   --color-border-subtle:      rgba(15, 23, 42, 0.06);
   --color-border-medium:      rgba(15, 23, 42, 0.12);
 
   /* === STATES === */
   --color-success:            #047857;
-  --color-error:              #EF4444;
+  --color-error:              #B91C1C;
 
   /* === TYPOGRAPHY === */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -84,6 +85,7 @@
 
     /* === ACCENTS (unchanged) === */
     --color-accent-cyan:        #00D4FF;
+    --color-accent-cyan-text:   #00D4FF; /* Bright cyan passes on dark bg (10.55:1 on #0E1029) */
     --color-accent-blue:        #4285F4;
     --color-accent-blue-light:  #8AB4F8;
     --color-accent-hover:       #4285F4;
@@ -119,6 +121,7 @@
   --color-text-light:         #A8B2E0;
   --color-text-inverse:       #060814;
   --color-accent-cyan:        #00D4FF;
+  --color-accent-cyan-text:   #00D4FF;
   --color-accent-blue:        #4285F4;
   --color-accent-blue-light:  #8AB4F8;
   --color-accent-hover:       #4285F4;
@@ -157,9 +160,10 @@
   --color-bg-alt:             #F1F5F9;
   --color-bg-surface:         #FFFFFF;
   --color-text:               #0F172A;
-  --color-text-light:         #475569;
+  --color-text-light:         #44556A;
   --color-text-inverse:       #FFFFFF;
-  --color-border:             #CBD5E1;
+  --color-accent-cyan-text:   #0E7490;
+  --color-border:             #9BA9BA;
   --color-border-subtle:      rgba(15, 23, 42, 0.06);
   --color-border-medium:      rgba(15, 23, 42, 0.12);
   --glow-cyan:            rgba(0, 212, 255, 0.12);
@@ -167,7 +171,7 @@
   --glow-cyan-soft:       rgba(0, 212, 255, 0.03);
   --glow-blue-soft:       rgba(66, 133, 244, 0.02);
   --color-success:        #047857;
-  --color-error:          #EF4444;
+  --color-error:          #B91C1C;
   --circle-fill:          rgba(66, 133, 244, 0.04);
   --circle-stroke:        rgba(66, 133, 244, 0.3);
   --intersection-fill:    rgba(66, 133, 244, 0.08);
@@ -417,6 +421,11 @@ a:focus-visible {
   text-decoration: none;
 }
 
+.nav-link[aria-current="page"] {
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+}
+
 .nav-link:focus-visible {
   outline: 2px solid var(--color-accent-cyan);
   outline-offset: 4px;
@@ -625,8 +634,8 @@ a:focus-visible {
   font-weight: var(--font-weight-regular);
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  /* Uses --color-text-light directly (4.58:1 on #F8FAFC) instead of opacity trick */
   color: var(--color-text-light);
-  opacity: 0.7;
 }
 
 .coord-tl {
@@ -669,7 +678,8 @@ a:focus-visible {
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-accent-blue-light);
+  /* Uses --color-accent-hover (#1D4ED8) for 6.41:1 contrast on #F8FAFC */
+  color: var(--color-accent-hover);
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
@@ -681,8 +691,25 @@ a:focus-visible {
   display: block;
   width: 24px;
   height: 1px;
-  background-color: var(--color-accent-blue-light);
+  background-color: var(--color-accent-hover);
   flex-shrink: 0;
+}
+
+[data-theme="dark"] .eyebrow {
+  color: var(--color-accent-blue-light);
+}
+
+[data-theme="dark"] .eyebrow::before {
+  background-color: var(--color-accent-blue-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .eyebrow {
+    color: var(--color-accent-blue-light);
+  }
+  html:not([data-theme="light"]) .eyebrow::before {
+    background-color: var(--color-accent-blue-light);
+  }
 }
 
 /* Hero wordmark */
@@ -820,15 +847,13 @@ a:focus-visible {
 }
 
 /* Outline button */
-.btn-outline,
-.btn-secondary {
+.btn-outline {
   background: transparent;
   color: var(--color-text-light);
   border-color: var(--color-border-medium);
 }
 
-.btn-outline:hover,
-.btn-secondary:hover {
+.btn-outline:hover {
   color: var(--color-text);
   border-color: rgba(0, 212, 255, 0.5);
   text-decoration: none;
@@ -914,10 +939,21 @@ a:focus-visible {
 }
 
 .team-role {
-  color: var(--color-accent-blue-light);
+  /* Uses --color-accent-hover (#1D4ED8) in light mode for 8.7:1 contrast on #FFFFFF */
+  color: var(--color-accent-hover);
   font-weight: var(--font-weight-semibold);
   font-size: 1rem;
   margin-bottom: var(--spacing-md);
+}
+
+[data-theme="dark"] .team-role {
+  color: var(--color-accent-blue-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .team-role {
+    color: var(--color-accent-blue-light);
+  }
 }
 
 .team-bio {
@@ -945,7 +981,18 @@ a:focus-visible {
 
 .highlight-icon {
   flex-shrink: 0;
-  color: var(--color-accent);
+  /* Uses --color-accent-hover (#1D4ED8) for 6.41:1 contrast on #FFFFFF */
+  color: var(--color-accent-hover);
+}
+
+[data-theme="dark"] .highlight-icon {
+  color: var(--color-accent-blue-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .highlight-icon {
+    color: var(--color-accent-blue-light);
+  }
 }
 
 .team-links {
@@ -957,7 +1004,8 @@ a:focus-visible {
 }
 
 .team-link {
-  color: var(--color-accent-cyan);
+  /* Uses --color-accent-cyan-text for AA contrast (5.36:1 light / 10.55:1 dark) */
+  color: var(--color-accent-cyan-text);
   font-weight: var(--font-weight-semibold);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: 4px;
@@ -1031,31 +1079,8 @@ a:focus-visible {
   margin-bottom: 0;
 }
 
-/* Footer logo link */
-.footer-logo-link {
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  transition: opacity 0.2s ease, outline 0.2s ease, outline-offset 0.2s ease;
-}
-
-.footer-logo-link:hover {
-  opacity: 0.8;
-  text-decoration: none;
-}
-
-.footer-logo-link:focus-visible {
-  outline: 2px solid var(--color-accent-cyan);
-  outline-offset: 4px;
-  border-radius: 4px;
-}
-
-.footer-logo-link .logo-text {
-  font-size: 1.75rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: -0.02em;
-  color: var(--color-text);
+.service-cta-btn {
+  margin-top: auto;
 }
 
 /* === TECHNOLOGIES SECTION === */
@@ -1130,39 +1155,9 @@ a:focus-visible {
   box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
 }
 
-.tech-icon-emoji {
-  font-size: 2.5rem;
-  filter: grayscale(100%);
-  opacity: 0.7;
-  transition: filter 0.3s ease, opacity 0.3s ease;
-}
-
-.tech-badge:hover .tech-icon-emoji,
-.tech-badge:focus-visible .tech-icon-emoji {
-  filter: grayscale(0%);
-  opacity: 1;
-}
-
 .tech-icon-svg {
   width: 40px;
   height: 40px;
-}
-
-.tech-icon-emoji,
-.tech-icon-svg {
-  font-size: 2.5rem;
-  filter: grayscale(100%);
-  opacity: 0.7;
-  transition: filter 0.3s ease, opacity 0.3s ease;
-}
-
-.tech-badge:hover .tech-icon-emoji,
-.tech-badge:focus-visible .tech-icon-emoji {
-  filter: grayscale(0%);
-  opacity: 1;
-}
-
-.tech-icon-svg {
   filter: grayscale(100%);
   opacity: 0.7;
   transition: filter 0.3s ease, opacity 0.3s ease;
@@ -1312,11 +1307,6 @@ a:focus-visible {
   z-index: 2;
 }
 
-.project-status-dev {
-  background-color: var(--color-accent-cyan);
-  color: #060814;
-}
-
 .project-content {
   position: relative;
   padding: var(--spacing-xl);
@@ -1432,9 +1422,10 @@ a:focus-visible {
 }
 
 .form-input:focus {
-  outline: none;
+  outline: 2px solid var(--color-accent-cyan);
+  outline-offset: 0px;
   border-color: var(--color-accent-cyan);
-  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
 }
 
 .form-input[aria-invalid="true"] {
@@ -1442,15 +1433,10 @@ a:focus-visible {
 }
 
 .form-input[aria-invalid="true"]:focus {
+  outline: 2px solid var(--color-error);
+  outline-offset: 0px;
   border-color: var(--color-error);
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-}
-
-/* Enhanced focus for select */
-select.form-input:focus {
-  outline: none;
-  border-color: var(--color-accent-cyan);
-  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
 }
 
 .form-error {
@@ -1460,14 +1446,6 @@ select.form-input:focus {
   margin-top: var(--spacing-xs);
   min-height: 1.25rem;
   font-weight: var(--font-weight-semibold);
-}
-
-.form-help-text {
-  display: block;
-  color: var(--color-text-light);
-  font-size: 0.875rem;
-  margin-top: var(--spacing-xs);
-  font-style: italic;
 }
 
 .form-textarea {
@@ -1532,6 +1510,25 @@ select.form-input:focus {
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
+  transition: opacity 0.2s ease, outline 0.2s ease, outline-offset 0.2s ease;
+}
+
+.footer-logo-link:hover {
+  opacity: 0.8;
+  text-decoration: none;
+}
+
+.footer-logo-link:focus-visible {
+  outline: 2px solid var(--color-accent-cyan);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.footer-logo-link .logo-text {
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 
 .footer-nav {
@@ -1553,15 +1550,35 @@ select.form-input:focus {
 }
 
 .footer-link {
-  color: var(--color-accent-blue-light);
+  /* Uses --color-accent-hover (#1D4ED8) in light mode for 8:1 contrast on #F8FAFC */
+  color: var(--color-accent-hover);
   font-size: 0.8125rem;
   transition: color var(--transition-fast);
   text-decoration: none;
 }
 
 .footer-link:hover {
-  color: var(--color-accent-cyan);
+  color: var(--color-accent-blue);
   text-decoration: underline;
+}
+
+/* In dark mode, use light accent for contrast against dark footer bg */
+[data-theme="dark"] .footer-link {
+  color: var(--color-accent-blue-light);
+}
+
+[data-theme="dark"] .footer-link:hover {
+  color: var(--color-accent-cyan);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .footer-link {
+    color: var(--color-accent-blue-light);
+  }
+
+  html:not([data-theme="light"]) .footer-link:hover {
+    color: var(--color-accent-cyan);
+  }
 }
 
 .footer-link:focus-visible {
@@ -1578,7 +1595,6 @@ select.form-input:focus {
 
 .footer-copyright {
   color: var(--color-text-light);
-  opacity: 0.5;
   font-size: 0.75rem;
   margin-bottom: 0;
 }
@@ -1797,8 +1813,7 @@ select.form-input:focus {
     padding: var(--spacing-sm);
   }
 
-  .tech-badge i,
-  .tech-icon-emoji {
+  .tech-badge i {
     font-size: 2rem;
   }
 

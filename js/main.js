@@ -217,7 +217,7 @@
         if (indicator) indicator.remove();
       });
 
-      activeLink.setAttribute('aria-current', 'true');
+      activeLink.setAttribute('aria-current', 'page');
 
       const span = document.createElement('span');
       span.className = 'visually-hidden';
@@ -393,7 +393,7 @@
         if (response.ok) {
           // Success message with icon
           status.innerHTML = '<span aria-hidden="true">✓</span> ¡Gracias por tu mensaje! Te responderemos pronto.';
-          status.style.color = '#10B981';
+          status.style.color = 'var(--color-success)';
           status.style.marginTop = '1rem';
           status.style.fontWeight = '600';
 
@@ -414,14 +414,14 @@
             status.innerHTML = '<span aria-hidden="true">✗</span> Hubo un problema al enviar el formulario. Intenta nuevamente.';
           }
 
-          status.style.color = '#EF4444';
+          status.style.color = 'var(--color-error)';
           status.style.marginTop = '1rem';
           status.style.fontWeight = '600';
         }
       } catch (error) {
         // Network error
         status.innerHTML = '<span aria-hidden="true">✗</span> Hubo un problema al enviar el formulario. Intenta nuevamente.';
-        status.style.color = '#EF4444';
+        status.style.color = 'var(--color-error)';
         status.style.marginTop = '1rem';
         status.style.fontWeight = '600';
       } finally {
