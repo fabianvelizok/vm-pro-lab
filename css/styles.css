@@ -847,15 +847,13 @@ a:focus-visible {
 }
 
 /* Outline button */
-.btn-outline,
-.btn-secondary {
+.btn-outline {
   background: transparent;
   color: var(--color-text-light);
   border-color: var(--color-border-medium);
 }
 
-.btn-outline:hover,
-.btn-secondary:hover {
+.btn-outline:hover {
   color: var(--color-text);
   border-color: rgba(0, 212, 255, 0.5);
   text-decoration: none;
@@ -1083,33 +1081,6 @@ a:focus-visible {
 
 .service-cta-btn {
   margin-top: auto;
-}
-
-/* Footer logo link */
-.footer-logo-link {
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  transition: opacity 0.2s ease, outline 0.2s ease, outline-offset 0.2s ease;
-}
-
-.footer-logo-link:hover {
-  opacity: 0.8;
-  text-decoration: none;
-}
-
-.footer-logo-link:focus-visible {
-  outline: 2px solid var(--color-accent-cyan);
-  outline-offset: 4px;
-  border-radius: 4px;
-}
-
-.footer-logo-link .logo-text {
-  font-size: 1.75rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: -0.02em;
-  color: var(--color-text);
 }
 
 /* === TECHNOLOGIES SECTION === */
@@ -1539,6 +1510,25 @@ a:focus-visible {
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
+  transition: opacity 0.2s ease, outline 0.2s ease, outline-offset 0.2s ease;
+}
+
+.footer-logo-link:hover {
+  opacity: 0.8;
+  text-decoration: none;
+}
+
+.footer-logo-link:focus-visible {
+  outline: 2px solid var(--color-accent-cyan);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.footer-logo-link .logo-text {
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 
 .footer-nav {
