@@ -101,68 +101,13 @@ npx serve dist
 
 ### Deployment
 
-After building, deploy the contents of the `dist/` folder to your hosting provider:
+Deployed on **Cloudflare Pages**. After building, the `dist/` folder is production-ready.
 
-```bash
-# Deploy to a server via SCP
-scp -r dist/* user@yourserver.com:/var/www/html/
-
-# Deploy to Netlify
-netlify deploy --prod --dir=dist
-
-# Deploy to Vercel
-vercel --prod dist/
-```
-
-#### ⚠️ Important: Production Server Configuration
-
-When deploying to different hosting platforms, you need to replicate the caching behavior from `server.js`:
-
-**For Apache/Nginx servers**, add these headers to your `.htaccess` or nginx config:
-```apache
-<FilesMatch "\.(css|js|woff2?|ico|svg|jpg|jpeg|png|webp|json)$">
-  Header set Cache-Control "public, max-age=31536000, immutable"
-</FilesMatch>
-```
-
-**For Cloudflare Pages**, the `_headers` file is already generated in the `dist/` folder during the build process to handle this automatically:
+Caching headers are defined in the `_headers` file, copied to `dist/` during build:
 ```
 /*
   Cache-Control: public, max-age=31536000, immutable
 ```
-
-**For Netlify**, add to `netlify.toml`:
-```toml
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-# Add similar blocks for other static assets
-```
-
-**For Vercel**, add to `vercel.json`:
-```json
-{
-  "headers": [
-    {
-      "source": "/(.*\\.(css|js|woff2?|ico|svg|jpg|jpeg|png|webp|json))$",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
-  ]
-}
-```
-
-**For other platforms**, configure equivalent long-term caching for static assets. The project relies on static configurations rather than an active Node.js server.
 
 ### Available NPM Scripts
 
