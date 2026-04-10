@@ -249,17 +249,27 @@
   /**
    * Initialize Contact Form functionality
    * - Inline validation with aria-invalid and error messages
-   * - Formspree async submission
-   * - Accessible error feedback
+   * - Honeypot bot trap
+   * - JSON POST to Cloudflare Worker (Resend-backed)
+   * - Toast feedback + accessible fallback status
    */
   function initContactForm() {
     const form = document.getElementById('my-form');
 
     if (!form) return;
 
+    const WORKER_URL = 'https://vmprolab-contact.velizfabianhoracio.workers.dev';
+
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
     const messageInput = document.getElementById('message');
+    const honeypotInput = document.getElementById('hp-website');
+
+    const successToast = document.getElementById('success-toast');
+    const errorToast = document.getElementById('error-toast');
+
+    // Guard against multiple simultaneous submissions
+    let isSubmitting = false;
 
     /**
      * Display or clear error for a field
@@ -349,6 +359,24 @@
       return isNameValid && isEmailValid && isMessageValid;
     }
 
+    /**
+     * Show success toast for 4s
+     */
+    function showSuccessToast() {
+      if (!successToast) return;
+      successToast.classList.add('show');
+      setTimeout(function() { successToast.classList.remove('show'); }, 4000);
+    }
+
+    /**
+     * Show error toast for 5s
+     */
+    function showErrorToast() {
+      if (!errorToast) return;
+      errorToast.classList.add('show');
+      setTimeout(function() { errorToast.classList.remove('show'); }, 5000);
+    }
+
     // Add blur event listeners for real-time validation
     nameInput.addEventListener('blur', validateName);
     emailInput.addEventListener('blur', validateEmail);
@@ -358,6 +386,12 @@
     form.addEventListener('submit', async function(event) {
       event.preventDefault();
 
+      // Honeypot: silently abort if filled (bot detected)
+      if (honeypotInput && honeypotInput.value) return;
+
+      // Prevent multiple simultaneous submissions
+      if (isSubmitting) return;
+
       // Validate form before submission
       if (!validateForm()) {
         // Focus first invalid field
@@ -366,9 +400,9 @@
         return;
       }
 
-      const status = document.getElementById('my-form-status');
+      isSubmitting = true;
+
       const button = document.getElementById('my-form-button');
-      const formData = new FormData(event.target);
 
       // Store original button text
       const originalButtonText = button.textContent;
@@ -382,20 +416,19 @@
       button.innerHTML = '<span class="btn-text">' + originalButtonText + '</span><span class="btn-spinner" aria-hidden="true"></span>';
 
       try {
-        const response = await fetch(event.target.action, {
-          method: form.method,
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
+        const response = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fullName: nameInput.value,
+            email: emailInput.value,
+            message: messageInput.value,
+            website: honeypotInput ? honeypotInput.value : ''
+          })
         });
 
         if (response.ok) {
-          // Success message with icon
-          status.innerHTML = '<span aria-hidden="true">✓</span> ¡Gracias por tu mensaje! Te responderemos pronto.';
-          status.style.color = 'var(--color-success)';
-          status.style.marginTop = '1rem';
-          status.style.fontWeight = '600';
+          showSuccessToast();
 
           // Reset form and clear any validation states
           form.reset();
@@ -403,28 +436,14 @@
           setFieldError(emailInput, '');
           setFieldError(messageInput, '');
         } else {
-          // Handle Formspree validation errors
-          const data = await response.json();
-
-          if (data.errors) {
-            status.innerHTML = '<span aria-hidden="true">✗</span> ' + data.errors.map(function(error) {
-              return error.message;
-            }).join(', ');
-          } else {
-            status.innerHTML = '<span aria-hidden="true">✗</span> Hubo un problema al enviar el formulario. Intenta nuevamente.';
-          }
-
-          status.style.color = 'var(--color-error)';
-          status.style.marginTop = '1rem';
-          status.style.fontWeight = '600';
+          showErrorToast();
         }
       } catch (error) {
-        // Network error
-        status.innerHTML = '<span aria-hidden="true">✗</span> Hubo un problema al enviar el formulario. Intenta nuevamente.';
-        status.style.color = 'var(--color-error)';
-        status.style.marginTop = '1rem';
-        status.style.fontWeight = '600';
+        // Network error or CORS failure
+        showErrorToast();
       } finally {
+        isSubmitting = false;
+
         // Remove aria-busy and re-enable button
         form.setAttribute('aria-busy', 'false');
         button.disabled = false;

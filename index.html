@@ -30,7 +30,7 @@
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
 
   <!-- Resource hints for external domains -->
-  <link rel="preconnect" href="https://formspree.io">
+  <link rel="preconnect" href="https://vmprolab-contact.velizfabianhoracio.workers.dev">
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 
   <!-- Preload self-hosted fonts (only critical weights for above-the-fold) -->
@@ -508,7 +508,7 @@
         <p class="contact-subtitle">Contanos tu idea y te respondemos en menos de 24 horas.</p>
 
         <!-- Contact Form -->
-        <form id="my-form" class="contact-form" action="https://formspree.io/f/xnqyavoa" method="POST" novalidate>
+        <form id="my-form" class="contact-form" novalidate aria-label="Formulario de contacto">
           <div class="form-group">
             <label for="name" class="form-label">Nombre</label>
             <input
@@ -559,13 +559,34 @@
             <span id="message-error" class="form-error" role="alert"></span>
           </div>
 
+          <!-- Honeypot: hidden from humans, bots fill it -->
+          <div aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;">
+            <label for="hp-website">No completar</label>
+            <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
           <button id="my-form-button" type="submit" class="btn btn-primary">Enviar mensaje</button>
-          <p id="my-form-status" role="status" aria-live="polite" aria-atomic="true"></p>
         </form>
       </div>
     </section>
 
   </main>
+
+  <!-- Success Toast -->
+  <div id="success-toast" class="toast success-toast" role="status" aria-live="polite" aria-atomic="true">
+    <svg class="toast-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>¡Gracias! Te responderemos en menos de 24hs.</span>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="error-toast" class="toast error-toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <svg class="toast-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Hubo un error al enviar. Intentá de nuevo en unos minutos.</span>
+  </div>
 
   <!-- Footer -->
   <footer class="footer">
