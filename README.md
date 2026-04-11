@@ -184,15 +184,18 @@ This project uses [Claude Code](https://claude.com/claude-code) with specialized
 | **web-performance-auditor** | Runs Lighthouse audits, analyzes Core Web Vitals, identifies render-blocking resources and optimization opportunities | Invoked for performance analysis and regression detection |
 | **vanilla-frontend-engineer** | Implements features using pure HTML5, CSS, and vanilla JavaScript following project conventions | Used for building and reviewing frontend code |
 | **design-system-auditor** | Analyzes UI consistency, extracts design tokens, identifies pattern deviations across components | Used for design system reviews and consistency checks |
+| **frontend-designer** | Creates distinctive, production-grade frontend interfaces with high design quality — avoids generic AI aesthetics while respecting the project's design system | Invoked when building new components, pages, sections, or redesigning existing parts of the site |
+| **task-architect** | Transforms informal requirements, meeting notes, or client feedback into structured, prioritized technical tasks with acceptance criteria | Used for sprint planning and backlog grooming |
 
 ### How They Work Together
 
 The agents form a quality pipeline that ensures changes maintain the project's high standards:
 
-1. **Implementation**: The `vanilla-frontend-engineer` builds or modifies features using pure HTML/CSS/JS
-2. **Accessibility review**: The `accessibility-auditor` checks WCAG compliance, verifying semantic HTML, ARIA attributes, color contrast ratios, and keyboard interactions
-3. **Performance audit**: The `web-performance-auditor` runs Lighthouse against the production build, checking Core Web Vitals and identifying regressions
-4. **Design consistency**: The `design-system-auditor` validates that UI changes follow established patterns (colors, spacing, typography, component structure)
+1. **Task breakdown**: The `task-architect` turns informal requirements into structured, executable work items under `.claude/todos/`
+2. **Implementation**: The `vanilla-frontend-engineer` builds or modifies features using pure HTML/CSS/JS, or the `frontend-designer` creates new components and sections with production-grade visual quality
+3. **Accessibility review**: The `accessibility-auditor` checks WCAG compliance, verifying semantic HTML, ARIA attributes, color contrast ratios, and keyboard interactions
+4. **Performance audit**: The `web-performance-auditor` runs Lighthouse against the production build, checking Core Web Vitals and identifying regressions
+5. **Design consistency**: The `design-system-auditor` validates that UI changes follow established patterns (colors, spacing, typography, component structure)
 
 Agents are configured in `.claude/agents/` and are invoked by Claude Code's orchestrator based on the type of task being performed. Each agent produces reports saved to `docs/`.
 
@@ -222,4 +225,4 @@ Agents are configured in `.claude/agents/` and are invoked by Claude Code's orch
 
 ---
 
-Last updated: 2026-03-06
+Last updated: 2026-04-10
