@@ -8,11 +8,46 @@
 
   // DOM Content Loaded - Initialize
   document.addEventListener('DOMContentLoaded', function() {
+    initThemeToggle();
     initHeader();
     initActiveNavLinks();
     initContactForm();
     initLazyLoadDevicon();
   });
+
+  /**
+   * Initialize Theme Toggle
+   * - Reads localStorage for saved preference
+   * - Applies data-theme attribute to <html>
+   * - Persists user choice in localStorage under 'vm-theme'
+   */
+  function initThemeToggle() {
+    const btn = document.querySelector('[data-theme-toggle]');
+    if (!btn) return;
+
+    function getSystemTheme() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function getEffectiveTheme() {
+      return document.documentElement.getAttribute('data-theme') || getSystemTheme();
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('vm-theme', theme);
+      btn.setAttribute('aria-label', theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+    }
+
+    // Set initial aria-label based on current effective theme
+    const current = getEffectiveTheme();
+    btn.setAttribute('aria-label', current === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+
+    btn.addEventListener('click', function() {
+      const next = getEffectiveTheme() === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+  }
 
   /**
    * Initialize Header functionality
@@ -29,18 +64,12 @@
     const navLinks = document.querySelectorAll('.nav-link');
 
     // Add shadow to header on scroll
-    let lastScroll = 0;
-
     window.addEventListener('scroll', function() {
-      const currentScroll = window.pageYOffset;
-
-      if (currentScroll > 0) {
+      if (window.pageYOffset > 0) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
       }
-
-      lastScroll = currentScroll;
     }, { passive: true });
 
     // Mobile menu toggle - Event delegation
@@ -188,7 +217,7 @@
         if (indicator) indicator.remove();
       });
 
-      activeLink.setAttribute('aria-current', 'true');
+      activeLink.setAttribute('aria-current', 'page');
 
       const span = document.createElement('span');
       span.className = 'visually-hidden';
@@ -220,17 +249,27 @@
   /**
    * Initialize Contact Form functionality
    * - Inline validation with aria-invalid and error messages
-   * - Formspree async submission
-   * - Accessible error feedback
+   * - Honeypot bot trap
+   * - JSON POST to Cloudflare Worker (Resend-backed)
+   * - Toast feedback + accessible fallback status
    */
   function initContactForm() {
     const form = document.getElementById('my-form');
 
     if (!form) return;
 
+    const WORKER_URL = 'https://vmprolab-contact.velizfabianhoracio.workers.dev';
+
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
     const messageInput = document.getElementById('message');
+    const honeypotInput = document.getElementById('hp-website');
+
+    const successToast = document.getElementById('success-toast');
+    const errorToast = document.getElementById('error-toast');
+
+    // Guard against multiple simultaneous submissions
+    let isSubmitting = false;
 
     /**
      * Display or clear error for a field
@@ -320,6 +359,24 @@
       return isNameValid && isEmailValid && isMessageValid;
     }
 
+    /**
+     * Show success toast for 4s
+     */
+    function showSuccessToast() {
+      if (!successToast) return;
+      successToast.classList.add('show');
+      setTimeout(function() { successToast.classList.remove('show'); }, 4000);
+    }
+
+    /**
+     * Show error toast for 5s
+     */
+    function showErrorToast() {
+      if (!errorToast) return;
+      errorToast.classList.add('show');
+      setTimeout(function() { errorToast.classList.remove('show'); }, 5000);
+    }
+
     // Add blur event listeners for real-time validation
     nameInput.addEventListener('blur', validateName);
     emailInput.addEventListener('blur', validateEmail);
@@ -329,6 +386,12 @@
     form.addEventListener('submit', async function(event) {
       event.preventDefault();
 
+      // Honeypot: silently abort if filled (bot detected)
+      if (honeypotInput && honeypotInput.value) return;
+
+      // Prevent multiple simultaneous submissions
+      if (isSubmitting) return;
+
       // Validate form before submission
       if (!validateForm()) {
         // Focus first invalid field
@@ -337,9 +400,9 @@
         return;
       }
 
-      const status = document.getElementById('my-form-status');
+      isSubmitting = true;
+
       const button = document.getElementById('my-form-button');
-      const formData = new FormData(event.target);
 
       // Store original button text
       const originalButtonText = button.textContent;
@@ -353,20 +416,19 @@
       button.innerHTML = '<span class="btn-text">' + originalButtonText + '</span><span class="btn-spinner" aria-hidden="true"></span>';
 
       try {
-        const response = await fetch(event.target.action, {
-          method: form.method,
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
+        const response = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fullName: nameInput.value,
+            email: emailInput.value,
+            message: messageInput.value,
+            website: honeypotInput ? honeypotInput.value : ''
+          })
         });
 
         if (response.ok) {
-          // Success message with icon
-          status.innerHTML = '<span aria-hidden="true">✓</span> ¡Gracias por tu mensaje! Te responderemos pronto.';
-          status.style.color = '#10B981';
-          status.style.marginTop = '1rem';
-          status.style.fontWeight = '600';
+          showSuccessToast();
 
           // Reset form and clear any validation states
           form.reset();
@@ -374,28 +436,14 @@
           setFieldError(emailInput, '');
           setFieldError(messageInput, '');
         } else {
-          // Handle Formspree validation errors
-          const data = await response.json();
-
-          if (data.errors) {
-            status.innerHTML = '<span aria-hidden="true">✗</span> ' + data.errors.map(function(error) {
-              return error.message;
-            }).join(', ');
-          } else {
-            status.innerHTML = '<span aria-hidden="true">✗</span> Hubo un problema al enviar el formulario. Intenta nuevamente.';
-          }
-
-          status.style.color = '#EF4444';
-          status.style.marginTop = '1rem';
-          status.style.fontWeight = '600';
+          showErrorToast();
         }
       } catch (error) {
-        // Network error
-        status.innerHTML = '<span aria-hidden="true">✗</span> Hubo un problema al enviar el formulario. Intenta nuevamente.';
-        status.style.color = '#EF4444';
-        status.style.marginTop = '1rem';
-        status.style.fontWeight = '600';
+        // Network error or CORS failure
+        showErrorToast();
       } finally {
+        isSubmitting = false;
+
         // Remove aria-busy and re-enable button
         form.setAttribute('aria-busy', 'false');
         button.disabled = false;

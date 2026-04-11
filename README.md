@@ -89,39 +89,39 @@ The `dist/` folder is production-ready and can be deployed directly.
 
 ### Serving the Production Build
 
+The production build in the `dist/` folder is truly static HTML, CSS, and JS. You can serve it with any standard web server.
+
 ```bash
-npm run build
+# With Python 3
+python3 -m http.server -d dist 8000
+
+# Or with Node.js
 npx serve dist
 ```
 
-This serves the optimized production build at `http://localhost:3000`.
-
 ### Deployment
 
-After building, deploy the contents of the `dist/` folder to your hosting provider:
+Deployed on **Cloudflare Pages**. After building, the `dist/` folder is production-ready.
 
-```bash
-# Deploy to a server via SCP
-scp -r dist/* user@yourserver.com:/var/www/html/
-
-# Deploy to Netlify
-netlify deploy --prod --dir=dist
-
-# Deploy to Vercel
-vercel --prod dist/
+Caching headers are defined in the `_headers` file, copied to `dist/` during build:
+```
+/*
+  Cache-Control: public, max-age=31536000, immutable
 ```
 
 ### Available NPM Scripts
 
 | Script | Description |
 |--------|-------------|
-| `npm run build` | Full production build (clean + minify + copy assets) |
+| `npm run build` | Full production build (clean + sync critical CSS + minify + copy assets + extras) |
 | `npm run clean` | Remove the `dist/` folder |
+| `npm run sync:critical` | Re-generate inline critical CSS in `index.html` from `css/styles.css` |
 | `npm run minify` | Minify CSS and JS only |
 | `npm run minify:css` | Minify CSS to `dist/css/styles.min.css` |
 | `npm run minify:js` | Minify JS to `dist/js/main.min.js` |
 | `npm run minify:html` | Minify HTML to `dist/index.html` |
-| `npm run copy:assets` | Copy fonts and images to `dist/` |
+| `npm run copy:assets` | Copy fonts, images, and icons to `dist/` |
+| `npm run copy:extras` | Copy robots.txt, favicon.ico, and _headers to `dist/` |
 
 ## Audit Results
 
@@ -184,26 +184,32 @@ This project uses [Claude Code](https://claude.com/claude-code) with specialized
 | **web-performance-auditor** | Runs Lighthouse audits, analyzes Core Web Vitals, identifies render-blocking resources and optimization opportunities | Invoked for performance analysis and regression detection |
 | **vanilla-frontend-engineer** | Implements features using pure HTML5, CSS, and vanilla JavaScript following project conventions | Used for building and reviewing frontend code |
 | **design-system-auditor** | Analyzes UI consistency, extracts design tokens, identifies pattern deviations across components | Used for design system reviews and consistency checks |
+| **frontend-designer** | Creates distinctive, production-grade frontend interfaces with high design quality — avoids generic AI aesthetics while respecting the project's design system | Invoked when building new components, pages, sections, or redesigning existing parts of the site |
+| **task-architect** | Transforms informal requirements, meeting notes, or client feedback into structured, prioritized technical tasks with acceptance criteria | Used for sprint planning and backlog grooming |
 
 ### How They Work Together
 
 The agents form a quality pipeline that ensures changes maintain the project's high standards:
 
-1. **Implementation**: The `vanilla-frontend-engineer` builds or modifies features using pure HTML/CSS/JS
-2. **Accessibility review**: The `accessibility-auditor` checks WCAG compliance, verifying semantic HTML, ARIA attributes, color contrast ratios, and keyboard interactions
-3. **Performance audit**: The `web-performance-auditor` runs Lighthouse against the production build, checking Core Web Vitals and identifying regressions
-4. **Design consistency**: The `design-system-auditor` validates that UI changes follow established patterns (colors, spacing, typography, component structure)
+1. **Task breakdown**: The `task-architect` turns informal requirements into structured, executable work items under `.claude/todos/`
+2. **Implementation**: The `vanilla-frontend-engineer` builds or modifies features using pure HTML/CSS/JS, or the `frontend-designer` creates new components and sections with production-grade visual quality
+3. **Accessibility review**: The `accessibility-auditor` checks WCAG compliance, verifying semantic HTML, ARIA attributes, color contrast ratios, and keyboard interactions
+4. **Performance audit**: The `web-performance-auditor` runs Lighthouse against the production build, checking Core Web Vitals and identifying regressions
+5. **Design consistency**: The `design-system-auditor` validates that UI changes follow established patterns (colors, spacing, typography, component structure)
 
 Agents are configured in `.claude/agents/` and are invoked by Claude Code's orchestrator based on the type of task being performed. Each agent produces reports saved to `docs/`.
 
 ## Color Palette
 
-- **Primary**: #0F172A (Very dark blue)
-- **Accent**: #2563EB (Blue - WCAG AA compliant, 4.62:1)
-- **Background**: #FFFFFF
-- **Text**: #0F172A
-- **Text Light**: #64748B
-- **Success**: #047857 (Green - WCAG AA compliant, 4.52:1)
+| Token | Light | Dark | Notes |
+|---|---|---|---|
+| Text | `#0F172A` | `#E4E8F7` | Main body text |
+| Text Light | `#44556A` | `#A8B2E0` | Secondary / muted text |
+| Accent hover | `#1D4ED8` | `#4285F4` | Eyebrow, interactive accent (6.41:1 on light bg) |
+| Accent cyan | `#00D4FF` | `#00D4FF` | CTAs, focus rings |
+| Accent cyan text | `#0E7490` | `#00D4FF` | Accessible cyan for text (AA compliant) |
+| Background | `#F8FAFC` | `#060814` | Page background |
+| Success | `#047857` | `#34D399` | WCAG AA compliant |
 
 ## Typography
 
@@ -219,4 +225,4 @@ Agents are configured in `.claude/agents/` and are invoked by Claude Code's orch
 
 ---
 
-Last updated: 2026-02-11
+Last updated: 2026-04-10
