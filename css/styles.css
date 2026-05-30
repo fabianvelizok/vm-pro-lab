@@ -1240,37 +1240,6 @@ a:focus-visible {
   margin: 0 auto;
 }
 
-/* Edge fade hints — fade in only when there is more to scroll that way,
-   signalling that the row is scrollable. Painted above the cards (z 5) but
-   below the arrows (z 10); pointer-events:none so cards stay interactive. */
-.projects-carousel-wrapper::before,
-.projects-carousel-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: var(--spacing-xl);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 5;
-}
-
-.projects-carousel-wrapper::before {
-  left: 0;
-  background: linear-gradient(to right, var(--color-bg), transparent);
-}
-
-.projects-carousel-wrapper::after {
-  right: 0;
-  background: linear-gradient(to left, var(--color-bg), transparent);
-}
-
-.projects-carousel-wrapper.can-scroll-left::before,
-.projects-carousel-wrapper.can-scroll-right::after {
-  opacity: 1;
-}
-
 .projects-carousel-track {
   display: flex;
   gap: var(--spacing-xl);

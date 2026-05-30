@@ -530,12 +530,6 @@
         });
       }
       updateArrows();
-      // Toggle the edge-fade hints based on remaining scroll in each direction
-      if (wrapper) {
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        wrapper.classList.toggle('can-scroll-left', track.scrollLeft > 1);
-        wrapper.classList.toggle('can-scroll-right', track.scrollLeft < maxScroll - 1);
-      }
     }
 
     function requestSync() {
