@@ -5,6 +5,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-05-30
+
+Minor release: the projects section becomes a zero-dependency vanilla
+scroll-snap carousel, two new projects (FisioYa and VamosBenja) are added, and
+the project cards gain linkable titles, explicit site links, and refreshed copy.
+
+### Added
+
+- **Projects carousel**: the static projects grid is now a vanilla CSS
+  scroll-snap carousel — no library, zero runtime dependencies — showing ~1 card
+  on mobile, ~2 on tablet, and ~3 on desktop.
+- **Carousel navigation**: prev/next arrows (desktop), clickable pagination
+  dots, keyboard arrow keys, native touch swipe, and mouse drag-to-scroll (with
+  a post-drag click guard so a drag never opens a link).
+- **FisioYa project** (*En progreso*): multi-clinic kinesiology booking SaaS,
+  with a new abstract teal SVG card image.
+- **VamosBenja project** (*En producción*): fundraising landing plus social
+  media work (Instagram profile, posts, highlighted stories), with a new
+  navy/gold SVG card image and `Redes Sociales` / `Instagram` tags.
+- **"En progreso" status badge** variant (`.project-status-progress`) and a new
+  `--color-progress` token (amber, AA-compliant with white text).
+- **Linkable project titles** plus an explicit "Sitio Web" link per project that
+  opens the live site in a new tab.
+
+### Changed
+
+- **Project descriptions** rewritten to be sharper and benefit-focused; the
+  FisioYa description no longer repeats its tech stack (the tags cover it).
+- **Digital Mouth tags** updated (added Sidekiq; `AWS S3` → `AWS`).
+- **Project cards** are no longer wrapped in a single full-card anchor — only the
+  title and the explicit site link are clickable, which is cleaner and more
+  accessible.
+
+### Fixed
+
+- **Horizontal scroll on tablet/mobile**: `overflow-x: clip` on the projects
+  section contains the carousel's inner horizontal scroller so it no longer
+  extends the page width.
+
 ## [2.0.0] - 2026-04-10
 
 Major release: complete site redesign to the Plasma Field aesthetic, full
@@ -160,4 +199,6 @@ Formspree to a self-hosted Cloudflare Worker + Resend.
 - `role="img"` and descriptive `aria-label` on picture elements
 - Proper heading hierarchy (h1-h6) validated across pages
 
+[2.1.0]: https://github.com/fabianvelizok/vm-pro-lab/releases/tag/v2.1.0
+[2.0.0]: https://github.com/fabianvelizok/vm-pro-lab/releases/tag/v2.0.0
 [1.0.0]: https://github.com/fabianvelizok/vm-pro-lab/releases/tag/v1.0.0
