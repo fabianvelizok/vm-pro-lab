@@ -1291,10 +1291,8 @@ a:focus-visible {
   display: flex;
 }
 
-/* Stretch the card chain so every slide is equal height */
-.project-slide > .project-card,
-.project-slide > .project-card-link,
-.project-slide > .project-card-link > .project-card {
+/* Stretch the card so every slide is equal height */
+.project-slide > .project-card {
   width: 100%;
   height: 100%;
 }
@@ -1412,24 +1410,28 @@ a:focus-visible {
   }
 }
 
-.project-card-link {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-}
-
-.project-card-link:hover {
-  text-decoration: none;
-}
-
-.project-card-link:hover .project-title {
-  text-decoration: underline;
-}
-
 .project-card {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+/* Explicit "Sitio web:" link under the description (cards are no longer
+   wrapped in a single anchor — only this link is clickable) */
+.project-link {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+}
+
+.project-link a {
+  color: var(--color-accent-cyan-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.project-link a:hover {
+  color: var(--color-accent-hover);
 }
 
 .project-image {
