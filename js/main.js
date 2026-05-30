@@ -12,6 +12,7 @@
     initHeader();
     initActiveNavLinks();
     initContactForm();
+    initProjectsCarousel();
     initLazyLoadDevicon();
   });
 
@@ -451,6 +452,168 @@
         button.textContent = originalButtonText;
       }
     });
+  }
+
+  /**
+   * Initialize Projects Carousel (vanilla scroll-snap)
+   * - Prev/next arrows scroll the track by one slide width
+   * - Clickable pagination dots, built from the slides
+   * - Active dot + arrow enabled/disabled state synced via IntersectionObserver
+   * - Arrow-key navigation when the track region is focused
+   * - No autoplay; respects prefers-reduced-motion for programmatic scrolls
+   */
+  function initProjectsCarousel() {
+    const track = document.getElementById('projects-track');
+    if (!track) return;
+
+    const slides = Array.prototype.slice.call(track.querySelectorAll('.project-slide'));
+    if (slides.length === 0) return;
+
+    const wrapper = track.closest('.projects-carousel-wrapper');
+    const prevBtn = wrapper ? wrapper.querySelector('.projects-carousel-arrow-prev') : null;
+    const nextBtn = wrapper ? wrapper.querySelector('.projects-carousel-arrow-next') : null;
+    const dotsContainer = wrapper ? wrapper.querySelector('.projects-carousel-dots') : null;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const scrollBehavior = reduceMotion ? 'auto' : 'smooth';
+
+    // Distance to advance per step = gap between consecutive slides (includes the gap)
+    function getStep() {
+      if (slides.length > 1) {
+        return slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left;
+      }
+      return slides[0].getBoundingClientRect().width;
+    }
+
+    function scrollByStep(direction) {
+      track.scrollBy({ left: direction * getStep(), behavior: scrollBehavior });
+    }
+
+    // Build pagination dots
+    const dots = [];
+    if (dotsContainer) {
+      slides.forEach(function(slide, index) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'projects-carousel-dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', 'Ir al proyecto ' + (index + 1));
+        dot.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+        dot.addEventListener('click', function() {
+          slide.scrollIntoView({ behavior: scrollBehavior, inline: 'start', block: 'nearest' });
+        });
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+      });
+    }
+
+    let currentIndex = -1;
+    let rafPending = false;
+
+    // Arrows reflect the real scroll extent (works for any number of visible cards)
+    function updateArrows() {
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      if (prevBtn) prevBtn.disabled = track.scrollLeft <= 1;
+      if (nextBtn) nextBtn.disabled = track.scrollLeft >= maxScroll - 1;
+    }
+
+    // Active dot = leftmost snapped slide (slides are uniform width per breakpoint)
+    function syncState() {
+      rafPending = false;
+      const step = getStep();
+      let index = step > 0 ? Math.round(track.scrollLeft / step) : 0;
+      index = Math.max(0, Math.min(slides.length - 1, index));
+      if (index !== currentIndex) {
+        currentIndex = index;
+        dots.forEach(function(dot, i) {
+          dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        });
+      }
+      updateArrows();
+    }
+
+    function requestSync() {
+      if (!rafPending) {
+        rafPending = true;
+        window.requestAnimationFrame(syncState);
+      }
+    }
+
+    track.addEventListener('scroll', requestSync, { passive: true });
+    // Slide width (and therefore the step) changes across breakpoints; re-sync
+    // on resize, and once more on full load so the initial state reflects the
+    // settled layout.
+    window.addEventListener('resize', requestSync);
+    window.addEventListener('load', syncState);
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        scrollByStep(-1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        scrollByStep(1);
+      });
+    }
+
+    // Keyboard navigation when the carousel region is focused
+    track.addEventListener('keydown', function(event) {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        scrollByStep(-1);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        scrollByStep(1);
+      }
+    });
+
+    // Click-drag to scroll (mouse pointers only; touch/pen keep native scrolling)
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartScroll = 0;
+    let dragMoved = false;
+
+    track.addEventListener('pointerdown', function(event) {
+      if (event.pointerType !== 'mouse') return;
+      isDragging = true;
+      dragMoved = false;
+      dragStartX = event.clientX;
+      dragStartScroll = track.scrollLeft;
+      track.classList.add('is-dragging');
+      track.setPointerCapture(event.pointerId);
+    });
+
+    track.addEventListener('pointermove', function(event) {
+      if (!isDragging) return;
+      const dx = event.clientX - dragStartX;
+      if (Math.abs(dx) > 4) dragMoved = true;
+      track.scrollLeft = dragStartScroll - dx;
+    });
+
+    function endDrag(event) {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove('is-dragging');
+      if (event && event.pointerId != null && track.hasPointerCapture(event.pointerId)) {
+        track.releasePointerCapture(event.pointerId);
+      }
+    }
+
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+
+    // Swallow the click that fires after a drag so card links don't open mid-pull
+    track.addEventListener('click', function(event) {
+      if (dragMoved) {
+        event.preventDefault();
+        event.stopPropagation();
+        dragMoved = false;
+      }
+    }, true);
+
+    syncState();
   }
 
   /**
