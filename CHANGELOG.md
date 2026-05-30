@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2026-05-30
+
+Patch release: cache-busting for the CSS/JS bundles so a new release is no
+longer shadowed by the production browser/CDN cache.
+
+### Fixed
+
+- **Stale CSS/JS on the production domain after deploy**: the minified bundles
+  ship under stable filenames (`styles.min.css` / `main.min.js`) with an
+  `immutable`, 1-year cache (`_headers`), so the production domain kept serving
+  the previous release's assets (the `*.pages.dev` preview was unaffected — it's
+  a different origin). The build now stamps a `?v=<version>` query onto the
+  CSS/JS references via `scripts/version-assets.js`, giving each release a fresh
+  asset URL while keeping the long `immutable` cache benefit.
+
 ## [2.1.0] - 2026-05-30
 
 Minor release: the projects section becomes a zero-dependency vanilla
@@ -199,6 +214,7 @@ Formspree to a self-hosted Cloudflare Worker + Resend.
 - `role="img"` and descriptive `aria-label` on picture elements
 - Proper heading hierarchy (h1-h6) validated across pages
 
+[2.1.1]: https://github.com/fabianvelizok/vm-pro-lab/releases/tag/v2.1.1
 [2.1.0]: https://github.com/fabianvelizok/vm-pro-lab/releases/tag/v2.1.0
 [2.0.0]: https://github.com/fabianvelizok/vm-pro-lab/releases/tag/v2.0.0
 [1.0.0]: https://github.com/fabianvelizok/vm-pro-lab/releases/tag/v1.0.0
