@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-05-31
+
+Minor release: a full brand identity — the final Venn (V ∩ M) logo with an
+animated hero reveal and an adaptive header, a complete favicon / app-icon set
+with web manifest, a social share (Open Graph) image, and npm supply-chain
+hardening.
+
+### Added
+
+- **Brand logo** (`images/logo.svg`): the final Venn mark — **V** (Veliz) ∩
+  **M** (Mallorga) — with dual-gradient rings, a hatched intersection and nodes.
+  Plus `images/logo-mark.svg`, a compact, small-size-optimized variant (bolder
+  strokes, larger letters) for tight spaces.
+- **Animated hero logo**: on load the rings appear stacked at the centre and
+  split to their places, then the V/M letters emerge from *behind* the rings
+  into their lobes. Self-contained inline SVG animation; respects
+  `prefers-reduced-motion`.
+- **Adaptive header**: the header eases between a tall state at the top (full
+  logo, 60px) and a condensed state on scroll (compact mark, 44px), cross-fading
+  the two marks; height is driven by a `--header-h` custom property.
+- **Favicons & web app manifest**: full icon set (`favicon.ico`, 16/32 PNGs,
+  `apple-touch-icon`, `android-chrome` 192/512) plus `site.webmanifest`, wired
+  up with `<link>` tags in `<head>`.
+- **Open Graph / social image** (`images/og-image.jpg`, 1200×630) with
+  `og:image:width` / `height` / `type` / `alt` meta.
+- **`docs/logo-concept.md`**: the brand concept write-up (what each part and
+  colour of the mark means).
+- **`.npmrc` supply-chain hardening**: `ignore-scripts=true` (dependency
+  lifecycle scripts are not run on install) and `minimum-release-age=1d` (refuse
+  package versions published less than a day ago).
+
+### Changed
+
+- **Header & footer branding** now use the SVG mark only — the "VM Pro Lab"
+  wordmark text was removed (the mark carries the brand); the footer uses the
+  compact `logo-mark.svg`.
+- **Favicon** (`images/favicon.svg`) refreshed to the balanced brand blue.
+- **Critical CSS** now includes the `.main` fixed-header offset, avoiding a
+  first-paint content jump.
+
 ## [2.1.1] - 2026-05-30
 
 Patch release: cache-busting for the CSS/JS bundles so a new release is no

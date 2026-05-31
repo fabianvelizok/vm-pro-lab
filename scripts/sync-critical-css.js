@@ -43,12 +43,14 @@ const CRITICAL_SELECTORS = [
   '.visually-hidden',
   '.skip-link',
 
+  // Layout offset for the fixed header
+  '.main',
+
   // Header / Navigation
   '.header',
   '.nav',
   '.logo',
-  '.nav-mark',
-  '.logo-text',
+  '.logo-mark',
   '.nav-actions',
   '.nav-menu',
   '.nav-item',
@@ -74,17 +76,8 @@ const CRITICAL_SELECTORS = [
   // Buttons (hero CTA)
   '.btn',
 
-  // Venn diagram
-  '.diagram-container',
-  '.circle-a',
-  '.circle-b',
-  '.circle-intersection',
-  '.circle-letter',
-  '.diagram-labels',
-  '.coord-label',
-  '.coord-tl',
-  '.coord-br',
-  '.diagram-axis',
+  // Brand Venn logo (above-the-fold hero art)
+  '.hero-logo',
 ];
 
 // ---------------------------------------------------------------------------

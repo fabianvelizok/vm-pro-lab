@@ -1,6 +1,6 @@
 {
   "name": "vm-pro-lab",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "VM Pro Lab - Desarrollo Web Profesional",
   "scripts": {
     "clean": "rm -rf dist",
@@ -14,7 +14,7 @@
     "copy:images": "mkdir -p dist/images && cp -r images/* dist/images/",
     "copy:icons": "mkdir -p dist/icons && cp -r icons/* dist/icons/",
     "copy:assets": "npm run copy:fonts && npm run copy:images && npm run copy:icons",
-    "copy:extras": "cp robots.txt dist/ && cp favicon.ico dist/ && cp _headers dist/",
+    "copy:extras": "cp robots.txt favicon.ico favicon-16x16.png favicon-32x32.png apple-touch-icon.png android-chrome-192x192.png android-chrome-512x512.png site.webmanifest _headers dist/",
     "build": "npm run clean && npm run sync:critical && npm run minify && npm run minify:html && npm run version:assets && npm run copy:assets && npm run copy:extras"
   },
   "keywords": [
