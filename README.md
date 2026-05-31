@@ -57,7 +57,7 @@ vm-pro-lab/
 3. **Start a local server**
    ```bash
    # With Python 3
-   python3 -m http.server 8000
+   python3 -m http.server 8001
 
    # Or with Node.js (npx, no install needed)
    npx serve .

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -6 360 232" role="img" aria-label="VM Pro Lab — diagrama de Venn (V ∩ M)" fill="none">
+  <title>VM Pro Lab</title>
+  <defs>
+    <linearGradient id="ring-a" gradientUnits="userSpaceOnUse" x1="0" y1="30" x2="220" y2="190"><stop offset="0%" stop-color="#73A8FF"/><stop offset="100%" stop-color="#458AF7"/></linearGradient>
+    <linearGradient id="ring-b" gradientUnits="userSpaceOnUse" x1="120" y1="30" x2="340" y2="190"><stop offset="0%" stop-color="#5CE6FF"/><stop offset="100%" stop-color="#00BEEC"/></linearGradient>
+    <pattern id="int" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#00D4FF" stroke-width="2" stroke-opacity="0.7"/></pattern>
+  </defs>
+  <!-- intersection fill sits BEHIND the circles so the ring strokes cross in front -->
+  <path d="M170 17.8 A110 110 0 0 1 170 202.2 A110 110 0 0 1 170 17.8 Z" fill="#00D4FF" fill-opacity="0.04"/>
+  <path d="M170 17.8 A110 110 0 0 1 170 202.2 A110 110 0 0 1 170 17.8 Z" fill="url(#int)"/>
+  <circle cx="110" cy="110" r="110" fill="#458AF7" fill-opacity="0.035" stroke="url(#ring-a)" stroke-width="3"/>
+  <circle cx="230" cy="110" r="110" fill="#00D4FF" fill-opacity="0.045" stroke="url(#ring-b)" stroke-width="3"/>
+  <circle cx="170" cy="17.8" r="5" fill="#28C6F4"/>
+  <circle cx="170" cy="202.2" r="5" fill="#28C6F4"/>
+  <g font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="700">
+    <text x="60" y="136" text-anchor="middle" font-size="72" fill="url(#ring-a)">V</text>
+    <text x="280" y="136" text-anchor="middle" font-size="72" fill="url(#ring-b)">M</text>
+  </g>
+</svg>

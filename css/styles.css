@@ -153,7 +153,6 @@
 [data-theme="dark"] .contact-form { box-shadow: 0 0 40px rgba(0, 212, 255, 0.05); }
 [data-theme="dark"] .footer { background-color: #050710; color: var(--color-text); }
 [data-theme="dark"] .footer-member-name { color: var(--color-text); }
-[data-theme="dark"] .footer-logo-link .logo-text { color: var(--color-text); }
 
 /* Light mode forced via toggle */
 [data-theme="light"] {
@@ -277,7 +276,7 @@ a:focus-visible {
 /* === LAYOUT === */
 .main {
   min-height: 100vh;
-  padding-top: 70px;
+  padding-top: 92px;
   position: relative;
   z-index: 1;
 }
@@ -299,6 +298,7 @@ a:focus-visible {
 
 /* === HEADER === */
 .header {
+  --header-h: 92px;
   position: fixed;
   top: 0;
   left: 0;
@@ -318,6 +318,7 @@ a:focus-visible {
 }
 
 .header.scrolled {
+  --header-h: 68px;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   border-bottom-color: var(--color-border-subtle);
 }
@@ -327,16 +328,17 @@ a:focus-visible {
   align-items: center;
   justify-content: space-between;
   padding: var(--spacing-sm) var(--spacing-md);
-  height: 70px;
+  height: var(--header-h);
+  transition: height 0.35s ease;
   max-width: var(--max-width);
   margin: 0 auto;
 }
 
 /* Logo / Brand */
 .logo {
-  display: flex;
+  display: inline-grid;
   align-items: center;
-  gap: 0.75rem;
+  justify-items: start;
   text-decoration: none;
   z-index: 6;
   transition: outline 0.2s ease, outline-offset 0.2s ease;
@@ -352,41 +354,24 @@ a:focus-visible {
   border-radius: 4px;
 }
 
-/* Miniature Venn mark in nav — horizontal overlap like hero diagram */
-.nav-mark {
-  width: 22px;
-  height: 13px;
-  position: relative;
+/* Brand mark — full Venn logo at the top, compact ring-mark once scrolled (cross-fade) */
+.logo-mark {
+  grid-area: 1 / 1;            /* stack both marks in the same cell to cross-fade */
+  width: auto;
   flex-shrink: 0;
+  display: block;
+  transition: opacity 0.35s ease, height 0.35s ease;
 }
 
-.nav-mark::before,
-.nav-mark::after {
-  content: '';
-  position: absolute;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  top: 0;
-}
+.logo-full { height: 60px; }
+.logo-compact { height: 44px; opacity: 0; }
 
-.nav-mark::before {
-  right: 0;
-  border: 1.5px solid var(--color-accent-cyan);
-  background: rgba(0, 212, 255, 0.08);
-}
+/* On scroll the header condenses → cross-fade the full logo into the compact ring-mark */
+.header.scrolled .logo-full { opacity: 0; height: 44px; }
+.header.scrolled .logo-compact { opacity: 1; }
 
-.nav-mark::after {
-  left: 0;
-  border: 1.5px solid var(--color-accent-blue-light);
-  background: rgba(138, 180, 248, 0.08);
-}
-
-.logo-text {
-  font-size: 0.875rem;
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: -0.01em;
-  color: var(--color-text);
+.footer-logo-link .logo-mark {
+  height: 44px;
 }
 
 /* Nav Menu */
@@ -544,124 +529,11 @@ a:focus-visible {
   padding: 6rem 2rem 6rem 3rem;
 }
 
-.diagram-container {
-  position: relative;
-  width: 340px;
-  height: 220px;
-}
-
-/* Circle A — blue (Fabián / "V") */
-.circle-a {
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  top: 0;
-  left: 0;
-  border: 1px solid var(--circle-stroke);
-  background: var(--circle-fill);
-  box-shadow:
-    0 0 40px var(--glow-blue),
-    inset 0 0 30px rgba(66, 133, 244, 0.03);
-  animation: breathe-a 6s ease-in-out infinite;
-}
-
-/* Circle B — cyan (Yuliana / "M") */
-.circle-b {
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  top: 0;
-  right: 0;
-  border: 1px solid rgba(0, 212, 255, 0.4);
-  background: rgba(0, 212, 255, 0.05);
-  box-shadow:
-    0 0 40px var(--glow-cyan),
-    inset 0 0 30px rgba(0, 212, 255, 0.03);
-  animation: breathe-b 6s ease-in-out infinite;
-  animation-delay: -3s;
-}
-
-/* Intersection zone */
-.circle-intersection {
-  position: absolute;
-  width: 100px;
-  height: 220px;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  clip-path: ellipse(50px 95px at 50% 50%);
-  background: radial-gradient(ellipse at center,
-    rgba(0, 212, 255, 0.2) 0%,
-    rgba(66, 133, 244, 0.1) 60%,
-    transparent 100%);
-  pointer-events: none;
-}
-
-/* Letters inside circles */
-.circle-letter {
-  position: absolute;
-  font-size: 4.5rem;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 1;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.circle-letter-a {
-  left: 1.5rem;
-  color: var(--color-accent-blue-light);
-  opacity: 0.6;
-}
-
-.circle-letter-b {
-  right: 1.5rem;
-  color: var(--color-accent-cyan);
-  opacity: 0.6;
-}
-
-/* Coordinate labels */
-.diagram-labels {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.coord-label {
-  position: absolute;
-  font-size: 0.55rem;
-  font-weight: var(--font-weight-regular);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  /* Uses --color-text-light directly (4.58:1 on #F8FAFC) instead of opacity trick */
-  color: var(--color-text-light);
-}
-
-.coord-tl {
-  top: -1.5rem;
-  left: 0;
-}
-
-.coord-br {
-  bottom: -1.5rem;
-  right: 0;
-}
-
-/* Axis hairline through center */
-.diagram-axis {
-  position: absolute;
-  top: 50%;
-  left: -1rem;
-  right: -1rem;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    var(--color-border-medium) 20%,
-    var(--color-border-medium) 80%,
-    transparent 100%);
-  transform: translateY(-50%);
+/* Brand Venn logo (replaces the former CSS diagram) */
+.hero-logo {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
 }
 
 /* Right column: Content */
@@ -1795,13 +1667,6 @@ a:focus-visible {
   border-radius: 4px;
 }
 
-.footer-logo-link .logo-text {
-  font-size: 1.75rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: -0.02em;
-  color: var(--color-text);
-}
-
 .footer-nav {
   display: flex;
   align-items: center;
@@ -1906,26 +1771,6 @@ a:focus-visible {
 
 /* === KEYFRAME ANIMATIONS === */
 
-/* Venn circle A — blue glow breathe */
-@keyframes breathe-a {
-  0%, 100% {
-    box-shadow: 0 0 30px var(--glow-blue), inset 0 0 20px rgba(66, 133, 244, 0.03);
-  }
-  50% {
-    box-shadow: 0 0 60px rgba(66, 133, 244, 0.45), inset 0 0 40px rgba(66, 133, 244, 0.06);
-  }
-}
-
-/* Venn circle B — cyan glow breathe */
-@keyframes breathe-b {
-  0%, 100% {
-    box-shadow: 0 0 30px var(--glow-cyan), inset 0 0 20px rgba(0, 212, 255, 0.03);
-  }
-  50% {
-    box-shadow: 0 0 60px rgba(0, 212, 255, 0.5), inset 0 0 40px rgba(0, 212, 255, 0.06);
-  }
-}
-
 /* Tech icons reveal */
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.9); }
@@ -1962,26 +1807,6 @@ a:focus-visible {
     justify-content: center;
   }
 
-  .diagram-container {
-    width: 280px;
-    height: 180px;
-  }
-
-  .circle-a,
-  .circle-b {
-    width: 180px;
-    height: 180px;
-  }
-
-  .circle-letter {
-    font-size: 3.5rem;
-  }
-
-  .circle-intersection {
-    height: 180px;
-    clip-path: ellipse(40px 78px at 50% 50%);
-  }
-
   .hero-content {
     padding: 2rem 1.5rem 4rem;
   }
@@ -2012,10 +1837,10 @@ a:focus-visible {
   /* Mobile nav menu */
   .nav-menu {
     position: fixed;
-    top: 70px;
+    top: var(--header-h);
     left: 0;
     width: 100%;
-    height: calc(100vh - 70px);
+    height: calc(100vh - var(--header-h));
     background-color: var(--color-bg);
     flex-direction: column;
     justify-content: flex-start;
@@ -2170,10 +1995,6 @@ a:focus-visible {
   .project-card:hover .project-image img,
   .project-card:focus-within .project-image img {
     transform: none !important;
-  }
-
-  .circle-a, .circle-b {
-    animation: none;
   }
 
   .hamburger-line {
